@@ -8,9 +8,11 @@ namespace DistroManager
 {
     internal class DistributionInfo
     {
-        public static readonly string Name = "MyDistribution";
+        public static readonly string RandomPrefix = DateTime.Now.ToString("yyyyMMddHHmmss");
 
-        public static readonly string WindowTitle = "My Distribution";
+        public static readonly string Name = "MyDistribution_" + RandomPrefix;
+
+        public static readonly string WindowTitle = "My Distribution " + RandomPrefix;
 
         internal static class NativeMethods
         {
