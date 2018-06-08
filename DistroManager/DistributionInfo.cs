@@ -13,10 +13,10 @@ namespace DistroManager
 
         public static bool CreateUser(WslApiLoader wslApi, string userName)
         {
-            uint exitCode;
+            int exitCode;
             string commandLine = "/usr/sbin/adduser --quiet --gecos '' ";
             commandLine += userName;
-            uint hr = wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
+            int hr = wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
 
             if (NativeMethods.FAILED(hr) || exitCode != 0u)
                 return false;
@@ -36,16 +36,16 @@ namespace DistroManager
             return true;
         }
 
-        public static uint QueryUid(WslApiLoader wslApi, string userName)
+        public static int QueryUid(WslApiLoader wslApi, string userName)
         {
             IntPtr readPipe = new IntPtr();
             IntPtr writePipe = new IntPtr();
             
             NativeMethods.SECURITY_ATTRIBUTES sa = new NativeMethods.SECURITY_ATTRIBUTES();
-            sa.nLength = (uint)Marshal.SizeOf(sa);
+            sa.nLength = Marshal.SizeOf(sa);
             sa.lpSecurityDescriptor = IntPtr.Zero;
             sa.bInheritHandle = true;
-            uint uid = NativeMethods.UID_INVALID;
+            int uid = NativeMethods.UID_INVALID;
 
             IntPtr attr = Marshal.AllocHGlobal(Marshal.SizeOf(sa));
             try
@@ -57,12 +57,12 @@ namespace DistroManager
                     string command = "/usr/bin/id -u ";
                     command += userName;
                     IntPtr child;
-                    uint hr = wslApi.WslLaunch(command, true, NativeMethods.GetStdHandle(NativeMethods.STD_INPUT_HANDLE), writePipe, NativeMethods.GetStdHandle(NativeMethods.STD_ERROR_HANDLE), out child);
+                    int hr = wslApi.WslLaunch(command, true, NativeMethods.GetStdHandle(NativeMethods.STD_INPUT_HANDLE), writePipe, NativeMethods.GetStdHandle(NativeMethods.STD_ERROR_HANDLE), out child);
 
                     if (NativeMethods.SUCCEED(hr))
                     {
                         NativeMethods.WaitForSingleObject(child, NativeMethods.INFINITE);
-                        uint exitCode;
+                        int exitCode;
 
                         if (NativeMethods.GetExitCodeProcess(child, out exitCode) == false)
                         {
@@ -82,7 +82,7 @@ namespace DistroManager
                             {
                                 byte[] content = new byte[bytesRead];
                                 Marshal.Copy(buffer, content, 0, bytesRead);
-                                UInt32.TryParse(
+                                Int32.TryParse(
                                     Encoding.ASCII.GetString(content, 0, bytesRead),
                                     out uid);
                             }

@@ -15,12 +15,12 @@ namespace DistroManager
             return Console.In.ReadLine();
         }
 
-        public static void PrintErrorMessage(uint hr)
+        public static void PrintErrorMessage(int hr)
         {
             string message = String.Format(
                 CultureInfo.InvariantCulture,
                 Messages.MessageTable_English[Messages.MSG_ERROR_CODE],
-                hr, new Win32Exception((int)hr).Message);
+                hr, new Win32Exception(hr).Message);
             Console.Out.WriteLine(message);
         }
 

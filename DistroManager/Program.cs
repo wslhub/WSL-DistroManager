@@ -19,7 +19,7 @@ namespace DistroManager
             {
                 NativeMethods.SetConsoleTitleW(DistributionInfo.WindowTitle);
 
-                uint exitCode = 1u;
+                int exitCode = 1;
                 if (!wslApi.WslIsOptionalComponentInstalled())
                 {
                     Helpers.PrintMessage(Messages.MSG_MISSING_OPTIONAL_COMPONENT);
@@ -30,7 +30,7 @@ namespace DistroManager
                 }
 
                 bool installOnly = (arguments.Length > 0 && arguments[0] == ARG_INSTALL);
-                uint hr = NativeMethods.S_OK;
+                int hr = NativeMethods.S_OK;
             
                 if (!wslApi.WslIsDistributionRegistered())
                 {
@@ -49,7 +49,7 @@ namespace DistroManager
                         Helpers.PrintMessage(Messages.MSG_INSTALL_SUCCESS);
                     }
 
-                    exitCode = (NativeMethods.SUCCEED(hr)) ? 0u : 1u;
+                    exitCode = (NativeMethods.SUCCEED(hr)) ? 0 : 1;
                 }
 
                 if (NativeMethods.SUCCEED(hr) && !installOnly)
@@ -105,16 +105,16 @@ namespace DistroManager
             }
         }
 
-        public static uint InstallDistribution(WslApiLoader wslApi, bool createUser)
+        public static int InstallDistribution(WslApiLoader wslApi, bool createUser)
         {
             Helpers.PrintMessage(Messages.MSG_STATUS_INSTALLING);
-            uint hr = wslApi.WslRegisterDistribution();
+            int hr = wslApi.WslRegisterDistribution();
             if (NativeMethods.FAILED(hr))
             {
                 return hr;
             }
 
-            uint exitCode;
+            int exitCode;
             hr = wslApi.WslLaunchInteractive("/bin/rm /etc/resolv.conf", true, out exitCode);
             if (NativeMethods.FAILED(hr))
             {
@@ -140,15 +140,15 @@ namespace DistroManager
             return hr;
         }
 
-        public static uint SetDefaultUser(WslApiLoader wslApi, string userName)
+        public static int SetDefaultUser(WslApiLoader wslApi, string userName)
         {
-            uint uid = DistributionInfo.QueryUid(wslApi, userName);
+            int uid = DistributionInfo.QueryUid(wslApi, userName);
             if (uid == NativeMethods.UID_INVALID)
             {
                 return NativeMethods.E_INVALIDARG;
             }
-
-            uint hr = wslApi.WslConfigureDistribution(uid, NativeMethods.WSL_DISTRIBUTION_FLAGS.WSL_DISTRIBUTION_FLAGS_DEFAULT);
+            
+            int hr = wslApi.WslConfigureDistribution(uid, NativeMethods.WSL_DISTRIBUTION_FLAGS.WSL_DISTRIBUTION_FLAGS_DEFAULT);
 
             if (NativeMethods.FAILED(hr))
                 return hr;

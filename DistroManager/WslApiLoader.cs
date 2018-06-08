@@ -49,9 +49,9 @@ namespace DistroManager
             return _isDistributionRegistered(_distributionName);
         }
 
-        public uint WslRegisterDistribution()
+        public int WslRegisterDistribution()
         {
-            uint hr = _registerDistribution(_distributionName, "install.tar.gz");
+            int hr = _registerDistribution(_distributionName, "install.tar.gz");
 
             if (NativeMethods.FAILED(hr))
                 Helpers.PrintMessage(Messages.MSG_WSL_REGISTER_DISTRIBUTION_FAILED, hr);
@@ -59,9 +59,9 @@ namespace DistroManager
             return hr;
         }
 
-        public uint WslConfigureDistribution(uint defaultUID, NativeMethods.WSL_DISTRIBUTION_FLAGS wslDistributionFlags)
+        public int WslConfigureDistribution(int defaultUID, NativeMethods.WSL_DISTRIBUTION_FLAGS wslDistributionFlags)
         {
-            uint hr = _configureDistribution(_distributionName, defaultUID, wslDistributionFlags);
+            int hr = _configureDistribution(_distributionName, defaultUID, wslDistributionFlags);
 
             if (NativeMethods.FAILED(hr))
                 Helpers.PrintMessage(Messages.MSG_WSL_CONFIGURE_DISTRIBUTION_FAILED, hr);
@@ -69,9 +69,9 @@ namespace DistroManager
             return hr;
         }
 
-        public uint WslLaunchInteractive(string command, bool useCurrentWorkingDirectory, out uint exitCode)
+        public int WslLaunchInteractive(string command, bool useCurrentWorkingDirectory, out int exitCode)
         {
-            uint hr = _launchInteractive(_distributionName, command, useCurrentWorkingDirectory, out exitCode);
+            int hr = _launchInteractive(_distributionName, command, useCurrentWorkingDirectory, out exitCode);
 
             if (NativeMethods.FAILED(hr))
                 Helpers.PrintMessage(Messages.MSG_WSL_LAUNCH_INTERACTIVE_FAILED, command, hr);
@@ -79,9 +79,9 @@ namespace DistroManager
             return hr;
         }
 
-        public uint WslLaunch(string command, bool useCurrentWorkingDirectory, IntPtr stdIn, IntPtr stdOut, IntPtr stdErr, out IntPtr process)
+        public int WslLaunch(string command, bool useCurrentWorkingDirectory, IntPtr stdIn, IntPtr stdOut, IntPtr stdErr, out IntPtr process)
         {
-            uint hr = _launch(_distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, out process);
+            int hr = _launch(_distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, out process);
 
             if (NativeMethods.FAILED(hr))
                 Helpers.PrintMessage(Messages.MSG_WSL_LAUNCH_FAILED, hr);
