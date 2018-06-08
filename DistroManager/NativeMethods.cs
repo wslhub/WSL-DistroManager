@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
 using System.Security;
@@ -96,7 +94,6 @@ namespace DistroManager
         public static uint HRESULT_FROM_WIN32(uint x) => (uint)(x) <= 0 ? (uint)(x) : (uint) (((x) & 0x0000FFFF) | (FACILITY_WIN32 << 16) | 0x80000000);
         public static bool FAILED(uint u) => ((int)u) < 0;
         public static bool SUCCEED(uint u) => ((int)u) >= 0;
-        public static bool IS_EMPTY<T>(IEnumerable<T> target) => target.Count() < 1;
 
         [UnmanagedFunctionPointer(CallingConvention.Winapi, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]

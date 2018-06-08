@@ -12,32 +12,32 @@ namespace DistroManager
 
         public static readonly string WindowTitle = "My Distribution " + RandomPrefix;
 
-        public static bool CreateUser(string userName)
+        public static bool CreateUser(WslApiLoader wslApi, string userName)
         {
             uint exitCode;
             string commandLine = "/usr/sbin/adduser --quiet --gecos '' ";
             commandLine += userName;
-            uint hr = Program.g_wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
+            uint hr = wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
 
             if (NativeMethods.FAILED(hr) || exitCode != 0u)
                 return false;
 
             commandLine = "/usr/sbin/usermod -aG adm,cdrom,sudo,dip,plugdev ";
             commandLine += userName;
-            hr = Program.g_wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
+            hr = wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
 
             if (NativeMethods.FAILED(hr) || exitCode != 0u)
             {
                 commandLine = "/usr/sbin/deluser ";
                 commandLine += userName;
-                Program.g_wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
+                wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
                 return false;
             }
 
             return true;
         }
 
-        public static uint QueryUid(string userName)
+        public static uint QueryUid(WslApiLoader wslApi, string userName)
         {
             IntPtr readPipe = new IntPtr();
             IntPtr writePipe = new IntPtr();
@@ -58,7 +58,7 @@ namespace DistroManager
                     string command = "/usr/bin/id -u ";
                     command += userName;
                     IntPtr child;
-                    uint hr = Program.g_wslApi.WslLaunch(command, true, NativeMethods.GetStdHandle(NativeMethods.STD_INPUT_HANDLE), writePipe, NativeMethods.GetStdHandle(NativeMethods.STD_ERROR_HANDLE), out child);
+                    uint hr = wslApi.WslLaunch(command, true, NativeMethods.GetStdHandle(NativeMethods.STD_INPUT_HANDLE), writePipe, NativeMethods.GetStdHandle(NativeMethods.STD_ERROR_HANDLE), out child);
 
                     if (NativeMethods.SUCCEED(hr))
                     {

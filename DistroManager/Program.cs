@@ -12,110 +12,110 @@ namespace DistroManager
         public static readonly string ARG_RUN = "run";
         public static readonly string ARG_RUN_C = "-c";
 
-        public static readonly WslApiLoader g_wslApi = new WslApiLoader(DistributionInfo.Name);
-
         [STAThread]
-        private static int Main(string[] args)
+        private static int Main(string[] arguments)
         {
-            NativeMethods.SetConsoleTitleW(DistributionInfo.WindowTitle);
-            List<string> arguments = new List<string>(args);
-
-            uint exitCode = 1u;
-            if (!g_wslApi.WslIsOptionalComponentInstalled())
+            using (WslApiLoader wslApi = new WslApiLoader(DistributionInfo.Name))
             {
-                Helpers.PrintMessage(Messages.MSG_MISSING_OPTIONAL_COMPONENT);
-                if (NativeMethods.IS_EMPTY(arguments))
-                    Helpers.PromptForInput();
+                NativeMethods.SetConsoleTitleW(DistributionInfo.WindowTitle);
 
-                return (int)exitCode;
-            }
+                uint exitCode = 1u;
+                if (!wslApi.WslIsOptionalComponentInstalled())
+                {
+                    Helpers.PrintMessage(Messages.MSG_MISSING_OPTIONAL_COMPONENT);
+                    if (arguments.Length < 1)
+                        Helpers.PromptForInput();
 
-            bool installOnly = (arguments.Count > 0 && arguments[0] == ARG_INSTALL);
-            uint hr = NativeMethods.S_OK;
+                    return (int)exitCode;
+                }
+
+                bool installOnly = (arguments.Length > 0 && arguments[0] == ARG_INSTALL);
+                uint hr = NativeMethods.S_OK;
             
-            if (!g_wslApi.WslIsDistributionRegistered())
-            {
-                bool useRoot = (installOnly && arguments.Count > 1 && arguments[1] == ARG_INSTALL_ROOT);
-                hr = InstallDistribution(!useRoot);
+                if (!wslApi.WslIsDistributionRegistered())
+                {
+                    bool useRoot = (installOnly && arguments.Length > 1 && arguments[1] == ARG_INSTALL_ROOT);
+                    hr = InstallDistribution(wslApi, !useRoot);
+
+                    if (NativeMethods.FAILED(hr))
+                    {
+                        if (NativeMethods.HRESULT_FROM_WIN32(NativeMethods.ERROR_ALREADY_EXISTS) == hr)
+                        {
+                            Helpers.PrintMessage(Messages.MSG_INSTALL_ALREADY_EXISTS);
+                        }
+                    }
+                    else
+                    {
+                        Helpers.PrintMessage(Messages.MSG_INSTALL_SUCCESS);
+                    }
+
+                    exitCode = (NativeMethods.SUCCEED(hr)) ? 0u : 1u;
+                }
+
+                if (NativeMethods.SUCCEED(hr) && !installOnly)
+                {
+                    if (arguments.Length < 1)
+                    {
+                        hr = wslApi.WslLaunchInteractive(String.Empty, false, out exitCode);
+                    }
+                    else if (arguments[0].Equals(ARG_RUN) || arguments[0].Equals(ARG_RUN_C))
+                    {
+                        string command = String.Join(" ", arguments);
+                        hr = wslApi.WslLaunchInteractive(command, true, out exitCode);
+                    }
+                    else if (arguments[0].Equals(ARG_CONFIG))
+                    {
+                        hr = NativeMethods.E_INVALIDARG;
+                        if (arguments.Length == 3)
+                        {
+                            if (arguments[1] == ARG_CONFIG_DEFAULT_USER)
+                            {
+                                hr = SetDefaultUser(wslApi, arguments[2]);
+                            }
+                        }
+
+                        if (NativeMethods.SUCCEED(hr))
+                            exitCode = 0;
+                    }
+                    else
+                    {
+                        Helpers.PrintMessage(Messages.MSG_USAGE);
+                        return (int)exitCode;
+                    }
+                }
 
                 if (NativeMethods.FAILED(hr))
                 {
-                    if (NativeMethods.HRESULT_FROM_WIN32(NativeMethods.ERROR_ALREADY_EXISTS) == hr)
+                    if (NativeMethods.HRESULT_FROM_WIN32(NativeMethods.ERROR_LINUX_SUBSYSTEM_NOT_PRESENT) == hr)
                     {
-                        Helpers.PrintMessage(Messages.MSG_INSTALL_ALREADY_EXISTS);
+                        Helpers.PrintMessage(Messages.MSG_MISSING_OPTIONAL_COMPONENT);
                     }
-                }
-                else
-                {
-                    Helpers.PrintMessage(Messages.MSG_INSTALL_SUCCESS);
-                }
-
-                exitCode = (NativeMethods.SUCCEED(hr)) ? 0u : 1u;
-            }
-
-            if (NativeMethods.SUCCEED(hr) && !installOnly)
-            {
-                if (NativeMethods.IS_EMPTY(arguments))
-                {
-                    hr = g_wslApi.WslLaunchInteractive(String.Empty, false, out exitCode);
-                }
-                else if (arguments[0].Equals(ARG_RUN) || arguments[0].Equals(ARG_RUN_C))
-                {
-                    string command = String.Join(" ", arguments);
-                    hr = g_wslApi.WslLaunchInteractive(command, true, out exitCode);
-                }
-                else if (arguments[0].Equals(ARG_CONFIG))
-                {
-                    hr = NativeMethods.E_INVALIDARG;
-                    if (arguments.Count == 3)
+                    else
                     {
-                        if (arguments[1] == ARG_CONFIG_DEFAULT_USER)
-                        {
-                            hr = SetDefaultUser(arguments[2]);
-                        }
+                        Helpers.PrintErrorMessage(hr);
                     }
 
-                    if (NativeMethods.SUCCEED(hr))
-                        exitCode = 0;
+                    if (arguments.Length < 1)
+                    {
+                        Helpers.PromptForInput();
+                    }
                 }
-                else
-                {
-                    Helpers.PrintMessage(Messages.MSG_USAGE);
-                    return (int)exitCode;
-                }
+
+                return NativeMethods.SUCCEED(hr) ? (int)exitCode : 1;
             }
-
-            if (NativeMethods.FAILED(hr))
-            {
-                if (NativeMethods.HRESULT_FROM_WIN32(NativeMethods.ERROR_LINUX_SUBSYSTEM_NOT_PRESENT) == hr)
-                {
-                    Helpers.PrintMessage(Messages.MSG_MISSING_OPTIONAL_COMPONENT);
-                }
-                else
-                {
-                    Helpers.PrintErrorMessage(hr);
-                }
-
-                if (NativeMethods.IS_EMPTY(arguments))
-                {
-                    Helpers.PromptForInput();
-                }
-            }
-
-            return NativeMethods.SUCCEED(hr) ? (int)exitCode : 1;
         }
 
-        public static uint InstallDistribution(bool createUser)
+        public static uint InstallDistribution(WslApiLoader wslApi, bool createUser)
         {
             Helpers.PrintMessage(Messages.MSG_STATUS_INSTALLING);
-            uint hr = g_wslApi.WslRegisterDistribution();
+            uint hr = wslApi.WslRegisterDistribution();
             if (NativeMethods.FAILED(hr))
             {
                 return hr;
             }
 
             uint exitCode;
-            hr = g_wslApi.WslLaunchInteractive("/bin/rm /etc/resolv.conf", true, out exitCode);
+            hr = wslApi.WslLaunchInteractive("/bin/rm /etc/resolv.conf", true, out exitCode);
             if (NativeMethods.FAILED(hr))
             {
                 return hr;
@@ -130,9 +130,9 @@ namespace DistroManager
                 {
                     userName = Helpers.GetUserInput(Messages.MSG_ENTER_USERNAME);
                 }
-                while (!DistributionInfo.CreateUser(userName));
+                while (!DistributionInfo.CreateUser(wslApi, userName));
 
-                hr = SetDefaultUser(userName);
+                hr = SetDefaultUser(wslApi, userName);
                 if (NativeMethods.FAILED(hr))
                     return hr;
             }
@@ -140,15 +140,15 @@ namespace DistroManager
             return hr;
         }
 
-        public static uint SetDefaultUser(string userName)
+        public static uint SetDefaultUser(WslApiLoader wslApi, string userName)
         {
-            uint uid = DistributionInfo.QueryUid(userName);
+            uint uid = DistributionInfo.QueryUid(wslApi, userName);
             if (uid == NativeMethods.UID_INVALID)
             {
                 return NativeMethods.E_INVALIDARG;
             }
 
-            uint hr = g_wslApi.WslConfigureDistribution(uid, NativeMethods.WSL_DISTRIBUTION_FLAGS.WSL_DISTRIBUTION_FLAGS_DEFAULT);
+            uint hr = wslApi.WslConfigureDistribution(uid, NativeMethods.WSL_DISTRIBUTION_FLAGS.WSL_DISTRIBUTION_FLAGS_DEFAULT);
 
             if (NativeMethods.FAILED(hr))
                 return hr;
