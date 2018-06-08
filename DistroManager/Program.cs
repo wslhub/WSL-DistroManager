@@ -1,3 +1,4 @@
+using DistroManager.Properties;
 using System;
 using System.Collections.Generic;
 
@@ -22,7 +23,7 @@ namespace DistroManager
                 int exitCode = 1;
                 if (!wslApi.IsOptionalComponentInstalled)
                 {
-                    Helpers.PrintMessage(Messages.MSG_MISSING_OPTIONAL_COMPONENT);
+                    Console.Out.WriteLine(Resources.MSG_MISSING_OPTIONAL_COMPONENT);
                     if (arguments.Length < 1)
                         Helpers.PromptForInput();
 
@@ -41,12 +42,12 @@ namespace DistroManager
                     {
                         if (NativeMethods.HRESULT_FROM_WIN32(NativeMethods.ERROR_ALREADY_EXISTS) == hr)
                         {
-                            Helpers.PrintMessage(Messages.MSG_INSTALL_ALREADY_EXISTS);
+                            Console.Out.WriteLine(Resources.MSG_INSTALL_ALREADY_EXISTS);
                         }
                     }
                     else
                     {
-                        Helpers.PrintMessage(Messages.MSG_INSTALL_SUCCESS);
+                        Console.Out.WriteLine(Resources.MSG_INSTALL_SUCCESS);
                     }
 
                     exitCode = (NativeMethods.SUCCEED(hr)) ? 0 : 1;
@@ -79,7 +80,7 @@ namespace DistroManager
                     }
                     else
                     {
-                        Helpers.PrintMessage(Messages.MSG_USAGE);
+                        Console.Out.WriteLine(Resources.MSG_USAGE);
                         return (int)exitCode;
                     }
                 }
@@ -88,7 +89,7 @@ namespace DistroManager
                 {
                     if (NativeMethods.HRESULT_FROM_WIN32(NativeMethods.ERROR_LINUX_SUBSYSTEM_NOT_PRESENT) == hr)
                     {
-                        Helpers.PrintMessage(Messages.MSG_MISSING_OPTIONAL_COMPONENT);
+                        Console.Out.WriteLine(Resources.MSG_MISSING_OPTIONAL_COMPONENT);
                     }
                     else
                     {
@@ -107,7 +108,7 @@ namespace DistroManager
 
         public static int InstallDistribution(WslApiLoader wslApi, bool createUser)
         {
-            Helpers.PrintMessage(Messages.MSG_STATUS_INSTALLING);
+            Console.Out.WriteLine(Resources.MSG_STATUS_INSTALLING);
             int hr = wslApi.RegisterDistro();
             if (NativeMethods.FAILED(hr))
             {
@@ -123,12 +124,12 @@ namespace DistroManager
 
             if (createUser)
             {
-                Helpers.PrintMessage(Messages.MSG_CREATE_USER_PROMPT);
+                Console.Out.WriteLine(Resources.MSG_CREATE_USER_PROMPT);
                 string userName;
 
                 do
                 {
-                    userName = Helpers.GetUserInput(Messages.MSG_ENTER_USERNAME);
+                    userName = Helpers.GetUserInput(Resources.MSG_ENTER_USERNAME);
                 }
                 while (!DistributionInfo.CreateUser(wslApi, userName));
 

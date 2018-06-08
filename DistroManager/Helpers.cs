@@ -1,3 +1,4 @@
+using DistroManager.Properties;
 using System;
 using System.ComponentModel;
 using System.Globalization;
@@ -6,11 +7,11 @@ namespace DistroManager
 {
     internal static class Helpers
     {
-        public static string GetUserInput(int promptMsg)
+        public static string GetUserInput(string template)
         {
             string message = String.Format(
                 CultureInfo.InvariantCulture,
-                Messages.MessageTable_English[promptMsg]);
+                template);
             Console.Out.Write(message);
             return Console.In.ReadLine();
         }
@@ -19,23 +20,14 @@ namespace DistroManager
         {
             string message = String.Format(
                 CultureInfo.InvariantCulture,
-                Messages.MessageTable_English[Messages.MSG_ERROR_CODE],
+                Resources.MSG_ERROR_CODE,
                 hr, new Win32Exception(hr).Message);
-            Console.Out.WriteLine(message);
-        }
-
-        public static void PrintMessage(int messageId, params object[] parameters)
-        {
-            string message = String.Format(
-                CultureInfo.InvariantCulture,
-                Messages.MessageTable_English[messageId],
-                parameters);
-            Console.Out.WriteLine(message);
+            Console.Error.WriteLine(message);
         }
 
         public static void PromptForInput()
         {
-            PrintMessage(Messages.MSG_PRESS_A_KEY);
+            Console.Out.WriteLine(Resources.MSG_PRESS_A_KEY);
             Console.ReadKey();
         }
     }

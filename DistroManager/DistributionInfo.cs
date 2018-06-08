@@ -37,10 +37,11 @@ namespace DistroManager
             IntPtr readPipe = new IntPtr();
             IntPtr writePipe = new IntPtr();
             
-            NativeMethods.SECURITY_ATTRIBUTES sa = new NativeMethods.SECURITY_ATTRIBUTES();
+            var sa = new NativeMethods.SECURITY_ATTRIBUTES();
             sa.nLength = Marshal.SizeOf(sa);
             sa.lpSecurityDescriptor = IntPtr.Zero;
             sa.bInheritHandle = true;
+
             int uid = NativeMethods.UID_INVALID;
 
             IntPtr attr = Marshal.AllocHGlobal(Marshal.SizeOf(sa));
@@ -58,9 +59,7 @@ namespace DistroManager
                         NativeMethods.WaitForSingleObject(child, NativeMethods.INFINITE);
 
                         if (NativeMethods.GetExitCodeProcess(child, out int exitCode) == false)
-                        {
                             hr = NativeMethods.E_INVALIDARG;
-                        }
 
                         NativeMethods.CloseHandle(child);
 
@@ -74,9 +73,13 @@ namespace DistroManager
                             {
                                 byte[] content = new byte[bytesRead];
                                 Marshal.Copy(buffer, content, 0, bytesRead);
-                                Int32.TryParse(
+
+                                if (!Int32.TryParse(
                                     Encoding.ASCII.GetString(content, 0, bytesRead),
-                                    out uid);
+                                    out uid))
+                                {
+                                    uid = NativeMethods.UID_INVALID;
+                                }
                             }
 
                             Marshal.FreeHGlobal(buffer);
