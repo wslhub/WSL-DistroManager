@@ -105,7 +105,7 @@ namespace DistroManager
                 }
             }
 
-            return 0u;
+            return uid;
         }
     }
 }
