@@ -1,7 +1,5 @@
 using System;
-using System.Runtime.ConstrainedExecution;
 using System.Runtime.InteropServices;
-using System.Security;
 using System.Text;
 
 namespace DistroManager
@@ -13,58 +11,6 @@ namespace DistroManager
         public static readonly string Name = "MyDistribution_" + RandomPrefix;
 
         public static readonly string WindowTitle = "My Distribution " + RandomPrefix;
-
-        internal static class NativeMethods
-        {
-            public static readonly uint UID_INVALID = unchecked((uint)-1);
-
-            public static readonly int STD_INPUT_HANDLE = (-10);
-
-            public static readonly int STD_ERROR_HANDLE = (-12);
-
-            public static readonly uint INFINITE = 0xFFFFFFFFu;
-
-            public static readonly uint E_INVALIDARG = 0x80070057u;
-
-            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool CreatePipe(ref IntPtr hReadPipe, ref IntPtr hWritePipe, IntPtr lpPipeAttributes, int nSize);
-
-            [DllImport("kernel32.dll", SetLastError = true)]
-            public static extern IntPtr GetStdHandle(int nStdHandle);
-
-            [DllImport("kernel32.dll", SetLastError = true)]
-            public static extern uint WaitForSingleObject(IntPtr hHandle, uint dwMilliseconds);
-
-            [DllImport("kernel32.dll")]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool GetExitCodeProcess(IntPtr hProcess, out uint lpExitCode);
-
-            [SuppressUnmanagedCodeSecurity] 
-            [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)] 
-            [DllImport("kernel32.dll", EntryPoint = "RtlZeroMemory", SetLastError = false)]
-            public static extern void ZeroMemory(IntPtr dest, int size); 
-
-            [DllImport("kernel32.dll", SetLastError = true)]
-            [ReliabilityContract(Consistency.WillNotCorruptState, Cer.Success)]
-            [SuppressUnmanagedCodeSecurity]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool CloseHandle(IntPtr hObject);
-
-            [DllImport("kernel32.dll", SetLastError = true)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool ReadFile(IntPtr hFile, IntPtr pBuffer, int NumberOfBytesToRead, out int pNumberOfBytesRead, IntPtr Overlapped);
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct SECURITY_ATTRIBUTES
-        {
-            public uint nLength;
-            public IntPtr lpSecurityDescriptor;
-
-            [MarshalAs(UnmanagedType.Bool)]
-            public bool bInheritHandle;
-        }
 
         public static bool CreateUser(string userName)
         {
@@ -96,7 +42,7 @@ namespace DistroManager
             IntPtr readPipe = new IntPtr();
             IntPtr writePipe = new IntPtr();
             
-            SECURITY_ATTRIBUTES sa = new SECURITY_ATTRIBUTES();
+            NativeMethods.SECURITY_ATTRIBUTES sa = new NativeMethods.SECURITY_ATTRIBUTES();
             sa.nLength = (uint)Marshal.SizeOf(sa);
             sa.lpSecurityDescriptor = IntPtr.Zero;
             sa.bInheritHandle = true;

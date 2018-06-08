@@ -1,35 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace DistroManager
 {
     internal static class Program
     {
-        internal static class NativeMethods
-        {
-            public static readonly uint UID_INVALID = unchecked((uint)-1);
-
-            public static readonly uint E_INVALIDARG = 0x80070057;
-
-            public static readonly uint S_OK = 0x00000000u;
-
-            public static readonly uint FACILITY_WIN32 = 7u;
-
-            public static readonly uint ERROR_ALREADY_EXISTS = 0xB7u;
-
-            public static readonly uint ERROR_LINUX_SUBSYSTEM_NOT_PRESENT = 414;
-
-            public static uint HRESULT_FROM_WIN32(uint x)
-            {
-                return (uint)(x) <= 0 ? (uint)(x) : (uint) (((x) & 0x0000FFFF) | (FACILITY_WIN32 << 16) | 0x80000000);
-            }
-
-            [DllImport("kernel32.dll", ExactSpelling = true, EntryPoint = "SetConsoleTitleW", CharSet = CharSet.Unicode)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool SetConsoleTitleW(string lpConsoleTitle);
-        }
-
         public static readonly string ARG_CONFIG = "config";
         public static readonly string ARG_CONFIG_DEFAULT_USER = "--default-user";
         public static readonly string ARG_INSTALL = "install";
@@ -173,7 +148,7 @@ namespace DistroManager
                 return NativeMethods.E_INVALIDARG;
             }
 
-            uint hr = g_wslApi.WslConfigureDistribution(uid, WslApiLoader.WSL_DISTRIBUTION_FLAGS.WSL_DISTRIBUTION_FLAGS_DEFAULT);
+            uint hr = g_wslApi.WslConfigureDistribution(uid, NativeMethods.WSL_DISTRIBUTION_FLAGS.WSL_DISTRIBUTION_FLAGS_DEFAULT);
 
             if (((int)hr) < 0)
                 return hr;

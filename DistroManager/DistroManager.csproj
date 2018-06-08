@@ -54,6 +54,7 @@
     <Compile Include="DistributionInfo.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="Messages.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WslApiLoader.cs" />
