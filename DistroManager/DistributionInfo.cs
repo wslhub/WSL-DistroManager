@@ -1,4 +1,5 @@
 using System;
+using System.Configuration;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -6,11 +7,9 @@ namespace DistroManager
 {
     internal class DistributionInfo
     {
-        public static readonly string RandomPrefix = DateTime.Now.ToString("yyyyMMddHHmmss");
+        public static readonly string Name = ConfigurationManager.AppSettings["DistroName"];
 
-        public static readonly string Name = "MyDistribution_" + RandomPrefix;
-
-        public static readonly string WindowTitle = "My Distribution " + RandomPrefix;
+        public static readonly string WindowTitle = ConfigurationManager.AppSettings["DistroDisplayName"];
 
         public static bool CreateUser(WslApiLoader wslApi, string userName)
         {
