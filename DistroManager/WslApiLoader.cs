@@ -53,7 +53,7 @@ namespace DistroManager
         {
             uint hr = _registerDistribution(_distributionName, "install.tar.gz");
 
-            if (((int)hr) < 0)
+            if (NativeMethods.FAILED(hr))
                 Helpers.PrintMessage(Messages.MSG_WSL_REGISTER_DISTRIBUTION_FAILED, hr);
 
             return hr;
@@ -63,7 +63,7 @@ namespace DistroManager
         {
             uint hr = _configureDistribution(_distributionName, defaultUID, wslDistributionFlags);
 
-            if (((int)hr) < 0)
+            if (NativeMethods.FAILED(hr))
                 Helpers.PrintMessage(Messages.MSG_WSL_CONFIGURE_DISTRIBUTION_FAILED, hr);
 
             return hr;
@@ -73,7 +73,7 @@ namespace DistroManager
         {
             uint hr = _launchInteractive(_distributionName, command, useCurrentWorkingDirectory, out exitCode);
 
-            if (((int)hr) < 0)
+            if (NativeMethods.FAILED(hr))
                 Helpers.PrintMessage(Messages.MSG_WSL_LAUNCH_INTERACTIVE_FAILED, command, hr);
 
             return hr;
@@ -83,7 +83,7 @@ namespace DistroManager
         {
             uint hr = _launch(_distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, out process);
 
-            if (((int)hr) < 0)
+            if (NativeMethods.FAILED(hr))
                 Helpers.PrintMessage(Messages.MSG_WSL_LAUNCH_FAILED, hr);
 
             return hr;

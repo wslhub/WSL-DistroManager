@@ -19,14 +19,14 @@ namespace DistroManager
             commandLine += userName;
             uint hr = Program.g_wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
 
-            if (((int)hr) < 0 || exitCode != 0u)
+            if (NativeMethods.FAILED(hr) || exitCode != 0u)
                 return false;
 
             commandLine = "/usr/sbin/usermod -aG adm,cdrom,sudo,dip,plugdev ";
             commandLine += userName;
             hr = Program.g_wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
 
-            if (((int)hr) < 0 || exitCode != 0u)
+            if (NativeMethods.FAILED(hr) || exitCode != 0u)
             {
                 commandLine = "/usr/sbin/deluser ";
                 commandLine += userName;
@@ -60,7 +60,7 @@ namespace DistroManager
                     IntPtr child;
                     uint hr = Program.g_wslApi.WslLaunch(command, true, NativeMethods.GetStdHandle(NativeMethods.STD_INPUT_HANDLE), writePipe, NativeMethods.GetStdHandle(NativeMethods.STD_ERROR_HANDLE), out child);
 
-                    if (hr >= 0)
+                    if (NativeMethods.SUCCEED(hr))
                     {
                         NativeMethods.WaitForSingleObject(child, NativeMethods.INFINITE);
                         uint exitCode;
@@ -72,7 +72,7 @@ namespace DistroManager
 
                         NativeMethods.CloseHandle(child);
 
-                        if (hr >= 0)
+                        if (NativeMethods.SUCCEED(hr))
                         {
                             int bufferLength = 64;
                             IntPtr buffer = Marshal.AllocHGlobal(bufferLength);
