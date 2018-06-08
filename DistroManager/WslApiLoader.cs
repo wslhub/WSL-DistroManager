@@ -6,7 +6,7 @@ namespace DistroManager
     internal sealed class WslApiLoader : IDisposable
     {
         private bool _disposed;
-        private string _distributionName;
+        private readonly string _distributionName;
         private IntPtr _wslApiDll;
         private NativeMethods.WSL_IS_DISTRIBUTION_REGISTERED _isDistributionRegistered;
         private NativeMethods.WSL_REGISTER_DISTRIBUTION _registerDistribution;
@@ -14,8 +14,11 @@ namespace DistroManager
         private NativeMethods.WSL_LAUNCH_INTERACTIVE _launchInteractive;
         private NativeMethods.WSL_LAUNCH _launch;
 
-        public WslApiLoader(string distributionName)
+        public WslApiLoader(string distributionName) : base()
         {
+            if (String.IsNullOrWhiteSpace(distributionName))
+                throw new ArgumentNullException(nameof(distributionName));
+
             _distributionName = distributionName;
             _wslApiDll = NativeMethods.LoadLibraryEx("wslapi.dll", IntPtr.Zero, NativeMethods.LOAD_LIBRARY_SEARCH_SYSTEM32);
 
@@ -34,22 +37,25 @@ namespace DistroManager
             Dispose(false);
         }
 
-        public bool WslIsOptionalComponentInstalled()
+        public bool IsOptionalComponentInstalled
         {
-            return (_wslApiDll != IntPtr.Zero &&
-                _isDistributionRegistered != null &&
-                _registerDistribution != null &&
-                _configureDistribution != null &&
-                _launchInteractive != null &&
-                _launch != null);
+            get
+            {
+                return (_wslApiDll != IntPtr.Zero &&
+                    _isDistributionRegistered != null &&
+                    _registerDistribution != null &&
+                    _configureDistribution != null &&
+                    _launchInteractive != null &&
+                    _launch != null);
+            }
         }
 
-        public bool WslIsDistributionRegistered()
+        public bool IsDistributionRegistered
         {
-            return _isDistributionRegistered(_distributionName);
+            get { return _isDistributionRegistered(_distributionName); }
         }
 
-        public int WslRegisterDistribution()
+        public int RegisterDistro()
         {
             int hr = _registerDistribution(_distributionName, "install.tar.gz");
 
@@ -59,7 +65,7 @@ namespace DistroManager
             return hr;
         }
 
-        public int WslConfigureDistribution(int defaultUID, NativeMethods.WSL_DISTRIBUTION_FLAGS wslDistributionFlags)
+        public int ConfigDistro(int defaultUID, NativeMethods.WSL_DISTRIBUTION_FLAGS wslDistributionFlags)
         {
             int hr = _configureDistribution(_distributionName, defaultUID, wslDistributionFlags);
 
@@ -69,7 +75,7 @@ namespace DistroManager
             return hr;
         }
 
-        public int WslLaunchInteractive(string command, bool useCurrentWorkingDirectory, out int exitCode)
+        public int LaunchInteractive(string command, bool useCurrentWorkingDirectory, out int exitCode)
         {
             int hr = _launchInteractive(_distributionName, command, useCurrentWorkingDirectory, out exitCode);
 
@@ -79,7 +85,7 @@ namespace DistroManager
             return hr;
         }
 
-        public int WslLaunch(string command, bool useCurrentWorkingDirectory, IntPtr stdIn, IntPtr stdOut, IntPtr stdErr, out IntPtr process)
+        public int Launch(string command, bool useCurrentWorkingDirectory, IntPtr stdIn, IntPtr stdOut, IntPtr stdErr, out IntPtr process)
         {
             int hr = _launch(_distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, out process);
 

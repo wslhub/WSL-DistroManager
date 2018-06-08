@@ -13,23 +13,19 @@ namespace DistroManager
 
         public static bool CreateUser(WslApiLoader wslApi, string userName)
         {
-            int exitCode;
-            string commandLine = "/usr/sbin/adduser --quiet --gecos '' ";
-            commandLine += userName;
-            int hr = wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
+            string commandLine = $"/usr/sbin/adduser --quiet --gecos '' {userName}";
+            int hr = wslApi.LaunchInteractive(commandLine, true, out int exitCode);
 
             if (NativeMethods.FAILED(hr) || exitCode != 0u)
                 return false;
 
-            commandLine = "/usr/sbin/usermod -aG adm,cdrom,sudo,dip,plugdev ";
-            commandLine += userName;
-            hr = wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
+            commandLine = $"/usr/sbin/usermod -aG adm,cdrom,sudo,dip,plugdev {userName}";
+            hr = wslApi.LaunchInteractive(commandLine, true, out exitCode);
 
             if (NativeMethods.FAILED(hr) || exitCode != 0u)
             {
-                commandLine = "/usr/sbin/deluser ";
-                commandLine += userName;
-                wslApi.WslLaunchInteractive(commandLine, true, out exitCode);
+                commandLine = $"/usr/sbin/deluser {userName}";
+                wslApi.LaunchInteractive(commandLine, true, out exitCode);
                 return false;
             }
 
@@ -54,17 +50,14 @@ namespace DistroManager
 
                 if (NativeMethods.CreatePipe(ref readPipe, ref writePipe, attr, 0))
                 {
-                    string command = "/usr/bin/id -u ";
-                    command += userName;
-                    IntPtr child;
-                    int hr = wslApi.WslLaunch(command, true, NativeMethods.GetStdHandle(NativeMethods.STD_INPUT_HANDLE), writePipe, NativeMethods.GetStdHandle(NativeMethods.STD_ERROR_HANDLE), out child);
+                    string command = $"/usr/bin/id -u {userName}";
+                    int hr = wslApi.Launch(command, true, NativeMethods.GetStdHandle(NativeMethods.STD_INPUT_HANDLE), writePipe, NativeMethods.GetStdHandle(NativeMethods.STD_ERROR_HANDLE), out IntPtr child);
 
                     if (NativeMethods.SUCCEED(hr))
                     {
                         NativeMethods.WaitForSingleObject(child, NativeMethods.INFINITE);
-                        int exitCode;
 
-                        if (NativeMethods.GetExitCodeProcess(child, out exitCode) == false)
+                        if (NativeMethods.GetExitCodeProcess(child, out int exitCode) == false)
                         {
                             hr = NativeMethods.E_INVALIDARG;
                         }
@@ -76,9 +69,8 @@ namespace DistroManager
                             int bufferLength = 64;
                             IntPtr buffer = Marshal.AllocHGlobal(bufferLength);
                             NativeMethods.ZeroMemory(buffer, bufferLength);
-                            int bytesRead;
 
-                            if (NativeMethods.ReadFile(readPipe, buffer, bufferLength - 1, out bytesRead, IntPtr.Zero))
+                            if (NativeMethods.ReadFile(readPipe, buffer, bufferLength - 1, out int bytesRead, IntPtr.Zero))
                             {
                                 byte[] content = new byte[bytesRead];
                                 Marshal.Copy(buffer, content, 0, bytesRead);

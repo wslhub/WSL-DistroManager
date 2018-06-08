@@ -20,7 +20,7 @@ namespace DistroManager
                 NativeMethods.SetConsoleTitleW(DistributionInfo.WindowTitle);
 
                 int exitCode = 1;
-                if (!wslApi.WslIsOptionalComponentInstalled())
+                if (!wslApi.IsOptionalComponentInstalled)
                 {
                     Helpers.PrintMessage(Messages.MSG_MISSING_OPTIONAL_COMPONENT);
                     if (arguments.Length < 1)
@@ -32,7 +32,7 @@ namespace DistroManager
                 bool installOnly = (arguments.Length > 0 && arguments[0] == ARG_INSTALL);
                 int hr = NativeMethods.S_OK;
             
-                if (!wslApi.WslIsDistributionRegistered())
+                if (!wslApi.IsDistributionRegistered)
                 {
                     bool useRoot = (installOnly && arguments.Length > 1 && arguments[1] == ARG_INSTALL_ROOT);
                     hr = InstallDistribution(wslApi, !useRoot);
@@ -56,12 +56,12 @@ namespace DistroManager
                 {
                     if (arguments.Length < 1)
                     {
-                        hr = wslApi.WslLaunchInteractive(String.Empty, false, out exitCode);
+                        hr = wslApi.LaunchInteractive(String.Empty, false, out exitCode);
                     }
                     else if (arguments[0].Equals(ARG_RUN) || arguments[0].Equals(ARG_RUN_C))
                     {
                         string command = String.Join(" ", arguments);
-                        hr = wslApi.WslLaunchInteractive(command, true, out exitCode);
+                        hr = wslApi.LaunchInteractive(command, true, out exitCode);
                     }
                     else if (arguments[0].Equals(ARG_CONFIG))
                     {
@@ -108,14 +108,14 @@ namespace DistroManager
         public static int InstallDistribution(WslApiLoader wslApi, bool createUser)
         {
             Helpers.PrintMessage(Messages.MSG_STATUS_INSTALLING);
-            int hr = wslApi.WslRegisterDistribution();
+            int hr = wslApi.RegisterDistro();
             if (NativeMethods.FAILED(hr))
             {
                 return hr;
             }
 
             int exitCode;
-            hr = wslApi.WslLaunchInteractive("/bin/rm /etc/resolv.conf", true, out exitCode);
+            hr = wslApi.LaunchInteractive("/bin/rm /etc/resolv.conf", true, out exitCode);
             if (NativeMethods.FAILED(hr))
             {
                 return hr;
@@ -148,7 +148,7 @@ namespace DistroManager
                 return NativeMethods.E_INVALIDARG;
             }
             
-            int hr = wslApi.WslConfigureDistribution(uid, NativeMethods.WSL_DISTRIBUTION_FLAGS.WSL_DISTRIBUTION_FLAGS_DEFAULT);
+            int hr = wslApi.ConfigDistro(uid, NativeMethods.WSL_DISTRIBUTION_FLAGS.WSL_DISTRIBUTION_FLAGS_DEFAULT);
 
             if (NativeMethods.FAILED(hr))
                 return hr;
