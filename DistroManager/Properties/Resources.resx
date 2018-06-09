@@ -134,6 +134,9 @@ Please select Reset from App Settings or uninstall and reinstall the app.</value
   <data name="MSG_INSTALL_SUCCESS" xml:space="preserve">
     <value>Installation successful!</value>
   </data>
+  <data name="MSG_INSUFFICIENT_RIGHTS" xml:space="preserve">
+    <value>You do not have sufficient rights to install a new distro.</value>
+  </data>
   <data name="MSG_MISSING_OPTIONAL_COMPONENT" xml:space="preserve">
     <value>The Windows Subsystem for Linux optional component is not enabled. Please enable it and try again.
 See https://aka.ms/wslinstall for details.</value>

@@ -1,6 +1,5 @@
 using DistroManager.Properties;
 using System;
-using System.Collections.Generic;
 
 namespace DistroManager
 {
@@ -108,6 +107,12 @@ namespace DistroManager
 
         public static int InstallDistribution(WslApiLoader wslApi, bool createUser)
         {
+            if (!Helpers.IsAdministrator())
+            {
+                Console.Error.WriteLine(Resources.MSG_INSUFFICIENT_RIGHTS);
+                return NativeMethods.E_ACCESSDENIED;
+            }
+
             Console.Out.WriteLine(Resources.MSG_STATUS_INSTALLING);
             int hr = wslApi.RegisterDistro();
             if (NativeMethods.FAILED(hr))

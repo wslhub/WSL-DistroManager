@@ -108,6 +108,15 @@ namespace DistroManager.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You do not have sufficient rights to install a new distro..
+        /// </summary>
+        internal static string MSG_INSUFFICIENT_RIGHTS {
+            get {
+                return ResourceManager.GetString("MSG_INSUFFICIENT_RIGHTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Windows Subsystem for Linux optional component is not enabled. Please enable it and try again.
         ///See https://aka.ms/wslinstall for details..
         /// </summary>

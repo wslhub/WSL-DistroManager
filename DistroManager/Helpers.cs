@@ -2,6 +2,7 @@ using DistroManager.Properties;
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Security.Principal;
 
 namespace DistroManager
 {
@@ -29,6 +30,14 @@ namespace DistroManager
         {
             Console.Out.WriteLine(Resources.MSG_PRESS_A_KEY);
             Console.ReadKey();
+        }
+        
+        public static bool IsAdministrator()
+        {
+            AppDomain.CurrentDomain.SetPrincipalPolicy(PrincipalPolicy.WindowsPrincipal);
+            WindowsIdentity wi = WindowsIdentity.GetCurrent();
+            WindowsPrincipal wp = new WindowsPrincipal(wi);
+            return wp.IsInRole(WindowsBuiltInRole.Administrator);
         }
     }
 }

@@ -11,6 +11,8 @@ namespace DistroManager
 
         public static readonly int E_INVALIDARG = unchecked((int)0x80070057u);
 
+        public static readonly int E_ACCESSDENIED = unchecked((int)0x80070005u);
+
         public static readonly int S_OK = 0x00000000;
 
         public static readonly int FACILITY_WIN32 = 7;
