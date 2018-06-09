@@ -184,4 +184,7 @@ Usage:
   <data name="MSG_WSL_REGISTER_DISTRIBUTION_FAILED" xml:space="preserve">
     <value>WslRegisterDistribution failed with error: 0x{0:X8}</value>
   </data>
+  <data name="MSG_WSL_UNREGISTER_DISTRIBUTION_FAILED" xml:space="preserve">
+    <value>WslUnregisterDistribution failed with error: 0x{0:X8}</value>
+  </data>
 </root>

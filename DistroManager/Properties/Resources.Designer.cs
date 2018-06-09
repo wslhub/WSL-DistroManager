@@ -201,5 +201,14 @@ namespace DistroManager.Properties {
                 return ResourceManager.GetString("MSG_WSL_REGISTER_DISTRIBUTION_FAILED", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WslUnregisterDistribution failed with error: 0x{0:X8}.
+        /// </summary>
+        internal static string MSG_WSL_UNREGISTER_DISTRIBUTION_FAILED {
+            get {
+                return ResourceManager.GetString("MSG_WSL_UNREGISTER_DISTRIBUTION_FAILED", resourceCulture);
+            }
+        }
     }
 }

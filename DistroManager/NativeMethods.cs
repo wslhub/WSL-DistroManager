@@ -117,6 +117,10 @@ namespace DistroManager
 
         [UnmanagedFunctionPointer(CallingConvention.Winapi, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.U4)]
+        internal delegate int WSL_UNREGISTER_DISTRIBUTION(string distroName);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi, SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.U4)]
         internal delegate int WSL_CONFIGURE_DISTRIBUTION(
             string distroName,
             [MarshalAs(UnmanagedType.U4)] int defaultUID,
