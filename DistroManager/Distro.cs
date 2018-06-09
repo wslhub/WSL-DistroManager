@@ -60,9 +60,18 @@ namespace DistroManager
             get { return _isDistributionRegistered(_distributionName); }
         }
 
-        public int RegisterDistro()
+        public int RegisterDistro(string tarGzFileName)
         {
-            int hr = _registerDistribution(_distributionName, Path.GetFullPath(DistributionInfo.FileName));
+            if (!File.Exists(tarGzFileName))
+                return NativeMethods.E_FILENOTFOUND;
+
+            if (!Helpers.IsAdministrator())
+            {
+                Console.Error.WriteLine(Resources.MSG_INSUFFICIENT_RIGHTS);
+                return NativeMethods.E_ACCESSDENIED;
+            }
+
+            int hr = _registerDistribution(_distributionName, tarGzFileName);
 
             if (NativeMethods.FAILED(hr))
                 Console.Out.WriteLine(Resources.MSG_WSL_REGISTER_DISTRIBUTION_FAILED, hr);
@@ -72,6 +81,12 @@ namespace DistroManager
 
         public int UnregisterDistro()
         {
+            if (!Helpers.IsAdministrator())
+            {
+                Console.Error.WriteLine(Resources.MSG_INSUFFICIENT_RIGHTS);
+                return NativeMethods.E_ACCESSDENIED;
+            }
+
             int hr = _unregisterDistribution(_distributionName);
 
             if (NativeMethods.FAILED(hr))
@@ -82,6 +97,12 @@ namespace DistroManager
 
         public int ConfigDistro(int defaultUID, NativeMethods.WSL_DISTRIBUTION_FLAGS wslDistributionFlags)
         {
+            if (!Helpers.IsAdministrator())
+            {
+                Console.Error.WriteLine(Resources.MSG_INSUFFICIENT_RIGHTS);
+                return NativeMethods.E_ACCESSDENIED;
+            }
+
             int hr = _configureDistribution(_distributionName, defaultUID, wslDistributionFlags);
 
             if (NativeMethods.FAILED(hr))

@@ -35,7 +35,7 @@ namespace DistroManager
                 if (!wslApi.IsDistributionRegistered)
                 {
                     bool useRoot = (installOnly && arguments.Length > 1 && arguments[1] == ARG_INSTALL_ROOT);
-                    hr = InstallDistribution(wslApi, !useRoot);
+                    hr = InstallDistribution(wslApi, !useRoot, DistributionInfo.FileName);
 
                     if (NativeMethods.FAILED(hr))
                     {
@@ -105,16 +105,10 @@ namespace DistroManager
             }
         }
 
-        public static int InstallDistribution(Distro wslApi, bool createUser)
+        public static int InstallDistribution(Distro wslApi, bool createUser, string tarGzFileName)
         {
-            if (!Helpers.IsAdministrator())
-            {
-                Console.Error.WriteLine(Resources.MSG_INSUFFICIENT_RIGHTS);
-                return NativeMethods.E_ACCESSDENIED;
-            }
-
             Console.Out.WriteLine(Resources.MSG_STATUS_INSTALLING);
-            int hr = wslApi.RegisterDistro();
+            int hr = wslApi.RegisterDistro(tarGzFileName);
             if (NativeMethods.FAILED(hr))
             {
                 return hr;
