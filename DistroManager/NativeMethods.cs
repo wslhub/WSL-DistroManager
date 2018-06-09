@@ -115,6 +115,10 @@ namespace DistroManager
 
         [UnmanagedFunctionPointer(CallingConvention.Winapi, SetLastError = true, CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.U4)]
+        internal delegate int WSL_GET_DISTRIBUTION_CONFIGURATION(string distroName, out int pVersion, out int pDefaultUID, out WSL_DISTRIBUTION_FLAGS pWslFlags, out IntPtr pDefaultEnvironmentVariablesArray, out int pDefaultEnvironmentVariablesCount);
+
+        [UnmanagedFunctionPointer(CallingConvention.Winapi, SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.U4)]
         internal delegate int WSL_REGISTER_DISTRIBUTION(string distroName, string tarGzFilename);
 
         [UnmanagedFunctionPointer(CallingConvention.Winapi, SetLastError = true, CharSet = CharSet.Unicode)]

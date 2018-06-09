@@ -173,6 +173,9 @@ Usage:
         Print usage information.</value>
   </data>
   <data name="MSG_WSL_CONFIGURE_DISTRIBUTION_FAILED" xml:space="preserve">
+    <value>WslConfigureDistribution failed with error: 0x{0:X8}</value>
+  </data>
+  <data name="MSG_WSL_GET_DISTRIBUTION_CONFIGURE_FAILED" xml:space="preserve">
     <value>WslGetDistributionConfiguration failed with error: 0x{0:X8}</value>
   </data>
   <data name="MSG_WSL_LAUNCH_FAILED" xml:space="preserve">

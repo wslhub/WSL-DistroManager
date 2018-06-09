@@ -1,5 +1,8 @@
 using DistroManager.Properties;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace DistroManager
 {
@@ -17,6 +20,15 @@ namespace DistroManager
         {
             using (Distro wslApi = new Distro(DistributionInfo.Name))
             {
+                var envList = new List<KeyValuePair<string, string>>();
+                var result = wslApi.GetDistroConfig(out int version, out int defaultUID, out NativeMethods.WSL_DISTRIBUTION_FLAGS flags, envList);
+                Console.Out.WriteLine($@"Distro Name: {DistributionInfo.Name}
+Version: {version}
+Default UID: 0x{defaultUID:X8}
+Flags: {flags}
+Variables:
+{String.Join(Environment.NewLine, envList.Select(x => "* " + x.Key + "=" + x.Value))}
+");
                 NativeMethods.SetConsoleTitleW(DistributionInfo.WindowTitle);
 
                 int exitCode = 1;
@@ -148,7 +160,7 @@ namespace DistroManager
                 return NativeMethods.E_INVALIDARG;
             }
             
-            int hr = wslApi.ConfigDistro(uid, NativeMethods.WSL_DISTRIBUTION_FLAGS.WSL_DISTRIBUTION_FLAGS_DEFAULT);
+            int hr = wslApi.SetDistroConfig(uid, NativeMethods.WSL_DISTRIBUTION_FLAGS.WSL_DISTRIBUTION_FLAGS_DEFAULT);
 
             if (NativeMethods.FAILED(hr))
                 return hr;

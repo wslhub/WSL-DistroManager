@@ -167,11 +167,20 @@ namespace DistroManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to WslGetDistributionConfiguration failed with error: 0x{0:X8}.
+        ///   Looks up a localized string similar to WslConfigureDistribution failed with error: 0x{0:X8}.
         /// </summary>
         internal static string MSG_WSL_CONFIGURE_DISTRIBUTION_FAILED {
             get {
                 return ResourceManager.GetString("MSG_WSL_CONFIGURE_DISTRIBUTION_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WslGetDistributionConfiguration failed with error: 0x{0:X8}.
+        /// </summary>
+        internal static string MSG_WSL_GET_DISTRIBUTION_CONFIGURE_FAILED {
+            get {
+                return ResourceManager.GetString("MSG_WSL_GET_DISTRIBUTION_CONFIGURE_FAILED", resourceCulture);
             }
         }
         
