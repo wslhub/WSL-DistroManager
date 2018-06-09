@@ -122,7 +122,7 @@
 For more information visit: https://aka.ms/wslusers</value>
   </data>
   <data name="MSG_ENTER_USERNAME" xml:space="preserve">
-    <value>Enter new UNIX username:</value>
+    <value>Enter new UNIX username: </value>
   </data>
   <data name="MSG_ERROR_CODE" xml:space="preserve">
     <value>Error: 0x{0:X8} {1}</value>

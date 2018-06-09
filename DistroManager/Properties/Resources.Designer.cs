@@ -71,7 +71,7 @@ namespace DistroManager.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter new UNIX username:.
+        ///   Looks up a localized string similar to Enter new UNIX username: .
         /// </summary>
         internal static string MSG_ENTER_USERNAME {
             get {

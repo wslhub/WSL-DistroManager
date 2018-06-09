@@ -11,6 +11,8 @@ namespace DistroManager
 
         public static readonly string WindowTitle = ConfigurationManager.AppSettings["DistroDisplayName"];
 
+        public static readonly string FileName = ConfigurationManager.AppSettings["DistroFileName"];
+
         public static bool CreateUser(WslApiLoader wslApi, string userName)
         {
             string commandLine = $"/usr/sbin/adduser --quiet --gecos '' {userName}";

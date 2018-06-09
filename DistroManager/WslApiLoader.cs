@@ -1,5 +1,6 @@
 using DistroManager.Properties;
 using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace DistroManager
@@ -58,7 +59,7 @@ namespace DistroManager
 
         public int RegisterDistro()
         {
-            int hr = _registerDistribution(_distributionName, "install.tar.gz");
+            int hr = _registerDistribution(_distributionName, Path.GetFullPath(DistributionInfo.FileName));
 
             if (NativeMethods.FAILED(hr))
                 Console.Out.WriteLine(Resources.MSG_WSL_REGISTER_DISTRIBUTION_FAILED, hr);
