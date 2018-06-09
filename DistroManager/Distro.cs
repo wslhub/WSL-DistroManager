@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace DistroManager
 {
-    internal sealed class WslApiLoader : IDisposable
+    internal sealed class Distro : IDisposable
     {
         private bool _disposed;
         private readonly string _distributionName;
@@ -16,7 +16,7 @@ namespace DistroManager
         private NativeMethods.WSL_LAUNCH_INTERACTIVE _launchInteractive;
         private NativeMethods.WSL_LAUNCH _launch;
 
-        public WslApiLoader(string distributionName) : base()
+        public Distro(string distributionName) : base()
         {
             if (String.IsNullOrWhiteSpace(distributionName))
                 throw new ArgumentNullException(nameof(distributionName));
@@ -34,7 +34,7 @@ namespace DistroManager
             }
         }
 
-        ~WslApiLoader()
+        ~Distro()
         {
             Dispose(false);
         }

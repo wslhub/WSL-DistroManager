@@ -13,7 +13,7 @@ namespace DistroManager
 
         public static readonly string FileName = ConfigurationManager.AppSettings["DistroFileName"];
 
-        public static bool CreateUser(WslApiLoader wslApi, string userName)
+        public static bool CreateUser(Distro wslApi, string userName)
         {
             string commandLine = $"/usr/sbin/adduser --quiet --gecos '' {userName}";
             int hr = wslApi.LaunchInteractive(commandLine, true, out int exitCode);
@@ -34,7 +34,7 @@ namespace DistroManager
             return true;
         }
 
-        public static int QueryUid(WslApiLoader wslApi, string userName)
+        public static int QueryUid(Distro wslApi, string userName)
         {
             IntPtr readPipe = new IntPtr();
             IntPtr writePipe = new IntPtr();

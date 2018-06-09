@@ -15,7 +15,7 @@ namespace DistroManager
         [STAThread]
         private static int Main(string[] arguments)
         {
-            using (WslApiLoader wslApi = new WslApiLoader(DistributionInfo.Name))
+            using (Distro wslApi = new Distro(DistributionInfo.Name))
             {
                 NativeMethods.SetConsoleTitleW(DistributionInfo.WindowTitle);
 
@@ -105,7 +105,7 @@ namespace DistroManager
             }
         }
 
-        public static int InstallDistribution(WslApiLoader wslApi, bool createUser)
+        public static int InstallDistribution(Distro wslApi, bool createUser)
         {
             if (!Helpers.IsAdministrator())
             {
@@ -146,7 +146,7 @@ namespace DistroManager
             return hr;
         }
 
-        public static int SetDefaultUser(WslApiLoader wslApi, string userName)
+        public static int SetDefaultUser(Distro wslApi, string userName)
         {
             int uid = DistributionInfo.QueryUid(wslApi, userName);
             if (uid == NativeMethods.UID_INVALID)
