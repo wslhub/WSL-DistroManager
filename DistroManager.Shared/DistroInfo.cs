@@ -10,7 +10,7 @@ namespace DistroManager
     public sealed class DistroInfo
     {
         private string _basePath;
-        private IEnumerable<KeyValuePair<string, string>> _defaultEnvironment;
+        private string _defaultEnvironment;
         private int _defaultUid;
         private string _distributionName;
         private int _flags;
@@ -30,7 +30,7 @@ namespace DistroManager
         [DisplayName("Environment Variables")]
         [Description("Environment variables to be pre-specified when starting distro")]
         [Category("Information")]
-        public IEnumerable<KeyValuePair<string, string>> DefaultEnvironment
+        public string DefaultEnvironment
         {
             get => _defaultEnvironment;
             internal set => _defaultEnvironment = value;

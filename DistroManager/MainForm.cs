@@ -18,6 +18,7 @@ namespace DistroManager
         {
             this.InitializeComponent();
             this.dataGridView.AutoGenerateColumns = false;
+            this.dataGridView.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -45,7 +46,8 @@ namespace DistroManager
                     using (var lxssSubKey = lxssKey.OpenSubKey(eachSubKeyName, false))
                     {
                         string basePath = lxssSubKey.GetValue("BasePath", null) as string;
-                        var defaultEnvironment = Helpers.ParseEnvironmentVariables(lxssSubKey.GetValue("DefaultEnvironment", new string[] { }) as string[]);
+                        //var defaultEnvironment = Helpers.ParseEnvironmentVariables(lxssSubKey.GetValue("DefaultEnvironment", new string[] { }) as string[]);
+                        var defaultEnvironment = String.Join(Environment.NewLine, lxssSubKey.GetValue("DefaultEnvironment", new string[] { }) as string[]);
                         int defaultUid = (int)lxssSubKey.GetValue("DefaultUid", NativeMethods.UID_INVALID);
                         string distributionName = lxssSubKey.GetValue("DistributionName", null) as string;
                         int flags = (int)lxssSubKey.GetValue("Flags", NativeMethods.WSL_DISTRIBUTION_FLAGS.WSL_DISTRIBUTION_FLAGS_NONE);
