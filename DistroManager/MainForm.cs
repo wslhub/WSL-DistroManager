@@ -310,5 +310,14 @@ namespace DistroManager
                 }
             }
         }
+
+        private void aboutButton_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(this,
+                $@"Windows Subsystem for Linux Distro Manager, (c) 2018 JH.
+https://www.github.com/rkttu/WSL-DistroManager
+v1.0 (Prerelease)",
+                this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+        }
     }
 }
