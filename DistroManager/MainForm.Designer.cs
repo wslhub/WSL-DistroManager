@@ -44,10 +44,10 @@ namespace DistroManager
             this.installNewDistroTab = new System.Windows.Forms.TabPage();
             this.aboutTab = new System.Windows.Forms.TabPage();
             this.createBackupDialog = new System.Windows.Forms.SaveFileDialog();
+            this.distributionNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.defaultUidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.basePathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.defaultEnvironmentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.defaultUidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.distributionNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flagsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.kernelCommandLineDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.stateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -188,10 +188,10 @@ namespace DistroManager
             this.dataGridView.AutoGenerateColumns = false;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.distributionNameDataGridViewTextBoxColumn,
+            this.defaultUidDataGridViewTextBoxColumn,
             this.basePathDataGridViewTextBoxColumn,
             this.defaultEnvironmentDataGridViewTextBoxColumn,
-            this.defaultUidDataGridViewTextBoxColumn,
-            this.distributionNameDataGridViewTextBoxColumn,
             this.flagsDataGridViewTextBoxColumn,
             this.kernelCommandLineDataGridViewTextBoxColumn,
             this.stateDataGridViewTextBoxColumn,
@@ -205,15 +205,16 @@ namespace DistroManager
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(362, 317);
             this.dataGridView.TabIndex = 0;
+            this.dataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellDoubleClick);
             // 
             // installDistroListLabel
             // 
             this.installDistroListLabel.AutoSize = true;
             this.installDistroListLabel.Location = new System.Drawing.Point(17, 13);
             this.installDistroListLabel.Name = "installDistroListLabel";
-            this.installDistroListLabel.Size = new System.Drawing.Size(95, 13);
+            this.installDistroListLabel.Size = new System.Drawing.Size(193, 13);
             this.installDistroListLabel.TabIndex = 0;
-            this.installDistroListLabel.Text = "Installed distro list: ";
+            this.installDistroListLabel.Text = "Installed distro list (Double click to run): ";
             // 
             // installNewDistroTab
             // 
@@ -242,6 +243,20 @@ namespace DistroManager
             this.createBackupDialog.SupportMultiDottedExtensions = true;
             this.createBackupDialog.Title = "Save Distro Backup File As";
             // 
+            // distributionNameDataGridViewTextBoxColumn
+            // 
+            this.distributionNameDataGridViewTextBoxColumn.DataPropertyName = "DistributionName";
+            this.distributionNameDataGridViewTextBoxColumn.HeaderText = "Distro Name";
+            this.distributionNameDataGridViewTextBoxColumn.Name = "distributionNameDataGridViewTextBoxColumn";
+            this.distributionNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // defaultUidDataGridViewTextBoxColumn
+            // 
+            this.defaultUidDataGridViewTextBoxColumn.DataPropertyName = "DefaultUid";
+            this.defaultUidDataGridViewTextBoxColumn.HeaderText = "Default UID";
+            this.defaultUidDataGridViewTextBoxColumn.Name = "defaultUidDataGridViewTextBoxColumn";
+            this.defaultUidDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // basePathDataGridViewTextBoxColumn
             // 
             this.basePathDataGridViewTextBoxColumn.DataPropertyName = "BasePath";
@@ -255,20 +270,6 @@ namespace DistroManager
             this.defaultEnvironmentDataGridViewTextBoxColumn.HeaderText = "Environment Variables";
             this.defaultEnvironmentDataGridViewTextBoxColumn.Name = "defaultEnvironmentDataGridViewTextBoxColumn";
             this.defaultEnvironmentDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // defaultUidDataGridViewTextBoxColumn
-            // 
-            this.defaultUidDataGridViewTextBoxColumn.DataPropertyName = "DefaultUid";
-            this.defaultUidDataGridViewTextBoxColumn.HeaderText = "Default UID";
-            this.defaultUidDataGridViewTextBoxColumn.Name = "defaultUidDataGridViewTextBoxColumn";
-            this.defaultUidDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // distributionNameDataGridViewTextBoxColumn
-            // 
-            this.distributionNameDataGridViewTextBoxColumn.DataPropertyName = "DistributionName";
-            this.distributionNameDataGridViewTextBoxColumn.HeaderText = "Distro Name";
-            this.distributionNameDataGridViewTextBoxColumn.Name = "distributionNameDataGridViewTextBoxColumn";
-            this.distributionNameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // flagsDataGridViewTextBoxColumn
             // 
@@ -343,15 +344,15 @@ namespace DistroManager
         private System.Windows.Forms.PropertyGrid propertyGrid;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.BindingSource distroInfoBindingSource;
+        private System.Windows.Forms.Button cloneButton;
+        private System.Windows.Forms.SaveFileDialog createBackupDialog;
+        private System.Windows.Forms.DataGridViewTextBoxColumn distributionNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn defaultUidDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn basePathDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn defaultEnvironmentDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn defaultUidDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn distributionNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn flagsDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn kernelCommandLineDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn versionDataGridViewTextBoxColumn;
-        private System.Windows.Forms.Button cloneButton;
-        private System.Windows.Forms.SaveFileDialog createBackupDialog;
     }
 }

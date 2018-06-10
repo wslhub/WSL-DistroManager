@@ -39,7 +39,7 @@ namespace DistroManager
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            var distroList = this.distroInfoBindingSource.DataSource as List<DistroInfo> ?? new List<DistroInfo>();
+            var distroList = new List<DistroInfo>();
             distroList.Clear();
 
             using (var lxssKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss", false))
@@ -131,48 +131,54 @@ namespace DistroManager
 
         private void setDefaultButton_Click(object sender, EventArgs e)
         {
-            if (!Helpers.IsAdministrator())
+            var distroInfo = this.distroInfoBindingSource.Current as DistroInfo;
+
+            if (distroInfo == null)
+                return;
+
+            var wslConfigPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.System),
+                "wslconfig.exe");
+
+            if (!File.Exists(wslConfigPath))
             {
-                var response = MessageBox.Show(this,
-                    "This feature requires administrator privilege. Restart the application to elevate permission?",
-                    this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-                if (response != DialogResult.Yes)
-                    return;
-
-                Helpers.ElevatePermission();
+                MessageBox.Show(this,
+                    $"The `wslconfig.exe` is missing. Please check WSL installed properly.",
+                    this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
             }
+
+            var psi = new ProcessStartInfo(wslConfigPath, $"/s {distroInfo.DistributionName}");
+            psi.Verb = "runas";
+            Process.Start(psi);
         }
 
         private void removeButton_Click(object sender, EventArgs e)
         {
-            if (!Helpers.IsAdministrator())
+            var distroInfo = this.distroInfoBindingSource.Current as DistroInfo;
+
+            if (distroInfo == null)
+                return;
+
+            var wslConfigPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.System),
+                "wslconfig.exe");
+
+            if (!File.Exists(wslConfigPath))
             {
-                var response = MessageBox.Show(this,
-                    "This feature requires administrator privilege. Restart the application to elevate permission?",
-                    this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-                if (response != DialogResult.Yes)
-                    return;
-
-                Helpers.ElevatePermission();
+                MessageBox.Show(this,
+                    $"The `wslconfig.exe` is missing. Please check WSL installed properly.",
+                    this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
             }
+
+            var psi = new ProcessStartInfo(wslConfigPath, $"/u {distroInfo.DistributionName}");
+            psi.Verb = "runas";
+            Process.Start(psi);
         }
 
         private void cloneButton_Click(object sender, EventArgs e)
         {
-            if (!Helpers.IsAdministrator())
-            {
-                var response = MessageBox.Show(this,
-                    "This feature requires administrator privilege. Restart the application to elevate permission?",
-                    this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-
-                if (response != DialogResult.Yes)
-                    return;
-
-                Helpers.ElevatePermission();
-            }
-
             var distroInfo = this.distroInfoBindingSource.Current as DistroInfo;
 
             if (distroInfo == null)
@@ -251,6 +257,27 @@ namespace DistroManager
                     ProcessStartInfo psi = new ProcessStartInfo(newExecPath);
                     psi.Verb = "runas";
                     Process.Start(psi);
+                }
+            }
+        }
+
+        private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var distroInfo = this.dataGridView.Rows[e.RowIndex].DataBoundItem as DistroInfo;
+
+            if (distroInfo == null)
+                return;
+
+            using (var distro = new Distro(distroInfo.DistributionName))
+            {
+                int hr = distro.Launch("/bin/bash", false, IntPtr.Zero, IntPtr.Zero, IntPtr.Zero, out IntPtr process);
+
+                if (NativeMethods.FAILED(hr))
+                {
+                    MessageBox.Show(this,
+                        $"WslLaunchInteractive failed - HRESULT: 0x{hr:X8}, Reason: {new Win32Exception(hr).Message}",
+                        this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    return;
                 }
             }
         }

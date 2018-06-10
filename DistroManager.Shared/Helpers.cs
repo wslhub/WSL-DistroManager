@@ -43,21 +43,6 @@ namespace DistroManager
             return wp.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
-        public static void ElevatePermission()
-        {
-            if (IsAdministrator()) return;
-            var args = Environment.GetCommandLineArgs();
-
-            var filePath = args.FirstOrDefault();
-            if (!File.Exists(filePath)) return;
-            var arguments = String.Join(" ", args.Skip(1).Select(x => $"\"{x}\""));
-
-            ProcessStartInfo startInfo = new ProcessStartInfo(filePath, arguments);
-            startInfo.Verb = "runas";
-            Process.Start(startInfo);
-            Environment.Exit(0);
-        }
-
         public static IEnumerable<KeyValuePair<string, string>> ParseEnvironmentVariables(IEnumerable<string> expressions)
         {
             var defaultEnvironment = new List<KeyValuePair<string, string>>(expressions.Count());
