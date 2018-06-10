@@ -13,7 +13,6 @@ namespace DistroManager
         private readonly string _distributionName;
         private IntPtr _wslApiDll;
         private NativeMethods.WSL_IS_DISTRIBUTION_REGISTERED _isDistributionRegistered;
-        private NativeMethods.WSL_GET_DISTRIBUTION_CONFIGURATION _getDistributionConfiguration;
         private NativeMethods.WSL_REGISTER_DISTRIBUTION _registerDistribution;
         private NativeMethods.WSL_UNREGISTER_DISTRIBUTION _unregisterDistribution;
         private NativeMethods.WSL_CONFIGURE_DISTRIBUTION _configureDistribution;
@@ -31,7 +30,6 @@ namespace DistroManager
             if (_wslApiDll != IntPtr.Zero)
             {
                 _isDistributionRegistered = (NativeMethods.WSL_IS_DISTRIBUTION_REGISTERED)Marshal.GetDelegateForFunctionPointer(NativeMethods.GetProcAddress(_wslApiDll, "WslIsDistributionRegistered"), typeof(NativeMethods.WSL_IS_DISTRIBUTION_REGISTERED));
-                _getDistributionConfiguration = (NativeMethods.WSL_GET_DISTRIBUTION_CONFIGURATION)Marshal.GetDelegateForFunctionPointer(NativeMethods.GetProcAddress(_wslApiDll, "WslGetDistributionConfiguration"), typeof(NativeMethods.WSL_GET_DISTRIBUTION_CONFIGURATION));
                 _registerDistribution = (NativeMethods.WSL_REGISTER_DISTRIBUTION)Marshal.GetDelegateForFunctionPointer(NativeMethods.GetProcAddress(_wslApiDll, "WslRegisterDistribution"), typeof(NativeMethods.WSL_REGISTER_DISTRIBUTION));
                 _unregisterDistribution = (NativeMethods.WSL_UNREGISTER_DISTRIBUTION)Marshal.GetDelegateForFunctionPointer(NativeMethods.GetProcAddress(_wslApiDll, "WslUnregisterDistribution"), typeof(NativeMethods.WSL_UNREGISTER_DISTRIBUTION));
                 _configureDistribution = (NativeMethods.WSL_CONFIGURE_DISTRIBUTION)Marshal.GetDelegateForFunctionPointer(NativeMethods.GetProcAddress(_wslApiDll, "WslConfigureDistribution"), typeof(NativeMethods.WSL_CONFIGURE_DISTRIBUTION));
@@ -51,7 +49,6 @@ namespace DistroManager
             {
                 return (_wslApiDll != IntPtr.Zero &&
                     _isDistributionRegistered != null &&
-                    _getDistributionConfiguration != null &&
                     _registerDistribution != null &&
                     _unregisterDistribution != null &&
                     _configureDistribution != null &&
@@ -96,31 +93,6 @@ namespace DistroManager
 
             if (NativeMethods.FAILED(hr))
                 Console.Out.WriteLine(Resources.MSG_WSL_UNREGISTER_DISTRIBUTION_FAILED, hr);
-
-            return hr;
-        }
-
-        public int GetDistroConfig(out int version, out int defaultUID, out NativeMethods.WSL_DISTRIBUTION_FLAGS wslDistributionFlags, List<KeyValuePair<string, string>> environmentVariables)
-        {
-            int hr = _getDistributionConfiguration(_distributionName, out version, out defaultUID, out wslDistributionFlags, out IntPtr ptrArray, out int count);
-
-            if (NativeMethods.FAILED(hr))
-                Console.Out.WriteLine(Resources.MSG_WSL_GET_DISTRIBUTION_CONFIGURE_FAILED, hr);
-
-            if (environmentVariables != null)
-            {
-                for (int i = 0; i < count * 2; i++)
-                {
-                    var eachPtr = Marshal.ReadIntPtr(ptrArray, i * Marshal.SizeOf(typeof(int)));
-                    var contents = Marshal.PtrToStringAnsi(eachPtr);
-
-                    if (String.IsNullOrWhiteSpace(contents))
-                        continue;
-
-                    var kvp = contents.Split(new char[] { '=' }, StringSplitOptions.RemoveEmptyEntries);
-                    environmentVariables.Add(new KeyValuePair<string, string>(kvp.ElementAtOrDefault(0), kvp.ElementAtOrDefault(1)));
-                }
-            }
 
             return hr;
         }

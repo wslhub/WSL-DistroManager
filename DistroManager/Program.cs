@@ -18,17 +18,9 @@ namespace DistroManager
 
         private static int OldMain(string[] arguments)
         {
-                        using (Distro wslApi = new Distro(Configuration.DistroName))
+            using (Distro wslApi = new Distro(Configuration.DistroName))
             {
                 var envList = new List<KeyValuePair<string, string>>();
-                var result = wslApi.GetDistroConfig(out int version, out int defaultUID, out NativeMethods.WSL_DISTRIBUTION_FLAGS flags, envList);
-                Console.Out.WriteLine($@"Distro Name: {Configuration.DistroName}
-Version: {version}
-Default UID: 0x{defaultUID:X8}
-Flags: {flags}
-Variables:
-{String.Join(Environment.NewLine, envList.Select(x => "* " + x.Key + "=" + x.Value))}
-");
                 NativeMethods.SetConsoleTitleW(Configuration.DistroDisplayName);
 
                 int exitCode = 1;

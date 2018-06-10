@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Configuration.cs" />
     <Compile Include="DistroHelper.cs" />
+    <Compile Include="DistroInfo.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -84,6 +85,7 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\DataSources\DistroInfo.datasource" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
