@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Principal;
 
 namespace DistroManager
@@ -67,6 +68,48 @@ namespace DistroManager
             }
 
             return defaultEnvironment;
+        }
+
+        public static bool IsWslInstalledProperly()
+        {
+            IntPtr wslApiDll;
+            NativeMethods.WSL_IS_DISTRIBUTION_REGISTERED isDistributionRegistered;
+            NativeMethods.WSL_REGISTER_DISTRIBUTION registerDistribution;
+            NativeMethods.WSL_UNREGISTER_DISTRIBUTION unregisterDistribution;
+            NativeMethods.WSL_CONFIGURE_DISTRIBUTION configureDistribution;
+            NativeMethods.WSL_LAUNCH_INTERACTIVE launchInteractive;
+            NativeMethods.WSL_LAUNCH launch;
+
+            wslApiDll = NativeMethods.LoadLibraryEx("wslapi.dll", IntPtr.Zero, NativeMethods.LOAD_LIBRARY_SEARCH_SYSTEM32);
+            isDistributionRegistered = null;
+            registerDistribution = null;
+            unregisterDistribution = null;
+            configureDistribution = null;
+            launchInteractive = null;
+            launch = null;
+
+            if (wslApiDll != IntPtr.Zero)
+            {
+                isDistributionRegistered = (NativeMethods.WSL_IS_DISTRIBUTION_REGISTERED)Marshal.GetDelegateForFunctionPointer(NativeMethods.GetProcAddress(wslApiDll, "WslIsDistributionRegistered"), typeof(NativeMethods.WSL_IS_DISTRIBUTION_REGISTERED));
+                registerDistribution = (NativeMethods.WSL_REGISTER_DISTRIBUTION)Marshal.GetDelegateForFunctionPointer(NativeMethods.GetProcAddress(wslApiDll, "WslRegisterDistribution"), typeof(NativeMethods.WSL_REGISTER_DISTRIBUTION));
+                unregisterDistribution = (NativeMethods.WSL_UNREGISTER_DISTRIBUTION)Marshal.GetDelegateForFunctionPointer(NativeMethods.GetProcAddress(wslApiDll, "WslUnregisterDistribution"), typeof(NativeMethods.WSL_UNREGISTER_DISTRIBUTION));
+                configureDistribution = (NativeMethods.WSL_CONFIGURE_DISTRIBUTION)Marshal.GetDelegateForFunctionPointer(NativeMethods.GetProcAddress(wslApiDll, "WslConfigureDistribution"), typeof(NativeMethods.WSL_CONFIGURE_DISTRIBUTION));
+                launchInteractive = (NativeMethods.WSL_LAUNCH_INTERACTIVE)Marshal.GetDelegateForFunctionPointer(NativeMethods.GetProcAddress(wslApiDll, "WslLaunchInteractive"), typeof(NativeMethods.WSL_LAUNCH_INTERACTIVE));
+                launch = (NativeMethods.WSL_LAUNCH)Marshal.GetDelegateForFunctionPointer(NativeMethods.GetProcAddress(wslApiDll, "WslLaunch"), typeof(NativeMethods.WSL_LAUNCH));
+
+                bool testResult = isDistributionRegistered != null &&
+                    registerDistribution != null &&
+                    unregisterDistribution != null &&
+                    configureDistribution != null &&
+                    launchInteractive != null &&
+                    launch != null;
+
+                NativeMethods.FreeLibrary(wslApiDll);
+                wslApiDll = IntPtr.Zero;
+                return testResult;
+            }
+
+            return false;
         }
     }
 }

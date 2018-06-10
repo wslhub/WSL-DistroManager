@@ -23,6 +23,15 @@ namespace DistroManager
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            if (!Helpers.IsWslInstalledProperly())
+            {
+                MessageBox.Show(this,
+                    $"Windows Subsystem for Linux is not installed or unsupported version found. Please check your Windows component installations or upgrade latest version of Windows 10.",
+                    this.Text, MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                this.Close();
+                return;
+            }
+
             if (!Helpers.IsAdministrator())
             {
                 NativeMethods.SendMessage(cloneButton.Handle, NativeMethods.BCM_SETSHIELD, 0, 1);
