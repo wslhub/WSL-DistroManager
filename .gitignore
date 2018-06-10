@@ -331,3 +331,5 @@ ASALocalRun/
 
 # Ignoring install.tar.gz
 install.tar.gz
+DistroLauncher.exe
+DistroLauncher.exe.config

@@ -1,15 +1,11 @@
-using DistroManager.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Principal;
-using System.Windows.Forms;
 
 namespace DistroManager
 {
@@ -28,14 +24,14 @@ namespace DistroManager
         {
             string message = String.Format(
                 CultureInfo.InvariantCulture,
-                Resources.MSG_ERROR_CODE,
+                Properties.Resources.MSG_ERROR_CODE,
                 hr, new Win32Exception(hr).Message);
             Console.Error.WriteLine(message);
         }
 
         public static void PromptForInput()
         {
-            Console.Out.WriteLine(Resources.MSG_PRESS_A_KEY);
+            Console.Out.WriteLine(Properties.Resources.MSG_PRESS_A_KEY);
             Console.ReadKey();
         }
         

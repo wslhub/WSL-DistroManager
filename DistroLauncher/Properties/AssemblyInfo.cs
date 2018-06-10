@@ -1,11 +1,12 @@
 using System;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Windows Subsystem for Linux Multiple Distro Manager")]
+[assembly: AssemblyTitle("Windows Subsystem for Linux Multiple Distro Managed Launcher")]
 [assembly: AssemblyDescription("This application provides management features for Windows Subsystem for Linux.")]
 #if DEBUG
 [assembly: AssemblyConfiguration("Debug")]
@@ -13,9 +14,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("Release")]
 #endif
 [assembly: AssemblyCompany("rkttu.com")]
-[assembly: AssemblyProduct("DistroManager")]
+[assembly: AssemblyProduct("DistroLauncher")]
 [assembly: AssemblyCopyright("Copyright (c) 2018 JH")]
-[assembly: AssemblyTrademark("DistroManager")]
+[assembly: AssemblyTrademark("DistroLauncher")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -24,7 +25,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("892e6e80-e194-49b8-bc7a-19eec54745ef")]
+[assembly: Guid("91d5f85e-9d3a-41ce-9731-7fefe2ba76e1")]
 
 // Version information for an assembly consists of the following four values:
 //

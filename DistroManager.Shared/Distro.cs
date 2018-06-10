@@ -1,8 +1,5 @@
-using DistroManager.Properties;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace DistroManager
@@ -69,14 +66,14 @@ namespace DistroManager
 
             if (!Helpers.IsAdministrator())
             {
-                Console.Error.WriteLine(Resources.MSG_INSUFFICIENT_RIGHTS);
+                Console.Error.WriteLine(Properties.Resources.MSG_INSUFFICIENT_RIGHTS);
                 return NativeMethods.E_ACCESSDENIED;
             }
 
             int hr = _registerDistribution(_distributionName, tarGzFileName);
 
             if (NativeMethods.FAILED(hr))
-                Console.Out.WriteLine(Resources.MSG_WSL_REGISTER_DISTRIBUTION_FAILED, hr);
+                Console.Out.WriteLine(Properties.Resources.MSG_WSL_REGISTER_DISTRIBUTION_FAILED, hr);
 
             return hr;
         }
@@ -85,14 +82,14 @@ namespace DistroManager
         {
             if (!Helpers.IsAdministrator())
             {
-                Console.Error.WriteLine(Resources.MSG_INSUFFICIENT_RIGHTS);
+                Console.Error.WriteLine(Properties.Resources.MSG_INSUFFICIENT_RIGHTS);
                 return NativeMethods.E_ACCESSDENIED;
             }
 
             int hr = _unregisterDistribution(_distributionName);
 
             if (NativeMethods.FAILED(hr))
-                Console.Out.WriteLine(Resources.MSG_WSL_UNREGISTER_DISTRIBUTION_FAILED, hr);
+                Console.Out.WriteLine(Properties.Resources.MSG_WSL_UNREGISTER_DISTRIBUTION_FAILED, hr);
 
             return hr;
         }
@@ -101,14 +98,14 @@ namespace DistroManager
         {
             if (!Helpers.IsAdministrator())
             {
-                Console.Error.WriteLine(Resources.MSG_INSUFFICIENT_RIGHTS);
+                Console.Error.WriteLine(Properties.Resources.MSG_INSUFFICIENT_RIGHTS);
                 return NativeMethods.E_ACCESSDENIED;
             }
 
             int hr = _configureDistribution(_distributionName, defaultUID, wslDistributionFlags);
 
             if (NativeMethods.FAILED(hr))
-                Console.Out.WriteLine(Resources.MSG_WSL_CONFIGURE_DISTRIBUTION_FAILED, hr);
+                Console.Out.WriteLine(Properties.Resources.MSG_WSL_CONFIGURE_DISTRIBUTION_FAILED, hr);
 
             return hr;
         }
@@ -118,7 +115,7 @@ namespace DistroManager
             int hr = _launchInteractive(_distributionName, command, useCurrentWorkingDirectory, out exitCode);
 
             if (NativeMethods.FAILED(hr))
-                Console.Out.WriteLine(Resources.MSG_WSL_LAUNCH_INTERACTIVE_FAILED, command, hr);
+                Console.Out.WriteLine(Properties.Resources.MSG_WSL_LAUNCH_INTERACTIVE_FAILED, command, hr);
 
             return hr;
         }
@@ -128,7 +125,7 @@ namespace DistroManager
             int hr = _launch(_distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, out process);
 
             if (NativeMethods.FAILED(hr))
-                Console.Out.WriteLine(Resources.MSG_WSL_LAUNCH_FAILED, hr);
+                Console.Out.WriteLine(Properties.Resources.MSG_WSL_LAUNCH_FAILED, hr);
 
             return hr;
         }

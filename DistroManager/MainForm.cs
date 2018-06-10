@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace DistroManager
 {
@@ -233,27 +234,23 @@ namespace DistroManager
                 // Install new distro
                 using (var distro = new Distro(cloneDistroForm.NewDistroName))
                 {
-                    var newPath = Path.Combine(cloneDistroForm.DistroInstallPath, Path.GetFileName(backupFilePath));
+                    var newPath = Path.Combine(cloneDistroForm.DistroInstallPath, "install.tar.gz");
                     File.Move(backupFilePath, newPath);
 
-                    int hr = distro.RegisterDistro(newPath);
-                    if (NativeMethods.FAILED(hr))
-                    {
-                        MessageBox.Show(this,
-                            $"WslRegisterDistribution failed - HRESULT: 0x{hr:X8}, Reason: {new Win32Exception(hr).Message}",
-                            this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                        return;
-                    }
+                    var newExecPath = Path.Combine(cloneDistroForm.DistroInstallPath, cloneDistroForm.NewDistroName + ".exe");
+                    var newConfPath = Path.Combine(cloneDistroForm.DistroInstallPath, cloneDistroForm.NewDistroName + ".exe.config");
+                    File.Copy(Path.GetFullPath("DistroLauncher.exe"), newExecPath, true);
+                    File.Copy(Path.GetFullPath("DistroLauncher.exe.config"), newConfPath, true);
 
-                    // launch new distro
-                    distro.LaunchInteractive("/bin/bash", false, out int exitCode);
-                    if (NativeMethods.FAILED(hr))
-                    {
-                        MessageBox.Show(this,
-                            $"WslLaunchInteractive failed - HRESULT: 0x{hr:X8}, Reason: {new Win32Exception(hr).Message}",
-                            this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-                        return;
-                    }
+                    XmlDocument document = new XmlDocument();
+                    document.Load(newConfPath);
+                    document.DocumentElement.SelectSingleNode("appSettings/add[@key='DistroName']/@value").Value = cloneDistroForm.NewDistroName;
+                    document.DocumentElement.SelectSingleNode("appSettings/add[@key='DistroDisplayName']/@value").Value = cloneDistroForm.NewDistroName;
+                    document.Save(newConfPath);
+
+                    ProcessStartInfo psi = new ProcessStartInfo(newExecPath);
+                    psi.Verb = "runas";
+                    Process.Start(psi);
                 }
             }
         }
