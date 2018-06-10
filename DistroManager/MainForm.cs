@@ -27,14 +27,10 @@ namespace DistroManager
                 NativeMethods.SendMessage(cloneButton.Handle, NativeMethods.BCM_SETSHIELD, 0, 1);
                 NativeMethods.SendMessage(setDefaultButton.Handle, NativeMethods.BCM_SETSHIELD, 0, 1);
                 NativeMethods.SendMessage(removeButton.Handle, NativeMethods.BCM_SETSHIELD, 0, 1);
+                NativeMethods.SendMessage(installButton.Handle, NativeMethods.BCM_SETSHIELD, 0, 1);
             }
 
             this.refreshButton.PerformClick();
-        }
-
-        private void distroInfoBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-            this.propertyGrid.SelectedObject = this.distroInfoBindingSource.Current;
         }
 
         private void refreshButton_Click(object sender, EventArgs e)
@@ -263,6 +259,9 @@ namespace DistroManager
 
         private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0)
+                return;
+
             var distroInfo = this.dataGridView.Rows[e.RowIndex].DataBoundItem as DistroInfo;
 
             if (distroInfo == null)
@@ -280,6 +279,11 @@ namespace DistroManager
                     return;
                 }
             }
+        }
+
+        private void installButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
