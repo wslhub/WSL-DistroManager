@@ -57,10 +57,17 @@ namespace DistroManager
 
             if (!Directory.Exists(this.distroInstallPath.Text))
             {
-                MessageBox.Show(this, "Please check the install path. Selected path is not an existing directory.", this.Text,
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
-                this.distroInstallPath.Focus();
-                return;
+                var response = MessageBox.Show(this, "Selected directory is not existing. Create the directory now?", this.Text,
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+                if (response != DialogResult.Yes)
+                {
+                    this.distroInstallPath.Focus();
+                    return;
+                }
+                else
+                {
+                    Directory.CreateDirectory(this.distroInstallPath.Text);
+                }
             }
 
             if (!File.Exists(this.installSourcePath.Text))
