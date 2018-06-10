@@ -177,6 +177,19 @@ namespace DistroManager
             if (distroInfo == null)
                 return;
 
+            string backupFilePath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                $@"DistroManager\Temp\{Guid.NewGuid().ToString("N")}.tar.gz");
+
+            if (!Directory.Exists(Path.GetDirectoryName(backupFilePath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(backupFilePath));
+
+            string translatedPath = "/mnt/" + Regex.Replace(
+	            backupFilePath,
+	            @"(?<DriveLetter>[a-zA-Z])\:\\",
+	            m => m.Groups["DriveLetter"].Value.ToLowerInvariant() + "/")
+	            .Replace('\\', '/');
+
             using (var cloneDistroForm = new CloneDistroForm())
             {
                 cloneDistroForm.ExistingDistroName = distroInfo.DistributionName;
@@ -184,11 +197,64 @@ namespace DistroManager
                 if (cloneDistroForm.ShowDialog(this) != DialogResult.OK)
                     return;
 
-                // TODO: backup existing distro
+                // Backup existing distro
+                using (var distro = new Distro(distroInfo.DistributionName))
+                {
+                    int hr = distro.LaunchInteractive("cd / && " +
+                        "sudo tar -cvpzf /backup.tar.gz --exclude=/backup.tar.gz --one-file-system / && " +
+                        $"sudo mv /backup.tar.gz {translatedPath}",
+                        false, out int exitCode);
 
-                // TODO: install new distro
+                    if (NativeMethods.FAILED(hr))
+                    {
+                        MessageBox.Show(this,
+                            $"WslLaunchInteractive failed - HRESULT: 0x{hr:X8}, Reason: {new Win32Exception(hr).Message}",
+                            this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                        return;
+                    }
 
-                // TODO: launch new distro
+                    if (exitCode != 0)
+                    {
+                        MessageBox.Show(this,
+                            $"Backup procedure failed. Exit Code: {exitCode}",
+                            this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                        return;
+                    }
+
+                    if (!File.Exists(backupFilePath))
+                    {
+                        MessageBox.Show(this,
+                            $"Backup file does not created at `{backupFilePath}`.",
+                            this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                        return;
+                    }
+                }
+
+                // Install new distro
+                using (var distro = new Distro(cloneDistroForm.NewDistroName))
+                {
+                    var newPath = Path.Combine(cloneDistroForm.DistroInstallPath, Path.GetFileName(backupFilePath));
+                    File.Move(backupFilePath, newPath);
+
+                    int hr = distro.RegisterDistro(newPath);
+                    if (NativeMethods.FAILED(hr))
+                    {
+                        MessageBox.Show(this,
+                            $"WslRegisterDistribution failed - HRESULT: 0x{hr:X8}, Reason: {new Win32Exception(hr).Message}",
+                            this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                        return;
+                    }
+
+                    // launch new distro
+                    distro.LaunchInteractive("/bin/bash", false, out int exitCode);
+                    if (NativeMethods.FAILED(hr))
+                    {
+                        MessageBox.Show(this,
+                            $"WslLaunchInteractive failed - HRESULT: 0x{hr:X8}, Reason: {new Win32Exception(hr).Message}",
+                            this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                        return;
+                    }
+                }
             }
         }
     }
