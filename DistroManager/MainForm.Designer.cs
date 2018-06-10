@@ -32,6 +32,7 @@ namespace DistroManager
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl = new System.Windows.Forms.TabControl();
             this.distroManagementTab = new System.Windows.Forms.TabPage();
+            this.cloneButton = new System.Windows.Forms.Button();
             this.backupButton = new System.Windows.Forms.Button();
             this.setDefaultButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
@@ -39,10 +40,6 @@ namespace DistroManager
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.installDistroListLabel = new System.Windows.Forms.Label();
-            this.installNewDistroTab = new System.Windows.Forms.TabPage();
-            this.aboutTab = new System.Windows.Forms.TabPage();
-            this.cloneButton = new System.Windows.Forms.Button();
             this.basePathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.defaultEnvironmentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.defaultUidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,6 +49,10 @@ namespace DistroManager
             this.stateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.versionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.distroInfoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.installDistroListLabel = new System.Windows.Forms.Label();
+            this.installNewDistroTab = new System.Windows.Forms.TabPage();
+            this.aboutTab = new System.Windows.Forms.TabPage();
+            this.createBackupDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControl.SuspendLayout();
             this.distroManagementTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
@@ -92,6 +93,18 @@ namespace DistroManager
             this.distroManagementTab.TabIndex = 0;
             this.distroManagementTab.Text = "Distro Management";
             this.distroManagementTab.UseVisualStyleBackColor = true;
+            // 
+            // cloneButton
+            // 
+            this.cloneButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cloneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cloneButton.Location = new System.Drawing.Point(250, 352);
+            this.cloneButton.Name = "cloneButton";
+            this.cloneButton.Size = new System.Drawing.Size(75, 23);
+            this.cloneButton.TabIndex = 3;
+            this.cloneButton.Text = "&Clone";
+            this.cloneButton.UseVisualStyleBackColor = true;
+            this.cloneButton.Click += new System.EventHandler(this.cloneButton_Click);
             // 
             // backupButton
             // 
@@ -193,47 +206,6 @@ namespace DistroManager
             this.dataGridView.Size = new System.Drawing.Size(362, 317);
             this.dataGridView.TabIndex = 0;
             // 
-            // installDistroListLabel
-            // 
-            this.installDistroListLabel.AutoSize = true;
-            this.installDistroListLabel.Location = new System.Drawing.Point(17, 13);
-            this.installDistroListLabel.Name = "installDistroListLabel";
-            this.installDistroListLabel.Size = new System.Drawing.Size(95, 13);
-            this.installDistroListLabel.TabIndex = 0;
-            this.installDistroListLabel.Text = "Installed distro list: ";
-            // 
-            // installNewDistroTab
-            // 
-            this.installNewDistroTab.Location = new System.Drawing.Point(4, 22);
-            this.installNewDistroTab.Name = "installNewDistroTab";
-            this.installNewDistroTab.Padding = new System.Windows.Forms.Padding(3);
-            this.installNewDistroTab.Size = new System.Drawing.Size(592, 391);
-            this.installNewDistroTab.TabIndex = 1;
-            this.installNewDistroTab.Text = "Install New Distro";
-            this.installNewDistroTab.UseVisualStyleBackColor = true;
-            // 
-            // aboutTab
-            // 
-            this.aboutTab.Location = new System.Drawing.Point(4, 22);
-            this.aboutTab.Name = "aboutTab";
-            this.aboutTab.Padding = new System.Windows.Forms.Padding(3);
-            this.aboutTab.Size = new System.Drawing.Size(592, 391);
-            this.aboutTab.TabIndex = 2;
-            this.aboutTab.Text = "About";
-            this.aboutTab.UseVisualStyleBackColor = true;
-            // 
-            // cloneButton
-            // 
-            this.cloneButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.cloneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cloneButton.Location = new System.Drawing.Point(250, 352);
-            this.cloneButton.Name = "cloneButton";
-            this.cloneButton.Size = new System.Drawing.Size(75, 23);
-            this.cloneButton.TabIndex = 3;
-            this.cloneButton.Text = "&Clone";
-            this.cloneButton.UseVisualStyleBackColor = true;
-            this.cloneButton.Click += new System.EventHandler(this.cloneButton_Click);
-            // 
             // basePathDataGridViewTextBoxColumn
             // 
             this.basePathDataGridViewTextBoxColumn.DataPropertyName = "BasePath";
@@ -295,6 +267,42 @@ namespace DistroManager
             this.distroInfoBindingSource.DataSource = typeof(DistroManager.DistroInfo);
             this.distroInfoBindingSource.CurrentChanged += new System.EventHandler(this.distroInfoBindingSource_CurrentChanged);
             // 
+            // installDistroListLabel
+            // 
+            this.installDistroListLabel.AutoSize = true;
+            this.installDistroListLabel.Location = new System.Drawing.Point(17, 13);
+            this.installDistroListLabel.Name = "installDistroListLabel";
+            this.installDistroListLabel.Size = new System.Drawing.Size(95, 13);
+            this.installDistroListLabel.TabIndex = 0;
+            this.installDistroListLabel.Text = "Installed distro list: ";
+            // 
+            // installNewDistroTab
+            // 
+            this.installNewDistroTab.Location = new System.Drawing.Point(4, 22);
+            this.installNewDistroTab.Name = "installNewDistroTab";
+            this.installNewDistroTab.Padding = new System.Windows.Forms.Padding(3);
+            this.installNewDistroTab.Size = new System.Drawing.Size(592, 391);
+            this.installNewDistroTab.TabIndex = 1;
+            this.installNewDistroTab.Text = "Install New Distro";
+            this.installNewDistroTab.UseVisualStyleBackColor = true;
+            // 
+            // aboutTab
+            // 
+            this.aboutTab.Location = new System.Drawing.Point(4, 22);
+            this.aboutTab.Name = "aboutTab";
+            this.aboutTab.Padding = new System.Windows.Forms.Padding(3);
+            this.aboutTab.Size = new System.Drawing.Size(592, 391);
+            this.aboutTab.TabIndex = 2;
+            this.aboutTab.Text = "About";
+            this.aboutTab.UseVisualStyleBackColor = true;
+            // 
+            // createBackupDialog
+            // 
+            this.createBackupDialog.DefaultExt = "tgz";
+            this.createBackupDialog.Filter = "Tarball Archive with GZIP|*.tgz;*.tar.gz";
+            this.createBackupDialog.SupportMultiDottedExtensions = true;
+            this.createBackupDialog.Title = "Save Distro Backup File As";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -344,5 +352,6 @@ namespace DistroManager
         private System.Windows.Forms.DataGridViewTextBoxColumn stateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn versionDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button cloneButton;
+        private System.Windows.Forms.SaveFileDialog createBackupDialog;
     }
 }

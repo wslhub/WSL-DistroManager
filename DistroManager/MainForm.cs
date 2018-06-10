@@ -1,7 +1,12 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace DistroManager
@@ -71,7 +76,56 @@ namespace DistroManager
 
         private void backupButton_Click(object sender, EventArgs e)
         {
+            var distroInfo = this.distroInfoBindingSource.Current as DistroInfo;
 
+            if (distroInfo == null)
+                return;
+            
+            if (this.createBackupDialog.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            string backupFilePath = Path.GetFullPath(createBackupDialog.FileName);
+            string translatedPath = "/mnt/" + Regex.Replace(
+	            backupFilePath,
+	            @"(?<DriveLetter>[a-zA-Z])\:\\",
+	            m => m.Groups["DriveLetter"].Value.ToLowerInvariant() + "/")
+	            .Replace('\\', '/');
+
+            using (var distro = new Distro(distroInfo.DistributionName))
+            {
+                int hr = distro.LaunchInteractive("cd / && " +
+                    "sudo tar -cvpzf /backup.tar.gz --exclude=/backup.tar.gz --one-file-system / && " +
+                    $"sudo mv /backup.tar.gz {translatedPath}",
+                    false, out int exitCode);
+
+                if (NativeMethods.FAILED(hr))
+                {
+                    MessageBox.Show(this,
+                        $"WslLaunchInteractive failed - HRESULT: 0x{hr:X8}, Reason: {new Win32Exception(hr).Message}",
+                        this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+
+                if (exitCode != 0)
+                {
+                    MessageBox.Show(this,
+                        $"Backup procedure failed. Exit Code: {exitCode}",
+                        this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+
+                if (!File.Exists(backupFilePath))
+                {
+                    MessageBox.Show(this,
+                        $"Backup file does not created at `{backupFilePath}`.",
+                        this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    return;
+                }
+
+                Process.Start(
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe"),
+                    String.Format(CultureInfo.InvariantCulture, "/select,\"{0}\"", backupFilePath));
+            }
         }
 
         private void setDefaultButton_Click(object sender, EventArgs e)
