@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace DistroManager
 {
@@ -15,10 +16,9 @@ namespace DistroManager
         public static readonly string ARG_RUN = "run";
         public static readonly string ARG_RUN_C = "-c";
 
-        [STAThread]
-        private static int Main(string[] arguments)
+        private static int OldMain(string[] arguments)
         {
-            using (Distro wslApi = new Distro(Configuration.DistroName))
+                        using (Distro wslApi = new Distro(Configuration.DistroName))
             {
                 var envList = new List<KeyValuePair<string, string>>();
                 var result = wslApi.GetDistroConfig(out int version, out int defaultUID, out NativeMethods.WSL_DISTRIBUTION_FLAGS flags, envList);
@@ -114,6 +114,21 @@ Variables:
                 }
 
                 return NativeMethods.SUCCEED(hr) ? (int)exitCode : 1;
+            }
+        }
+
+        [STAThread]
+        private static int Main(string[] arguments)
+        {
+            Application.OleRequired();
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            using (var mainForm = new MainForm())
+            {
+                var appContext = new ApplicationContext(mainForm);
+                Application.Run(appContext);
+                return Environment.ExitCode;
             }
         }
 
