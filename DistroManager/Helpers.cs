@@ -2,11 +2,14 @@ using DistroManager.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Principal;
+using System.Windows.Forms;
 
 namespace DistroManager
 {
@@ -42,6 +45,21 @@ namespace DistroManager
             WindowsIdentity wi = WindowsIdentity.GetCurrent();
             WindowsPrincipal wp = new WindowsPrincipal(wi);
             return wp.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        public static void ElevatePermission()
+        {
+            if (IsAdministrator()) return;
+            var args = Environment.GetCommandLineArgs();
+
+            var filePath = args.FirstOrDefault();
+            if (!File.Exists(filePath)) return;
+            var arguments = String.Join(" ", args.Skip(1).Select(x => $"\"{x}\""));
+
+            ProcessStartInfo startInfo = new ProcessStartInfo(filePath, arguments);
+            startInfo.Verb = "runas";
+            Process.Start(startInfo);
+            Environment.Exit(0);
         }
 
         public static IEnumerable<KeyValuePair<string, string>> ParseEnvironmentVariables(IEnumerable<string> expressions)

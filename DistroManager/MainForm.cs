@@ -130,17 +130,47 @@ namespace DistroManager
 
         private void setDefaultButton_Click(object sender, EventArgs e)
         {
+            if (!Helpers.IsAdministrator())
+            {
+                var response = MessageBox.Show(this,
+                    "This feature requires administrator privilege. Restart the application to elevate permission?",
+                    this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
+                if (response != DialogResult.Yes)
+                    return;
+
+                Helpers.ElevatePermission();
+            }
         }
 
         private void removeButton_Click(object sender, EventArgs e)
         {
+            if (!Helpers.IsAdministrator())
+            {
+                var response = MessageBox.Show(this,
+                    "This feature requires administrator privilege. Restart the application to elevate permission?",
+                    this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
+                if (response != DialogResult.Yes)
+                    return;
+
+                Helpers.ElevatePermission();
+            }
         }
 
         private void cloneButton_Click(object sender, EventArgs e)
         {
+            if (!Helpers.IsAdministrator())
+            {
+                var response = MessageBox.Show(this,
+                    "This feature requires administrator privilege. Restart the application to elevate permission?",
+                    this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
 
+                if (response != DialogResult.Yes)
+                    return;
+
+                Helpers.ElevatePermission();
+            }
         }
     }
 }
