@@ -42,6 +42,7 @@ namespace DistroManager
             this.installDistroListLabel = new System.Windows.Forms.Label();
             this.installNewDistroTab = new System.Windows.Forms.TabPage();
             this.aboutTab = new System.Windows.Forms.TabPage();
+            this.cloneButton = new System.Windows.Forms.Button();
             this.basePathDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.defaultEnvironmentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.defaultUidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -77,6 +78,7 @@ namespace DistroManager
             // 
             // distroManagementTab
             // 
+            this.distroManagementTab.Controls.Add(this.cloneButton);
             this.distroManagementTab.Controls.Add(this.backupButton);
             this.distroManagementTab.Controls.Add(this.setDefaultButton);
             this.distroManagementTab.Controls.Add(this.removeButton);
@@ -94,10 +96,11 @@ namespace DistroManager
             // backupButton
             // 
             this.backupButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.backupButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.backupButton.Location = new System.Drawing.Point(331, 352);
             this.backupButton.Name = "backupButton";
             this.backupButton.Size = new System.Drawing.Size(75, 23);
-            this.backupButton.TabIndex = 2;
+            this.backupButton.TabIndex = 4;
             this.backupButton.Text = "&Backup";
             this.backupButton.UseVisualStyleBackColor = true;
             this.backupButton.Click += new System.EventHandler(this.backupButton_Click);
@@ -105,10 +108,11 @@ namespace DistroManager
             // setDefaultButton
             // 
             this.setDefaultButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.setDefaultButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.setDefaultButton.Location = new System.Drawing.Point(412, 352);
             this.setDefaultButton.Name = "setDefaultButton";
             this.setDefaultButton.Size = new System.Drawing.Size(75, 23);
-            this.setDefaultButton.TabIndex = 2;
+            this.setDefaultButton.TabIndex = 5;
             this.setDefaultButton.Text = "&Set Default";
             this.setDefaultButton.UseVisualStyleBackColor = true;
             this.setDefaultButton.Click += new System.EventHandler(this.setDefaultButton_Click);
@@ -116,10 +120,11 @@ namespace DistroManager
             // removeButton
             // 
             this.removeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.removeButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.removeButton.Location = new System.Drawing.Point(493, 352);
             this.removeButton.Name = "removeButton";
             this.removeButton.Size = new System.Drawing.Size(75, 23);
-            this.removeButton.TabIndex = 2;
+            this.removeButton.TabIndex = 6;
             this.removeButton.Text = "&Remove";
             this.removeButton.UseVisualStyleBackColor = true;
             this.removeButton.Click += new System.EventHandler(this.removeButton_Click);
@@ -127,6 +132,7 @@ namespace DistroManager
             // refreshButton
             // 
             this.refreshButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.refreshButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.refreshButton.Location = new System.Drawing.Point(20, 352);
             this.refreshButton.Name = "refreshButton";
             this.refreshButton.Size = new System.Drawing.Size(75, 23);
@@ -215,6 +221,18 @@ namespace DistroManager
             this.aboutTab.TabIndex = 2;
             this.aboutTab.Text = "About";
             this.aboutTab.UseVisualStyleBackColor = true;
+            // 
+            // cloneButton
+            // 
+            this.cloneButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.cloneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cloneButton.Location = new System.Drawing.Point(250, 352);
+            this.cloneButton.Name = "cloneButton";
+            this.cloneButton.Size = new System.Drawing.Size(75, 23);
+            this.cloneButton.TabIndex = 3;
+            this.cloneButton.Text = "&Clone";
+            this.cloneButton.UseVisualStyleBackColor = true;
+            this.cloneButton.Click += new System.EventHandler(this.cloneButton_Click);
             // 
             // basePathDataGridViewTextBoxColumn
             // 
@@ -325,5 +343,6 @@ namespace DistroManager
         private System.Windows.Forms.DataGridViewTextBoxColumn kernelCommandLineDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn stateDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn versionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button cloneButton;
     }
 }

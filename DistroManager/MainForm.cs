@@ -16,6 +16,13 @@ namespace DistroManager
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            if (!Helpers.IsAdministrator())
+            {
+                NativeMethods.SendMessage(cloneButton.Handle, NativeMethods.BCM_SETSHIELD, 0, 1);
+                NativeMethods.SendMessage(setDefaultButton.Handle, NativeMethods.BCM_SETSHIELD, 0, 1);
+                NativeMethods.SendMessage(removeButton.Handle, NativeMethods.BCM_SETSHIELD, 0, 1);
+            }
+
             this.refreshButton.PerformClick();
         }
 
@@ -26,7 +33,8 @@ namespace DistroManager
 
         private void refreshButton_Click(object sender, EventArgs e)
         {
-            var distroList = new List<DistroInfo>();
+            var distroList = this.distroInfoBindingSource.DataSource as List<DistroInfo> ?? new List<DistroInfo>();
+            distroList.Clear();
 
             using (var lxssKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss", false))
             {
@@ -72,6 +80,11 @@ namespace DistroManager
         }
 
         private void removeButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cloneButton_Click(object sender, EventArgs e)
         {
 
         }

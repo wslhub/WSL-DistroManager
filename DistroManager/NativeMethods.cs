@@ -31,6 +31,8 @@ namespace DistroManager
 
         public static readonly int LOAD_LIBRARY_SEARCH_SYSTEM32 = 0x00000800;
 
+        public static readonly int BCM_SETSHIELD = 0x160C;
+
         [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool CreatePipe(ref IntPtr hReadPipe, ref IntPtr hWritePipe, IntPtr lpPipeAttributes, int nSize);
@@ -81,6 +83,9 @@ namespace DistroManager
         [DllImport("kernel32.dll", EntryPoint = "FreeLibrary", ExactSpelling = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FreeLibrary(IntPtr hModule);
+
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
 
         [StructLayout(LayoutKind.Sequential)]
         internal struct SECURITY_ATTRIBUTES
