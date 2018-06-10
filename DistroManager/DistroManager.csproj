@@ -56,6 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CloneDistroForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CloneDistroForm.Designer.cs">
+      <DependentUpon>CloneDistroForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Configuration.cs" />
     <Compile Include="DistroHelper.cs" />
     <Compile Include="DistroInfo.cs" />
@@ -88,6 +94,9 @@
     <None Include="Properties\DataSources\DistroInfo.datasource" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CloneDistroForm.resx">
+      <DependentUpon>CloneDistroForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

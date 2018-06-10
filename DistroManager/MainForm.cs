@@ -171,6 +171,25 @@ namespace DistroManager
 
                 Helpers.ElevatePermission();
             }
+
+            var distroInfo = this.distroInfoBindingSource.Current as DistroInfo;
+
+            if (distroInfo == null)
+                return;
+
+            using (var cloneDistroForm = new CloneDistroForm())
+            {
+                cloneDistroForm.ExistingDistroName = distroInfo.DistributionName;
+
+                if (cloneDistroForm.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                // TODO: backup existing distro
+
+                // TODO: install new distro
+
+                // TODO: launch new distro
+            }
         }
     }
 }
