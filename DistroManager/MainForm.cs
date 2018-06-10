@@ -283,7 +283,32 @@ namespace DistroManager
 
         private void installButton_Click(object sender, EventArgs e)
         {
+            using (var installDistroForm = new InstallDistroForm())
+            {
+                if (installDistroForm.ShowDialog(this) != DialogResult.OK)
+                    return;
 
+                using (var distro = new Distro(installDistroForm.NewDistroName))
+                {
+                    var newPath = Path.Combine(installDistroForm.DistroInstallPath, "install.tar.gz");
+                    File.Copy(installDistroForm.InstallSourcePath, newPath, true);
+
+                    var newExecPath = Path.Combine(installDistroForm.DistroInstallPath, installDistroForm.NewDistroName + ".exe");
+                    var newConfPath = Path.Combine(installDistroForm.DistroInstallPath, installDistroForm.NewDistroName + ".exe.config");
+                    File.Copy(Path.GetFullPath("DistroLauncher.exe"), newExecPath, true);
+                    File.Copy(Path.GetFullPath("DistroLauncher.exe.config"), newConfPath, true);
+
+                    XmlDocument document = new XmlDocument();
+                    document.Load(newConfPath);
+                    document.DocumentElement.SelectSingleNode("appSettings/add[@key='DistroName']/@value").Value = installDistroForm.NewDistroName;
+                    document.DocumentElement.SelectSingleNode("appSettings/add[@key='DistroDisplayName']/@value").Value = installDistroForm.NewDistroName;
+                    document.Save(newConfPath);
+
+                    ProcessStartInfo psi = new ProcessStartInfo(newExecPath);
+                    psi.Verb = "runas";
+                    Process.Start(psi);
+                }
+            }
         }
     }
 }
