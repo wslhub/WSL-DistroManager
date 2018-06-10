@@ -5,14 +5,8 @@ using System.Text;
 
 namespace DistroManager
 {
-    internal class DistributionInfo
+    internal static class DistroHelper
     {
-        public static readonly string Name = ConfigurationManager.AppSettings["DistroName"];
-
-        public static readonly string WindowTitle = ConfigurationManager.AppSettings["DistroDisplayName"];
-
-        public static readonly string FileName = ConfigurationManager.AppSettings["DistroFileName"];
-
         public static bool CreateUser(Distro wslApi, string userName)
         {
             string commandLine = $"/usr/sbin/adduser --quiet --gecos '' {userName}";

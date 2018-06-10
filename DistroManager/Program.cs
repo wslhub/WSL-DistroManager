@@ -18,18 +18,18 @@ namespace DistroManager
         [STAThread]
         private static int Main(string[] arguments)
         {
-            using (Distro wslApi = new Distro(DistributionInfo.Name))
+            using (Distro wslApi = new Distro(Configuration.DistroName))
             {
                 var envList = new List<KeyValuePair<string, string>>();
                 var result = wslApi.GetDistroConfig(out int version, out int defaultUID, out NativeMethods.WSL_DISTRIBUTION_FLAGS flags, envList);
-                Console.Out.WriteLine($@"Distro Name: {DistributionInfo.Name}
+                Console.Out.WriteLine($@"Distro Name: {Configuration.DistroName}
 Version: {version}
 Default UID: 0x{defaultUID:X8}
 Flags: {flags}
 Variables:
 {String.Join(Environment.NewLine, envList.Select(x => "* " + x.Key + "=" + x.Value))}
 ");
-                NativeMethods.SetConsoleTitleW(DistributionInfo.WindowTitle);
+                NativeMethods.SetConsoleTitleW(Configuration.DistroDisplayName);
 
                 int exitCode = 1;
                 if (!wslApi.IsOptionalComponentInstalled)
@@ -47,7 +47,7 @@ Variables:
                 if (!wslApi.IsDistributionRegistered)
                 {
                     bool useRoot = (installOnly && arguments.Length > 1 && arguments[1] == ARG_INSTALL_ROOT);
-                    hr = InstallDistribution(wslApi, !useRoot, DistributionInfo.FileName);
+                    hr = InstallDistribution(wslApi, !useRoot, Configuration.DistroInstallFilePath);
 
                     if (NativeMethods.FAILED(hr))
                     {
@@ -142,7 +142,7 @@ Variables:
                 {
                     userName = Helpers.GetUserInput(Resources.MSG_ENTER_USERNAME);
                 }
-                while (!DistributionInfo.CreateUser(wslApi, userName));
+                while (!DistroHelper.CreateUser(wslApi, userName));
 
                 hr = SetDefaultUser(wslApi, userName);
                 if (NativeMethods.FAILED(hr))
@@ -154,7 +154,7 @@ Variables:
 
         public static int SetDefaultUser(Distro wslApi, string userName)
         {
-            int uid = DistributionInfo.QueryUid(wslApi, userName);
+            int uid = DistroHelper.QueryUid(wslApi, userName);
             if (uid == NativeMethods.UID_INVALID)
             {
                 return NativeMethods.E_INVALIDARG;
