@@ -378,6 +378,8 @@ namespace WslManager
             MessageBox.Show(this,
                 @"WslManager
 (c) 2019 rkttu.com, All rights reserved.
+
+Web Site: https://www.github.com/rkttu/WSL-DistroManager
 Icons: https://www.icons8.com",
                 Text, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
@@ -420,6 +422,58 @@ Icons: https://www.icons8.com",
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void ViewModeToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem eachItem in viewModeToolStripMenuItem.DropDownItems)
+                eachItem.Checked = false;
+
+            switch (DistroListView.View)
+            {
+                case View.LargeIcon:
+                    largeIconToolStripMenuItem1.Checked = true;
+                    break;
+                case View.Details:
+                    detailsToolStripMenuItem1.Checked = true;
+                    break;
+                case View.List:
+                    listToolStripMenuItem1.Checked = true;
+                    break;
+                case View.Tile:
+                    tileToolStripMenuItem1.Checked = true;
+                    break;
+                case View.SmallIcon:
+                    smallIconsToolStripMenuItem1.Checked = true;
+                    break;
+            }
+        }
+
+        private void LargeIconToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DistroListView.View = View.LargeIcon;
+        }
+
+        private void TileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DistroListView.View = View.Tile;
+        }
+
+        private void SmallIconsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DistroListView.View = View.SmallIcon;
+        }
+
+        private void ListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DistroListView.View = View.List;
+        }
+
+        private void DetailsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DistroListView.View = View.Details;
+            DistroListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            DistroListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
     }
 }
