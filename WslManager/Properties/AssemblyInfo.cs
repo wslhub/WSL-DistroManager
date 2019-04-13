@@ -1,17 +1,20 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // 어셈블리에 대한 일반 정보는 다음 특성 집합을 통해 
 // 제어됩니다. 어셈블리와 관련된 정보를 수정하려면
 // 이러한 특성 값을 변경하세요.
-[assembly: AssemblyTitle("WslManager")]
-[assembly: AssemblyDescription("")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("WslManager")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTitle("Windows Subsystem for Linux Distro Manager")]
+[assembly: AssemblyDescription("This program helps you manage Linux packages for Windows Subsystem for Linux.")]
+#if DEBUG
+[assembly: AssemblyConfiguration("DEBUG")]
+#else
+[assembly: AssemblyConfiguration("RELEASE")]
+#endif
+[assembly: AssemblyCompany("rkttu.com")]
+[assembly: AssemblyProduct("Windows Subsystem for Linux Distro Manager")]
+[assembly: AssemblyCopyright("Copyright (c) 2019 rkttu.com, All rights reserved.")]
+[assembly: AssemblyTrademark("rkttu.com")]
 [assembly: AssemblyCulture("")]
 
 // ComVisible을 false로 설정하면 이 어셈블리의 형식이 COM 구성 요소에 

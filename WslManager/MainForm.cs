@@ -266,8 +266,14 @@ namespace WslManager
             if (e.Button != MouseButtons.Right)
                 return;
 
-            if (realSender.FocusedItem != null &&
-                !realSender.FocusedItem.Bounds.Contains(e.Location))
+            var focusedItem = realSender.FocusedItem;
+            if (focusedItem == null)
+            {
+                DefaultContextMenuStrip.Show(Cursor.Position);
+                return;
+            }
+
+            if (!focusedItem.Bounds.Contains(e.Location))
             {
                 DefaultContextMenuStrip.Show(Cursor.Position);
                 return;
@@ -376,12 +382,13 @@ namespace WslManager
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show(this,
-                @"WslManager
+                $@"{ProductName} {ProductVersion}
 (c) 2019 rkttu.com, All rights reserved.
 
 Web Site: https://www.github.com/rkttu/WSL-DistroManager
 Icons: https://www.icons8.com",
-                Text, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+                $"About {Text}",
+                MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
 
         private void Ubuntu1804ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -424,9 +431,9 @@ Icons: https://www.icons8.com",
             Close();
         }
 
-        private void ViewModeToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        private void ViewModeToolStripMenuItem1_DropDownOpening(object sender, EventArgs e)
         {
-            foreach (ToolStripMenuItem eachItem in viewModeToolStripMenuItem.DropDownItems)
+            foreach (ToolStripMenuItem eachItem in viewModeToolStripMenuItem1.DropDownItems)
                 eachItem.Checked = false;
 
             switch (DistroListView.View)
@@ -474,6 +481,41 @@ Icons: https://www.icons8.com",
             DistroListView.View = View.Details;
             DistroListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             DistroListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+        }
+
+        private void ViewModeToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            foreach (ToolStripMenuItem eachItem in viewModeToolStripMenuItem.DropDownItems)
+                eachItem.Checked = false;
+
+            switch (DistroListView.View)
+            {
+                case View.LargeIcon:
+                    largeIconsToolStripMenuItem.Checked = true;
+                    break;
+                case View.Details:
+                    detailsToolStripMenuItem.Checked = true;
+                    break;
+                case View.List:
+                    listToolStripMenuItem.Checked = true;
+                    break;
+                case View.Tile:
+                    tileToolStripMenuItem.Checked = true;
+                    break;
+                case View.SmallIcon:
+                    smallIconsToolStripMenuItem.Checked = true;
+                    break;
+            }
+        }
+
+        private void DistroToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            openToolStripMenuItem1.Enabled =
+                exploreToolStripMenuItem1.Enabled =
+                exportDistroToolStripMenuItem1.Enabled =
+                unregisterDistroToolStripMenuItem1.Enabled =
+                terminateDistroToolStripMenuItem1.Enabled =
+                DistroListView.SelectedItems.Count > 0;
         }
     }
 }
