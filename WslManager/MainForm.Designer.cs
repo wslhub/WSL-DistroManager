@@ -99,6 +99,7 @@
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.AppxNameHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.DistroContextMenuStrip.SuspendLayout();
             this.DefaultContextMenuStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -108,7 +109,8 @@
             // 
             this.DistroListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.DistroNameHeader,
-            this.UniqueIdHeader});
+            this.UniqueIdHeader,
+            this.AppxNameHeader});
             this.DistroListView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DistroListView.FullRowSelect = true;
             this.DistroListView.HideSelection = false;
@@ -632,6 +634,10 @@
             this.AboutToolStripMenuItem.Text = "&About...";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
+            // AppxNameHeader
+            // 
+            this.AppxNameHeader.Text = "Store Package Name";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -725,6 +731,7 @@
         private System.Windows.Forms.ToolStripMenuItem detailsToolStripMenuItem;
         private System.Windows.Forms.ColumnHeader DistroNameHeader;
         private System.Windows.Forms.ColumnHeader UniqueIdHeader;
+        private System.Windows.Forms.ColumnHeader AppxNameHeader;
     }
 }
 

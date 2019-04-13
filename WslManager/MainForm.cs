@@ -48,7 +48,8 @@ namespace WslManager
                     using (var subReg = reg.OpenSubKey(eachSubKeyname))
                     {
                         string distroName = subReg.GetValue("DistributionName", null) as string;
-                        list.Add(new ListViewItem(new string[] { distroName, eachSubKeyname }, GetImageKey(distroName)));
+                        string packageFamilyName = subReg.GetValue("PackageFamilyName", null) as string;
+                        list.Add(new ListViewItem(new string[] { distroName, eachSubKeyname, packageFamilyName }, GetImageKey(distroName)));
                     }
                 }
             }
@@ -67,10 +68,11 @@ namespace WslManager
 
                 startInfo = new ProcessStartInfo(
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
-                    $@"-d {eachItem.Text}")
+                    $@"-d {eachItem.Text} {(openFolder ? "-- exit" : "")}")
                 {
                     UseShellExecute = false,
                     WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
+                    CreateNoWindow = openFolder,
                 };
 
                 var proc = Process.Start(startInfo);
@@ -84,12 +86,12 @@ namespace WslManager
                         UseShellExecute = false,
                     };
 
-                    Process.Start(startInfo);
+                    Process.Start(startInfo).WaitForExit();
                 }
             }
         }
 
-        private void ExportDistro(ListViewItem distroItem, string filePath, bool wait, bool revealAfterComplete)
+        private void ExportDistro(ListViewItem distroItem, string filePath, bool revealAfterComplete)
         {
             if (distroItem == null)
                 return;
@@ -105,26 +107,20 @@ namespace WslManager
             };
 
             var proc = Process.Start(startInfo);
+            proc.WaitForExit();
 
             if (revealAfterComplete)
             {
-                proc.EnableRaisingEvents = true;
-                proc.Exited += (_sender, _e) =>
+                var revealStartInfo = new ProcessStartInfo(
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe"),
+                    $@"/select,{filePath}")
                 {
-                    var revealStartInfo = new ProcessStartInfo(
-                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe"),
-                        $@"/select,{filePath}")
-                    {
-                        UseShellExecute = false,
-                        WorkingDirectory = Path.GetDirectoryName(filePath),
-                    };
-
-                    Process.Start(revealStartInfo);
+                    UseShellExecute = false,
+                    WorkingDirectory = Path.GetDirectoryName(filePath),
                 };
-            }
 
-            if (wait)
-                proc.WaitForExit();
+                Process.Start(revealStartInfo);
+            }
         }
 
         private void ImportDistro(string tarGzFilePath, string distroName, string installLocation)
@@ -318,7 +314,7 @@ namespace WslManager
             if (ExportDistroFileDialog.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            ExportDistro(item, ExportDistroFileDialog.FileName, false, true);
+            ExportDistro(item, ExportDistroFileDialog.FileName, true);
         }
 
         private void UnregisterDistroToolStripMenuItem_Click(object sender, EventArgs e)
