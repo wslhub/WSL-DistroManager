@@ -31,6 +31,9 @@ namespace WslManager
             if (eval.Contains("SLES") || eval.Contains("SUSE"))
                 return "suse";
 
+            if (eval.Contains("KALI"))
+                return "kali";
+
             return "linux";
         }
 

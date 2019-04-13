@@ -131,6 +131,7 @@
   <ItemGroup>
     <Content Include="App.ico" />
     <Content Include="Icons\debian.png" />
+    <Content Include="Icons\kali.png" />
     <Content Include="Icons\linux.png" />
     <Content Include="Icons\suse.png" />
     <Content Include="Icons\ubuntu.png" />
