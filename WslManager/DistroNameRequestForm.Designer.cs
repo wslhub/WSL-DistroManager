@@ -59,7 +59,7 @@
             this.DeclineButton.Location = new System.Drawing.Point(257, 76);
             this.DeclineButton.Name = "DeclineButton";
             this.DeclineButton.Size = new System.Drawing.Size(75, 23);
-            this.DeclineButton.TabIndex = 2;
+            this.DeclineButton.TabIndex = 3;
             this.DeclineButton.Text = "&Cancel";
             this.DeclineButton.UseVisualStyleBackColor = true;
             // 
