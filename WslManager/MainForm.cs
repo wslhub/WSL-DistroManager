@@ -15,28 +15,6 @@ namespace WslManager
             InitializeComponent();
         }
 
-        internal static string GetImageKey(string distroName)
-        {
-            if (string.IsNullOrWhiteSpace(distroName))
-                return "linux";
-
-            string eval = (distroName ?? string.Empty).ToUpperInvariant().Trim();
-
-            if (eval.Contains("DEBIAN"))
-                return "debian";
-
-            if (eval.Contains("UBUNTU"))
-                return "ubuntu";
-
-            if (eval.Contains("SLES") || eval.Contains("SUSE"))
-                return "suse";
-
-            if (eval.Contains("KALI"))
-                return "kali";
-
-            return "linux";
-        }
-
         internal static IEnumerable<ListViewItem> LoadDistroList()
         {
             var list = new List<ListViewItem>();
@@ -47,9 +25,7 @@ namespace WslManager
                 {
                     using (var subReg = reg.OpenSubKey(eachSubKeyname))
                     {
-                        string distroName = subReg.GetValue("DistributionName", null) as string;
-                        string packageFamilyName = subReg.GetValue("PackageFamilyName", null) as string;
-                        list.Add(new ListViewItem(new string[] { distroName, eachSubKeyname, packageFamilyName }, GetImageKey(distroName)));
+                        list.Add(new DistroListViewItem(subReg));
                     }
                 }
             }
@@ -62,13 +38,13 @@ namespace WslManager
             if (distroItems == null || distroItems.Count() < 1)
                 return;
 
-            foreach (ListViewItem eachItem in distroItems)
+            foreach (DistroListViewItem eachItem in distroItems)
             {
                 ProcessStartInfo startInfo;
 
                 startInfo = new ProcessStartInfo(
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
-                    $@"-d {eachItem.Text} {(openFolder ? "-- exit" : "")}")
+                    $@"-d {eachItem.DistroName} {(openFolder ? "-- exit" : "")}")
                 {
                     UseShellExecute = false,
                     WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
@@ -81,7 +57,7 @@ namespace WslManager
                 {
                     startInfo = new ProcessStartInfo(
                         Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe"),
-                        $@"\\wsl$\{eachItem.Text}")
+                        $@"\\wsl$\{eachItem.DistroName}")
                     {
                         UseShellExecute = false,
                     };
@@ -91,7 +67,7 @@ namespace WslManager
             }
         }
 
-        private void ExportDistro(ListViewItem distroItem, string filePath, bool revealAfterComplete)
+        private void ExportDistro(DistroListViewItem distroItem, string filePath, bool revealAfterComplete)
         {
             if (distroItem == null)
                 return;
@@ -100,7 +76,7 @@ namespace WslManager
 
             startInfo = new ProcessStartInfo(
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
-                $@"--export {distroItem.Text} {filePath}")
+                $@"--export {distroItem.DistroName} {filePath}")
             {
                 UseShellExecute = false,
                 WorkingDirectory = Path.GetDirectoryName(filePath),
@@ -152,7 +128,7 @@ namespace WslManager
             };
         }
 
-        private void TerminateDistro(ListViewItem distroItem)
+        private void TerminateDistro(DistroListViewItem distroItem)
         {
             if (distroItem == null)
                 return;
@@ -161,7 +137,7 @@ namespace WslManager
 
             startInfo = new ProcessStartInfo(
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
-                $@"-t {distroItem.Text}")
+                $@"-t {distroItem.DistroName}")
             {
                 UseShellExecute = false,
             };
@@ -170,7 +146,7 @@ namespace WslManager
             proc.WaitForExit();
         }
 
-        private void UnregisterDistro(ListViewItem distroItem)
+        private void UnregisterDistro(DistroListViewItem distroItem)
         {
             if (distroItem == null)
                 return;
@@ -179,7 +155,7 @@ namespace WslManager
 
             startInfo = new ProcessStartInfo(
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
-                $@"--unregister {distroItem.Text}")
+                $@"--unregister {distroItem.DistroName}")
             {
                 UseShellExecute = false,
             };
@@ -294,7 +270,7 @@ namespace WslManager
 
         private void ExportDistroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = DistroListView.SelectedItems.Cast<ListViewItem>().FirstOrDefault();
+            var item = DistroListView.SelectedItems.Cast<DistroListViewItem>().FirstOrDefault();
 
             if (item == null)
                 return;
@@ -309,7 +285,7 @@ namespace WslManager
             TerminateDistro(item);
 
             ExportDistroFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-            ExportDistroFileDialog.FileName = $"{item.Text}-export-{DateTime.Now:yyyy-MM-dd}.tar.gz";
+            ExportDistroFileDialog.FileName = $"{item.DistroName}-export-{DateTime.Now:yyyy-MM-dd}.tar.gz";
 
             if (ExportDistroFileDialog.ShowDialog(this) != DialogResult.OK)
                 return;
@@ -319,7 +295,7 @@ namespace WslManager
 
         private void UnregisterDistroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = DistroListView.SelectedItems.Cast<ListViewItem>().FirstOrDefault();
+            var item = DistroListView.SelectedItems.Cast<DistroListViewItem>().FirstOrDefault();
 
             if (item == null)
                 return;
@@ -338,7 +314,7 @@ namespace WslManager
 
         private void TerminateDistroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = DistroListView.SelectedItems.Cast<ListViewItem>().FirstOrDefault();
+            var item = DistroListView.SelectedItems.Cast<DistroListViewItem>().FirstOrDefault();
 
             if (item == null)
                 return;
