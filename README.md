@@ -26,7 +26,7 @@ This program helps you install and manage multiple versions of the same Linux di
 
 ## Distro manager as a Service
 
-Thanks to the import and export capabilities of WSL, you can now exchange tarball archive files. I'm considering creating a gallery service that will allow me to register and exchange the WSL system itself in the future.
+Thanks to the import and export capabilities of WSL, you can now exchange tarball archive files. I'm considering creating a gallery service that will allow you to register and exchange the WSL system itself in the future.
 
 ## License
 
