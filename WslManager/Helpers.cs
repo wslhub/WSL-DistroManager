@@ -35,6 +35,11 @@ namespace WslManager
             return GetImageKey(key?.GetValue("DistributionName", string.Empty) as string);
         }
 
+        public static string NormalizePath(string rawPath)
+        {
+            return Regex.Replace(rawPath ?? string.Empty, @"(^\\\\\?\\)", string.Empty, RegexOptions.Compiled);
+        }
+
         public static ListViewSubItem[] GetDistroProperties(RegistryKey key)
         {
             var properties = new List<ListViewSubItem>();
@@ -63,7 +68,7 @@ namespace WslManager
             properties.Add(new ListViewSubItem
             {
                 Name = nameof(DistroListViewItem.BasePath),
-                Text = Regex.Replace((string)key.GetValue("BasePath", ""), @"(^\\\\\?\\)", string.Empty, RegexOptions.Compiled),
+                Text = NormalizePath((string)key.GetValue("BasePath", "")),
             });
 
             return properties.ToArray();

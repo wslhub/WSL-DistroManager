@@ -220,6 +220,13 @@ namespace WslManager
 
         private void DistroListView_ItemActivate(object sender, EventArgs e)
         {
+            var altKeyPressed = ModifierKeys.HasFlag(Keys.Alt);
+            if (altKeyPressed)
+            {
+                propertiesToolStripMenuItem.PerformClick();
+                return;
+            }
+
             var shiftKeyPressed = ModifierKeys.HasFlag(Keys.Shift);
             LaunchWslDistro(shiftKeyPressed, DistroListView.SelectedItems.Cast<ListViewItem>());
         }
@@ -490,7 +497,22 @@ Icons: https://www.icons8.com",
                 exportDistroToolStripMenuItem1.Enabled =
                 unregisterDistroToolStripMenuItem1.Enabled =
                 terminateDistroToolStripMenuItem1.Enabled =
+                propertiesToolStripMenuItem1.Enabled =
                 DistroListView.SelectedItems.Count > 0;
+        }
+
+        private void PropertiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = DistroListView.SelectedItems.Cast<DistroListViewItem>().FirstOrDefault();
+
+            if (item == null)
+                return;
+
+            using (var propertiesDialog = new DistroPropertiesForm())
+            {
+                propertiesDialog.DistroName = item.DistroName;
+                propertiesDialog.ShowDialog(this);
+            }
         }
     }
 }

@@ -70,12 +70,16 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DictionaryPropertyDescriptor.cs" />
+    <Compile Include="DictionaryPropertyGridAdapter.cs" />
     <Compile Include="DistroListViewItem.cs" />
     <Compile Include="DistroNameRequestForm.cs">
       <SubType>Form</SubType>
@@ -97,9 +101,18 @@
     <Compile Include="DownloadDistroForm.Designer.cs">
       <DependentUpon>DownloadDistroForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DistroPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DistroPropertiesForm.Designer.cs">
+      <DependentUpon>DistroPropertiesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DistroNameRequestForm.resx">
       <DependentUpon>DistroNameRequestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DistroPropertiesForm.resx">
+      <DependentUpon>DistroPropertiesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
