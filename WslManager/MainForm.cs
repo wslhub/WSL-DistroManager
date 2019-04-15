@@ -216,6 +216,7 @@ namespace WslManager
             var items = LoadDistroList().ToArray();
             DistroListView.Items.Clear();
             DistroListView.Items.AddRange(items);
+            TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
         }
 
         private void DistroListView_ItemActivate(object sender, EventArgs e)
@@ -236,6 +237,7 @@ namespace WslManager
             var items = LoadDistroList().ToArray();
             DistroListView.Items.Clear();
             DistroListView.Items.AddRange(items);
+            TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
         }
 
         private void DistroListView_MouseUp(object sender, MouseEventArgs e)
@@ -513,6 +515,14 @@ Icons: https://www.icons8.com",
                 propertiesDialog.DistroName = item.DistroName;
                 propertiesDialog.ShowDialog(this);
             }
+        }
+
+        private void DistroListView_ItemSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
+        {
+            var count = DistroListView.SelectedItems.Count;
+            SelectedCountLabel.Text = count != 0 ?
+                $"{count} item{(count > 1 ? "s" : "")} selected." :
+                string.Empty;
         }
     }
 }
