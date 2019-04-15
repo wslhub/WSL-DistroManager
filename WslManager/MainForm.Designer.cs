@@ -103,7 +103,7 @@
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.StatusStrip = new System.Windows.Forms.StatusStrip();
             this.TotalCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.SelectedCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.createShortcutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -115,7 +115,7 @@
             this.DistroContextMenuStrip.SuspendLayout();
             this.DefaultContextMenuStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.StatusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // DistroListView
@@ -463,7 +463,7 @@
             this.toolStripSeparator1,
             this.fromMicrosoftStoreToolStripMenuItem1});
             this.newDistroToolStripMenuItem1.Name = "newDistroToolStripMenuItem1";
-            this.newDistroToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.newDistroToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.newDistroToolStripMenuItem1.Text = "&New Distro";
             // 
             // ubuntu1804ToolStripMenuItem1
@@ -523,71 +523,71 @@
             // openToolStripMenuItem1
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem1.Text = "&Open...";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // exploreToolStripMenuItem1
             // 
             this.exploreToolStripMenuItem1.Name = "exploreToolStripMenuItem1";
-            this.exploreToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.exploreToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.exploreToolStripMenuItem1.Text = "&Explore...";
             this.exploreToolStripMenuItem1.DisplayStyleChanged += new System.EventHandler(this.ExploreToolStripMenuItem_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(170, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(177, 6);
             // 
             // importDistroToolStripMenuItem1
             // 
             this.importDistroToolStripMenuItem1.Name = "importDistroToolStripMenuItem1";
-            this.importDistroToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.importDistroToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.importDistroToolStripMenuItem1.Text = "&Import Distro...";
             this.importDistroToolStripMenuItem1.Click += new System.EventHandler(this.ImportDistroToolStripMenuItem_Click);
             // 
             // exportDistroToolStripMenuItem1
             // 
             this.exportDistroToolStripMenuItem1.Name = "exportDistroToolStripMenuItem1";
-            this.exportDistroToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.exportDistroToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.exportDistroToolStripMenuItem1.Text = "E&xport Distro...";
             this.exportDistroToolStripMenuItem1.Click += new System.EventHandler(this.ExportDistroToolStripMenuItem_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(170, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(177, 6);
             // 
             // unregisterDistroToolStripMenuItem1
             // 
             this.unregisterDistroToolStripMenuItem1.Name = "unregisterDistroToolStripMenuItem1";
-            this.unregisterDistroToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.unregisterDistroToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.unregisterDistroToolStripMenuItem1.Text = "&Unregister Distro...";
             this.unregisterDistroToolStripMenuItem1.Click += new System.EventHandler(this.UnregisterDistroToolStripMenuItem_Click);
             // 
             // terminateDistroToolStripMenuItem1
             // 
             this.terminateDistroToolStripMenuItem1.Name = "terminateDistroToolStripMenuItem1";
-            this.terminateDistroToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.terminateDistroToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.terminateDistroToolStripMenuItem1.Text = "&Terminate Distro...";
             this.terminateDistroToolStripMenuItem1.Click += new System.EventHandler(this.TerminateDistroToolStripMenuItem_Click);
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(170, 6);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(177, 6);
             // 
             // propertiesToolStripMenuItem1
             // 
             this.propertiesToolStripMenuItem1.Name = "propertiesToolStripMenuItem1";
-            this.propertiesToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.propertiesToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.propertiesToolStripMenuItem1.Text = "&Properties...";
             this.propertiesToolStripMenuItem1.Click += new System.EventHandler(this.PropertiesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem13
             // 
             this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(170, 6);
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(177, 6);
             // 
             // closeToolStripMenuItem
             // 
@@ -615,7 +615,7 @@
             this.listToolStripMenuItem1,
             this.detailsToolStripMenuItem1});
             this.viewModeToolStripMenuItem1.Name = "viewModeToolStripMenuItem1";
-            this.viewModeToolStripMenuItem1.Size = new System.Drawing.Size(135, 22);
+            this.viewModeToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.viewModeToolStripMenuItem1.Text = "View &Mode";
             this.viewModeToolStripMenuItem1.DropDownOpening += new System.EventHandler(this.ViewModeToolStripMenuItem1_DropDownOpening);
             // 
@@ -657,13 +657,13 @@
             // toolStripMenuItem11
             // 
             this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(132, 6);
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(177, 6);
             // 
             // refreshToolStripMenuItem1
             // 
             this.refreshToolStripMenuItem1.Name = "refreshToolStripMenuItem1";
             this.refreshToolStripMenuItem1.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(135, 22);
+            this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.refreshToolStripMenuItem1.Text = "&Refresh";
             this.refreshToolStripMenuItem1.Click += new System.EventHandler(this.RefreshToolStripMenuItem_Click);
             // 
@@ -678,20 +678,20 @@
             // AboutToolStripMenuItem
             // 
             this.AboutToolStripMenuItem.Name = "AboutToolStripMenuItem";
-            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.AboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.AboutToolStripMenuItem.Text = "&About...";
             this.AboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
-            // statusStrip1
+            // StatusStrip
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TotalCountLabel,
             this.SelectedCountLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 328);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(624, 22);
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
+            this.StatusStrip.Location = new System.Drawing.Point(0, 328);
+            this.StatusStrip.Name = "StatusStrip";
+            this.StatusStrip.Size = new System.Drawing.Size(624, 22);
+            this.StatusStrip.TabIndex = 3;
+            this.StatusStrip.Text = "statusStrip1";
             // 
             // TotalCountLabel
             // 
@@ -747,7 +747,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(624, 350);
             this.Controls.Add(this.DistroListView);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.MainMenu);
             this.DoubleBuffered = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -759,8 +759,8 @@
             this.DefaultContextMenuStrip.ResumeLayout(false);
             this.MainMenu.ResumeLayout(false);
             this.MainMenu.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.StatusStrip.ResumeLayout(false);
+            this.StatusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -841,7 +841,7 @@
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem13;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip StatusStrip;
         private System.Windows.Forms.ToolStripStatusLabel TotalCountLabel;
         private System.Windows.Forms.ToolStripStatusLabel SelectedCountLabel;
         private System.Windows.Forms.ToolStripMenuItem createShortcutToolStripMenuItem;
