@@ -106,6 +106,12 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.TotalCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.SelectedCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.createShortcutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createShortcutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mapAsADriveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.mapAsADriveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
             this.DistroContextMenuStrip.SuspendLayout();
             this.DefaultContextMenuStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -166,6 +172,9 @@
             this.DistroContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.exploreToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.createShortcutToolStripMenuItem,
+            this.mapAsADriveToolStripMenuItem,
             this.toolStripMenuItem1,
             this.exportDistroToolStripMenuItem,
             this.toolStripMenuItem2,
@@ -174,7 +183,7 @@
             this.toolStripMenuItem12,
             this.propertiesToolStripMenuItem});
             this.DistroContextMenuStrip.Name = "DistroContextMenuStrip";
-            this.DistroContextMenuStrip.Size = new System.Drawing.Size(174, 154);
+            this.DistroContextMenuStrip.Size = new System.Drawing.Size(174, 204);
             // 
             // openToolStripMenuItem
             // 
@@ -424,6 +433,9 @@
             this.newDistroToolStripMenuItem1,
             this.openToolStripMenuItem1,
             this.exploreToolStripMenuItem1,
+            this.toolStripMenuItem9,
+            this.createShortcutToolStripMenuItem1,
+            this.mapAsADriveToolStripMenuItem1,
             this.toolStripMenuItem6,
             this.importDistroToolStripMenuItem1,
             this.exportDistroToolStripMenuItem1,
@@ -580,8 +592,8 @@
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
-            this.closeToolStripMenuItem.Text = "&Close";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Text = "E&xit";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
@@ -695,6 +707,40 @@
             this.SelectedCountLabel.Spring = true;
             this.SelectedCountLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // createShortcutToolStripMenuItem
+            // 
+            this.createShortcutToolStripMenuItem.Name = "createShortcutToolStripMenuItem";
+            this.createShortcutToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.createShortcutToolStripMenuItem.Text = "&Create Shortcut...";
+            // 
+            // createShortcutToolStripMenuItem1
+            // 
+            this.createShortcutToolStripMenuItem1.Name = "createShortcutToolStripMenuItem1";
+            this.createShortcutToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.createShortcutToolStripMenuItem1.Text = "&Create Shortcut...";
+            // 
+            // mapAsADriveToolStripMenuItem
+            // 
+            this.mapAsADriveToolStripMenuItem.Name = "mapAsADriveToolStripMenuItem";
+            this.mapAsADriveToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.mapAsADriveToolStripMenuItem.Text = "&Map as a drive...";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(170, 6);
+            // 
+            // mapAsADriveToolStripMenuItem1
+            // 
+            this.mapAsADriveToolStripMenuItem1.Name = "mapAsADriveToolStripMenuItem1";
+            this.mapAsADriveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.mapAsADriveToolStripMenuItem1.Text = "&Map as a drive...";
+            // 
+            // toolStripMenuItem9
+            // 
+            this.toolStripMenuItem9.Name = "toolStripMenuItem9";
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(177, 6);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -798,6 +844,12 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel TotalCountLabel;
         private System.Windows.Forms.ToolStripStatusLabel SelectedCountLabel;
+        private System.Windows.Forms.ToolStripMenuItem createShortcutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createShortcutToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem mapAsADriveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem9;
+        private System.Windows.Forms.ToolStripMenuItem mapAsADriveToolStripMenuItem1;
     }
 }
 
