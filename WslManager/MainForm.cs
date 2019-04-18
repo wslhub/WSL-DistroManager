@@ -67,6 +67,50 @@ namespace WslManager
             }
         }
 
+        private void LaunchHyper(IEnumerable<ListViewItem> distroItems)
+        {
+            string hyperConfigFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".hyper.js");
+            string tempHyperConfigFile = hyperConfigFile + ".tmp";
+            if (File.Exists(hyperConfigFile))
+            {
+                if (distroItems == null || distroItems.Count() < 1)
+                    return;
+
+                foreach (DistroListViewItem eachItem in distroItems)
+                {
+                    string distroExecutable = eachItem.DistroName + ".exe";
+
+                    StreamReader input = new StreamReader(hyperConfigFile);
+                    StreamWriter output = new StreamWriter(tempHyperConfigFile);
+                    string line;
+                    while (null != (line = input.ReadLine()))
+                    {
+                        if (line.StartsWith("    shell: "))
+                            output.WriteLine("    shell: '" + distroExecutable + "',");
+                        else
+                            output.WriteLine(line);
+                    }
+                    input.Close();
+                    output.Close();
+                    File.Delete(hyperConfigFile);
+                    File.Move(tempHyperConfigFile, hyperConfigFile);
+
+                    ProcessStartInfo startInfo;
+
+                    startInfo = new ProcessStartInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "hyper", "Hyper.exe"));
+
+                    var proc = Process.Start(startInfo);
+                }
+            }
+            if (!File.Exists(hyperConfigFile))
+            {
+                MessageBox.Show(this, "Hyper installation not found!\n" +
+                    "Hyper can be installed from: https://hyper.is", 
+                    "Error: Hyper not Installed",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            }
+        }
+
         private void ExportDistro(DistroListViewItem distroItem, string filePath, bool revealAfterComplete)
         {
             if (distroItem == null)
@@ -270,6 +314,11 @@ namespace WslManager
         {
             var shiftKeyPressed = ModifierKeys.HasFlag(Keys.Shift);
             LaunchWslDistro(shiftKeyPressed, DistroListView.SelectedItems.Cast<ListViewItem>());
+        }
+
+        private void HyperToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LaunchHyper(DistroListView.SelectedItems.Cast<ListViewItem>());
         }
 
         private void ExploreToolStripMenuItem_Click(object sender, EventArgs e)
@@ -501,6 +550,22 @@ Icons: https://www.icons8.com",
                 terminateDistroToolStripMenuItem1.Enabled =
                 propertiesToolStripMenuItem1.Enabled =
                 DistroListView.SelectedItems.Count > 0;
+            openWithToolStripMenuItem1.Enabled = DistroListView.SelectedItems.Count == 1;
+        }
+
+        private void DistroContextMenuStrip_Opening(object sender, EventArgs e)
+        {
+            openToolStripMenuItem.Enabled =
+                exploreToolStripMenuItem.Enabled =
+                toolStripMenuItem1.Enabled =
+                exportDistroToolStripMenuItem.Enabled =
+                toolStripMenuItem2.Enabled =
+                unregisterDistroToolStripMenuItem.Enabled =
+                terminateDistroToolStripMenuItem.Enabled =
+                toolStripMenuItem12.Enabled =
+                propertiesToolStripMenuItem.Enabled =
+                DistroListView.SelectedItems.Count > 0;
+            openWithToolStripMenuItem.Enabled = DistroListView.SelectedItems.Count == 1;
         }
 
         private void PropertiesToolStripMenuItem_Click(object sender, EventArgs e)
