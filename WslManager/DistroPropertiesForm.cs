@@ -45,7 +45,7 @@ namespace WslManager
                 return;
 
             DistroIcon.Image = ImageList.Images[Helpers.GetImageKey(DistroName)];
-            Location.Text = Helpers.NormalizePath((string)registryKey.GetValue("BasePath", ""));
+            DistroLocation.Text = Helpers.NormalizePath((string)registryKey.GetValue("BasePath", ""));
             State.Text = "0x" + ((int)registryKey.GetValue("State", 0)).ToString("X8");
             AppxName.Text = (string)registryKey.GetValue("PackageFamilyName", "");
 
@@ -56,7 +56,8 @@ namespace WslManager
                 dictionary.Add(eachName, registryKey.GetValue(eachName, null));
 
             DistroPropertyGrid.SelectedObject = new DictionaryPropertyGridAdapter(dictionary);
-            DistroSizeCalculator.RunWorkerAsync(Location.Text);
+            DistroSizeCalculator.RunWorkerAsync(DistroLocation.Text);
+            Text = $"{DistroName} Properties";
         }
 
         private void DistroSizeCalculator_DoWork(object sender, DoWorkEventArgs e)
@@ -95,24 +96,24 @@ namespace WslManager
 
         private void DistroSizeCalculator_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            Size.Text = $"(Calculating) {(long)e.UserState / 1024 / 1024} MiB";
+            DistroSize.Text = $"(Calculating) {(long)e.UserState / 1024 / 1024} MiB";
         }
 
         private void DistroSizeCalculator_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (e.Error != null)
             {
-                Size.Text = $"Unexpected Error Occurred: {e.Error.Message}";
+                DistroSize.Text = $"Unexpected Error Occurred: {e.Error.Message}";
                 return;
             }
 
             if (e.Cancelled)
             {
-                Size.Text = "Size calculation cancelled.";
+                DistroSize.Text = "Size calculation cancelled.";
                 return;
             }
 
-            Size.Text = $"{(long)e.Result / 1024 / 1024} MiB";
+            DistroSize.Text = $"{(long)e.Result / 1024 / 1024} MiB";
         }
 
         private void DistroPropertiesForm_FormClosed(object sender, FormClosedEventArgs e)
