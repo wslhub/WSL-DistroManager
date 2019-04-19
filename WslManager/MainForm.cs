@@ -209,6 +209,14 @@ namespace WslManager
                 return;
             }
 
+            if (!File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe")))
+            {
+                MessageBox.Show(this, "This program is only available when Windows Subsystem for Linux is enabled. Check the system settings.",
+                    Text, MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                Close();
+                return;
+            }
+
             var items = Helpers.LoadDistroList().ToArray();
             DistroListView.Items.Clear();
             DistroListView.Items.AddRange(items);
