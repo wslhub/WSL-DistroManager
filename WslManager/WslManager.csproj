@@ -88,6 +88,8 @@
       <DependentUpon>DistroNameRequestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers.cs" />
+    <Compile Include="ImagingHelper.cs" />
+    <Compile Include="IWshShortcut.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

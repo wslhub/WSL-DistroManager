@@ -1,9 +1,13 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace WslManager
@@ -13,6 +17,16 @@ namespace WslManager
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        private static Type wscriptShellType = Type.GetTypeFromProgID("WScript.Shell");
+        private static object shellObject = Activator.CreateInstance(wscriptShellType);
+
+        internal static string GetIconDirectoryPath()
+        {
+            return Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                "WslManagerIcons");
         }
 
         internal static IEnumerable<ListViewItem> LoadDistroList()
@@ -217,6 +231,9 @@ namespace WslManager
             DistroListView.Items.Clear();
             DistroListView.Items.AddRange(items);
             TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
+
+            if (!IconGenerator.IsBusy)
+                IconGenerator.RunWorkerAsync();
         }
 
         private void DistroListView_ItemActivate(object sender, EventArgs e)
@@ -523,6 +540,61 @@ Icons: https://www.icons8.com",
             SelectedCountLabel.Text = count != 0 ?
                 $"{count} item{(count > 1 ? "s" : "")} selected." :
                 string.Empty;
+        }
+
+        private void CreateShortcutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var selectedDistro = DistroListView.SelectedItems
+                .Cast<DistroListViewItem>()
+                .FirstOrDefault();
+
+            if (selectedDistro == null)
+                return;
+
+            ShortcutSaveFileDialog.FileName = $"{selectedDistro.Name}.lnk";
+            if (ShortcutSaveFileDialog.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            var targetFilePath = ShortcutSaveFileDialog.FileName;
+            var shortcut = (IWshShortcut)wscriptShellType.InvokeMember(
+                "CreateShortcut",
+                BindingFlags.InvokeMethod,
+                null, shellObject,
+                new object[] { targetFilePath });
+
+            shortcut.Description = selectedDistro.Name;
+            shortcut.TargetPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.System),
+                "wsl.exe");
+            shortcut.WorkingDirectory = Environment.GetFolderPath(
+                Environment.SpecialFolder.UserProfile);
+            shortcut.Arguments = $@"-d {selectedDistro.DistroName}";
+            shortcut.IconLocation = Path.Combine(
+                GetIconDirectoryPath(),
+                Helpers.GetImageKey(selectedDistro.DistroName) + ".ico");
+            shortcut.Save();
+        }
+
+        private void IconGenerator_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var targetDir = GetIconDirectoryPath();
+
+            if (File.Exists(targetDir))
+                File.Delete(targetDir);
+            
+            if (!Directory.Exists(targetDir))
+                Directory.CreateDirectory(targetDir);
+
+            foreach (var eachKey in ImageList.Images.Keys)
+            {
+                var targetPath = Path.Combine(targetDir, eachKey + ".ico");
+                var fileInfo = new FileInfo(targetPath);
+
+                if (fileInfo.Exists && fileInfo.Length > 0L)
+                    continue;
+
+                ImagingHelper.ConvertToIcon(ImageList.Images[eachKey], fileInfo.FullName);
+            }
         }
     }
 }
