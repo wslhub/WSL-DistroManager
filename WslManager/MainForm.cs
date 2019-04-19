@@ -29,24 +29,6 @@ namespace WslManager
                 "WslManagerIcons");
         }
 
-        internal static IEnumerable<ListViewItem> LoadDistroList()
-        {
-            var list = new List<ListViewItem>();
-
-            using (var reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss"))
-            {
-                foreach (var eachSubKeyname in reg.GetSubKeyNames())
-                {
-                    using (var subReg = reg.OpenSubKey(eachSubKeyname))
-                    {
-                        list.Add(new DistroListViewItem(subReg));
-                    }
-                }
-            }
-
-            return list;
-        }
-
         private void LaunchWslDistro(bool openFolder, IEnumerable<ListViewItem> distroItems)
         {
             if (distroItems == null || distroItems.Count() < 1)
@@ -227,7 +209,7 @@ namespace WslManager
                 return;
             }
 
-            var items = LoadDistroList().ToArray();
+            var items = Helpers.LoadDistroList().ToArray();
             DistroListView.Items.Clear();
             DistroListView.Items.AddRange(items);
             TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
@@ -251,7 +233,7 @@ namespace WslManager
 
         private void RefreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var items = LoadDistroList().ToArray();
+            var items = Helpers.LoadDistroList().ToArray();
             DistroListView.Items.Clear();
             DistroListView.Items.AddRange(items);
             TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
@@ -594,6 +576,21 @@ Icons: https://www.icons8.com",
                     continue;
 
                 ImagingHelper.ConvertToIcon(ImageList.Images[eachKey], fileInfo.FullName);
+            }
+        }
+
+        private void MapAsADriveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var selectedDistro = DistroListView.SelectedItems
+                .Cast<DistroListViewItem>()
+                .FirstOrDefault();
+
+            using (var dialog = new MapAsDriveForm())
+            {
+                if (selectedDistro != null)
+                    dialog.SelectedDistro = selectedDistro.DistroName;
+
+                dialog.ShowDialog(this);
             }
         }
     }

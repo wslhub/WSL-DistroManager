@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WslManager
@@ -36,7 +31,7 @@ namespace WslManager
 
             DistroName.Text = distroName;
 
-            var items = MainForm.LoadDistroList().ToArray();
+            var items = Helpers.LoadDistroList().ToArray();
 
             if (items.Where(x => string.Equals(x.Text, distroName, StringComparison.Ordinal)).Count() > 0)
             {

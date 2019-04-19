@@ -35,6 +35,11 @@ namespace WslManager
             set => SubItems[nameof(BasePath)].Text = value;
         }
 
+        public override string ToString()
+        {
+            return DistroName;
+        }
+
         protected DistroListViewItem(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
