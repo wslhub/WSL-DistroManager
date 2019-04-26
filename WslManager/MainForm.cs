@@ -31,6 +31,37 @@ namespace WslManager
                 "WslManagerIcons");
         }
 
+        private RegistryKey GetDistroRegistryKeyByDistroName(string distroName)
+        {
+            if (string.IsNullOrWhiteSpace(distroName))
+                return null;
+
+            var lxssKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss");
+
+            if (lxssKey == null)
+                return null;
+
+            using (lxssKey)
+            {
+                foreach (var eachName in lxssKey.GetSubKeyNames())
+                {
+                    var subKey = lxssKey.OpenSubKey(eachName, true);
+
+                    if (subKey == null)
+                        continue;
+
+                    var foundName = subKey.GetValue("DistributionName", string.Empty, RegistryValueOptions.DoNotExpandEnvironmentNames) as string;
+
+                    if (string.Equals(distroName, foundName, StringComparison.Ordinal))
+                        return subKey;
+
+                    subKey.Dispose();
+                }
+            }
+
+            return null;
+        }
+
         private void LaunchWslDistro(bool openFolder, IEnumerable<ListViewItem> distroItems)
         {
             if (distroItems == null || distroItems.Count() < 1)
@@ -141,6 +172,69 @@ namespace WslManager
             }
         }
 
+        private void InstallDistro(string tarGzFilePath, string distroName, string installLocation, string userId, string password)
+        {
+            ProcessStartInfo startInfo;
+
+            startInfo = new ProcessStartInfo(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
+                $@"--import {distroName} {installLocation} {tarGzFilePath}")
+            {
+                UseShellExecute = false,
+            };
+
+            var proc = Process.Start(startInfo);
+
+            proc.EnableRaisingEvents = true;
+            proc.Exited += (_sender, _e) =>
+            {
+                if (IsDisposed)
+                    return;
+
+                var distroKey = GetDistroRegistryKeyByDistroName(distroName);
+                if (distroKey == null)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        MessageBox.Show(this, "Distro installation seems failed.",
+                            Text, MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
+                    }), null);
+
+                    return;
+                }
+
+                // Add user account and fetch UID
+                startInfo = new ProcessStartInfo(
+                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
+                    $@"-d {distroName} -- useradd {userId} -m -p {password} && id -u {userId}")
+                {
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                };
+
+                proc = Process.Start(startInfo);
+                proc.EnableRaisingEvents = true;
+
+                var rawUid = proc.StandardOutput.ReadToEnd();
+                var uidFound = Int32.TryParse(rawUid, out int uid);
+                proc.WaitForExit();
+
+                if (uidFound)
+                    distroKey.SetValue("DefaultUid", uid, RegistryValueKind.DWord);
+
+                distroKey.Dispose();
+
+                if (InvokeRequired)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        refreshToolStripMenuItem.PerformClick();
+                    }));
+                }
+            };
+        }
+
         private void ImportDistro(string tarGzFilePath, string distroName, string installLocation)
         {
             ProcessStartInfo startInfo;
@@ -208,6 +302,21 @@ namespace WslManager
 
         private void InstallDistroFromUrl(string url)
         {
+            string userId, password;
+
+            using (var accountForm = new AccountCreateForm()
+            {
+                UsedAccountIdList = new string[] { "root", },
+                ExpectedPasswordScore = PasswordScore.Weak,
+            })
+            {
+                if (accountForm.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                userId = accountForm.AccountId;
+                password = accountForm.AccountPassword;
+            }
+
             using (var downloadForm = new DownloadDistroForm()
             {
                 DownloadUrl = url,
@@ -240,7 +349,7 @@ namespace WslManager
                     if (response != DialogResult.OK)
                         return;
 
-                    ImportDistro(downloadForm.LocalFilePath, dlg.SelectedDistroName, ImportLocationFolderDialog.SelectedPath);
+                    InstallDistro(downloadForm.LocalFilePath, dlg.SelectedDistroName, ImportLocationFolderDialog.SelectedPath, userId, password);
                 }
             }
         }

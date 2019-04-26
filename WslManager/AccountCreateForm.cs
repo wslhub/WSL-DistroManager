@@ -27,7 +27,7 @@ namespace WslManager
 
         private void AccountCreateForm_Load(object sender, EventArgs e)
         {
-
+            FormBorderStyle = FormBorderStyle.FixedDialog;
         }
 
         private void ConfirmButton_Click(object sender, EventArgs e)

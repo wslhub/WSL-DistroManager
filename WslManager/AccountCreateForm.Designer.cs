@@ -52,7 +52,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UserId.Location = new System.Drawing.Point(89, 13);
             this.UserId.Name = "UserId";
-            this.UserId.Size = new System.Drawing.Size(203, 21);
+            this.UserId.Size = new System.Drawing.Size(243, 21);
             this.UserId.TabIndex = 1;
             // 
             // PasswordLabel
@@ -71,7 +71,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Password.Location = new System.Drawing.Point(89, 40);
             this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(203, 21);
+            this.Password.Size = new System.Drawing.Size(243, 21);
             this.Password.TabIndex = 3;
             this.Password.UseSystemPasswordChar = true;
             // 
@@ -79,7 +79,7 @@
             // 
             this.DeclineButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.DeclineButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.DeclineButton.Location = new System.Drawing.Point(217, 76);
+            this.DeclineButton.Location = new System.Drawing.Point(257, 86);
             this.DeclineButton.Name = "DeclineButton";
             this.DeclineButton.Size = new System.Drawing.Size(75, 23);
             this.DeclineButton.TabIndex = 5;
@@ -89,7 +89,7 @@
             // ConfirmButton
             // 
             this.ConfirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ConfirmButton.Location = new System.Drawing.Point(136, 76);
+            this.ConfirmButton.Location = new System.Drawing.Point(176, 86);
             this.ConfirmButton.Name = "ConfirmButton";
             this.ConfirmButton.Size = new System.Drawing.Size(75, 23);
             this.ConfirmButton.TabIndex = 4;
@@ -100,10 +100,10 @@
             // AccountCreateForm
             // 
             this.AcceptButton = this.ConfirmButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.DeclineButton;
-            this.ClientSize = new System.Drawing.Size(304, 111);
+            this.ClientSize = new System.Drawing.Size(344, 121);
             this.ControlBox = false;
             this.Controls.Add(this.ConfirmButton);
             this.Controls.Add(this.DeclineButton);
@@ -112,7 +112,6 @@
             this.Controls.Add(this.PasswordLabel);
             this.Controls.Add(this.UserIdLabel);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AccountCreateForm";
