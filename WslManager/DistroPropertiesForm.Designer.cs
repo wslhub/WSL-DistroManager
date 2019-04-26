@@ -32,16 +32,16 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DistroPropertiesForm));
             this.DistroIcon = new System.Windows.Forms.PictureBox();
             this.DistroNameText = new System.Windows.Forms.TextBox();
-            this.LocationLabel = new System.Windows.Forms.Label();
-            this.SizeLabel = new System.Windows.Forms.Label();
+            this.DistroLocationLabel = new System.Windows.Forms.Label();
+            this.DistroSizeLabel = new System.Windows.Forms.Label();
             this.StateLabel = new System.Windows.Forms.Label();
             this.AppxNameLabel = new System.Windows.Forms.Label();
             this.DistroPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.ConfirmButton = new System.Windows.Forms.Button();
             this.AppxName = new System.Windows.Forms.Label();
             this.State = new System.Windows.Forms.Label();
-            this.Size = new System.Windows.Forms.Label();
-            this.Location = new System.Windows.Forms.Label();
+            this.DistroSize = new System.Windows.Forms.Label();
+            this.DistroLocation = new System.Windows.Forms.Label();
             this.DistroSizeCalculator = new System.ComponentModel.BackgroundWorker();
             this.ImageList = new System.Windows.Forms.ImageList(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DistroIcon)).BeginInit();
@@ -65,23 +65,23 @@
             this.DistroNameText.Size = new System.Drawing.Size(232, 21);
             this.DistroNameText.TabIndex = 0;
             // 
-            // LocationLabel
+            // DistroLocationLabel
             // 
-            this.LocationLabel.AutoSize = true;
-            this.LocationLabel.Location = new System.Drawing.Point(12, 85);
-            this.LocationLabel.Name = "LocationLabel";
-            this.LocationLabel.Size = new System.Drawing.Size(61, 12);
-            this.LocationLabel.TabIndex = 1;
-            this.LocationLabel.Text = "Location: ";
+            this.DistroLocationLabel.AutoSize = true;
+            this.DistroLocationLabel.Location = new System.Drawing.Point(12, 85);
+            this.DistroLocationLabel.Name = "DistroLocationLabel";
+            this.DistroLocationLabel.Size = new System.Drawing.Size(61, 12);
+            this.DistroLocationLabel.TabIndex = 1;
+            this.DistroLocationLabel.Text = "Location: ";
             // 
-            // SizeLabel
+            // DistroSizeLabel
             // 
-            this.SizeLabel.AutoSize = true;
-            this.SizeLabel.Location = new System.Drawing.Point(12, 117);
-            this.SizeLabel.Name = "SizeLabel";
-            this.SizeLabel.Size = new System.Drawing.Size(38, 12);
-            this.SizeLabel.TabIndex = 3;
-            this.SizeLabel.Text = "Size: ";
+            this.DistroSizeLabel.AutoSize = true;
+            this.DistroSizeLabel.Location = new System.Drawing.Point(12, 117);
+            this.DistroSizeLabel.Name = "DistroSizeLabel";
+            this.DistroSizeLabel.Size = new System.Drawing.Size(38, 12);
+            this.DistroSizeLabel.TabIndex = 3;
+            this.DistroSizeLabel.Text = "Size: ";
             // 
             // StateLabel
             // 
@@ -147,27 +147,27 @@
             this.State.TabIndex = 6;
             this.State.Text = "0x00000000";
             // 
-            // Size
+            // DistroSize
             // 
-            this.Size.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.DistroSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Size.AutoEllipsis = true;
-            this.Size.Location = new System.Drawing.Point(98, 117);
-            this.Size.Name = "Size";
-            this.Size.Size = new System.Drawing.Size(234, 12);
-            this.Size.TabIndex = 4;
-            this.Size.Text = "0 byte";
+            this.DistroSize.AutoEllipsis = true;
+            this.DistroSize.Location = new System.Drawing.Point(98, 117);
+            this.DistroSize.Name = "DistroSize";
+            this.DistroSize.Size = new System.Drawing.Size(234, 12);
+            this.DistroSize.TabIndex = 4;
+            this.DistroSize.Text = "0 byte";
             // 
-            // Location
+            // DistroLocation
             // 
-            this.Location.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.DistroLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Location.AutoEllipsis = true;
-            this.Location.Location = new System.Drawing.Point(98, 85);
-            this.Location.Name = "Location";
-            this.Location.Size = new System.Drawing.Size(234, 12);
-            this.Location.TabIndex = 2;
-            this.Location.Text = "...";
+            this.DistroLocation.AutoEllipsis = true;
+            this.DistroLocation.Location = new System.Drawing.Point(98, 85);
+            this.DistroLocation.Name = "DistroLocation";
+            this.DistroLocation.Size = new System.Drawing.Size(234, 12);
+            this.DistroLocation.TabIndex = 2;
+            this.DistroLocation.Text = "...";
             // 
             // DistroSizeCalculator
             // 
@@ -196,14 +196,14 @@
             this.ClientSize = new System.Drawing.Size(344, 381);
             this.Controls.Add(this.ConfirmButton);
             this.Controls.Add(this.DistroPropertyGrid);
-            this.Controls.Add(this.Location);
-            this.Controls.Add(this.Size);
+            this.Controls.Add(this.DistroLocation);
+            this.Controls.Add(this.DistroSize);
             this.Controls.Add(this.State);
             this.Controls.Add(this.AppxName);
             this.Controls.Add(this.AppxNameLabel);
             this.Controls.Add(this.StateLabel);
-            this.Controls.Add(this.SizeLabel);
-            this.Controls.Add(this.LocationLabel);
+            this.Controls.Add(this.DistroSizeLabel);
+            this.Controls.Add(this.DistroLocationLabel);
             this.Controls.Add(this.DistroNameText);
             this.Controls.Add(this.DistroIcon);
             this.DoubleBuffered = true;
@@ -226,16 +226,16 @@
 
         private System.Windows.Forms.PictureBox DistroIcon;
         private System.Windows.Forms.TextBox DistroNameText;
-        private System.Windows.Forms.Label LocationLabel;
-        private System.Windows.Forms.Label SizeLabel;
+        private System.Windows.Forms.Label DistroLocationLabel;
+        private System.Windows.Forms.Label DistroSizeLabel;
         private System.Windows.Forms.Label StateLabel;
         private System.Windows.Forms.Label AppxNameLabel;
         private System.Windows.Forms.PropertyGrid DistroPropertyGrid;
         private System.Windows.Forms.Button ConfirmButton;
         private System.Windows.Forms.Label AppxName;
         private System.Windows.Forms.Label State;
-        private System.Windows.Forms.Label Size;
-        private System.Windows.Forms.Label Location;
+        private System.Windows.Forms.Label DistroSize;
+        private System.Windows.Forms.Label DistroLocation;
         private System.ComponentModel.BackgroundWorker DistroSizeCalculator;
         private System.Windows.Forms.ImageList ImageList;
     }

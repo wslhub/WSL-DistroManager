@@ -939,6 +939,22 @@
         AeYB/wJZAV0B0pgAAzwBZwEqASQBGAH/ATgBMgEmAf4DWQHCASoBJAEYAf8BtgGzAa0B/wHxAe8B7AH/
         AfEB7wHsAf8B8QHvAewB/wHxAe8B7AH/AfEB7wHsAf8B8QHvAewB/wHxAe8B7AH/AfEB7wHsAf8B8QHv
         AewB/wHxAe8B7AH/AfEB7wHsAf8B8QHvAewB/wHxAe8B7AH/AfEB7wHsAf8B8QHvAewB/wHxAe8B7AH/
+        AfEB7wHsAf8B8QHvAewB/wGcAZkBkgH/AScBIQEVAf8BJwEhARUB/wEpASMBFwH/AdYB0wHQAf8BVAFO
+        AUQB/wEnASEBFQH/AScBIQEVAf8BJwEhARUB/wEnASEBFQH/Ay0BRqQAAy0BRQFSAQ0B6QH/AVIBDQHp
+        Af8BUgENAekB/wNIAYZEAAMEAQUDIAEuAT0BPAE9AWgBUgENAekB/wFSAQ0B6QH/ATYBNQE2AVhQAAMw
+        AUsBYwFGAX0B9AFSAQ0B6QH/AVIBDQHpAf8DHgErtAADFwEgAUABqAFaAf0BMQGzAWsB/wExAbMBawH/
+        ATEBswFrAf8BVwJcAd8DCAELBAADJQE3AVgBZQFiAe8BMQGzAWsB/wExAbMBawH/ATEBswFrAf8BMQGz
+        AWsB/wFeAmUB5QMDAQQEAANDAXcBMQGzAWsB/wExAbMBawH/ATEBswFrAf8DFwEgEAADGwEmA1EBogEw
+        AYUBawH8AwwBEDwAAxoBJANMAZMBUgFyAWUB9AExAbMBawH/A0gBhogAAlcBXQHfAQgBOQHmAf8BCAE5
+        AeYB/wEIATkB5gH/AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/
+        AQgBOQHmAf8BIAFLAekd/wL+Av8BSgFtAe0B/wEIATkB5gH/AY8BpwHzFf8BSwFuAe0B/wEIATkB5gH/
+        AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/AQgBOQHmAf8BCAE5
+        AeYB/wEIATkB5gH/AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/
+        AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/AU0BgAHtHf8B1wHg
+        AfsB/wEIATkB5gH/AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/
+        AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/AQgBOQHmAf8BCAE5
+        AeYB/wEIATkB5gH/AQgBOQHmAf8BCAE5AeYB/wEIATkB5gH/AlcBXQHfmAADBAEGA14B5QEnASEBFQH/
+        A1UBugFNAUgBPQH+AUwBRwE8Af8B8AHuAesB/wHxAe8B7AH/AfEB7wHsAf8B8QHvAewB/wHxAe8B7AH/
         AfEB7wHsAf8B8QHvAewB/wHxAe8B7AH/AfEB7wHsAf8B8QHvAewB/wHxAe8B7AH/AfEB7wHsAf8B8QHv
         AewB/wHxAe8B7AH/AfEB7wHsAf8BnAGZAZIB/wEqASQBGAH/ASoBJAEYAf8BLAEmARoB/wHWAdMB0AH/
         AVcBUQFHAf8BKgEkARgB/wEqASQBGAH/ASoBJAEYAf8BKgEkARgB/wMtAUakAAMtAUUBVQEQAekB/wFV
@@ -1747,13 +1763,19 @@
     <value>676, 17</value>
   </metadata>
   <metadata name="ImportLocationFolderDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 56</value>
+    <value>128, 56</value>
   </metadata>
   <metadata name="MainMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>225, 56</value>
+    <value>336, 56</value>
   </metadata>
-  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>337, 56</value>
+  <metadata name="StatusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 56</value>
+  </metadata>
+  <metadata name="ShortcutSaveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>448, 56</value>
+  </metadata>
+  <metadata name="IconGenerator.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>628, 56</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

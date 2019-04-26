@@ -40,6 +40,24 @@ namespace WslManager
             return Regex.Replace(rawPath ?? string.Empty, @"(^\\\\\?\\)", string.Empty, RegexOptions.Compiled);
         }
 
+        public static IEnumerable<DistroListViewItem> LoadDistroList()
+        {
+            var list = new List<DistroListViewItem>();
+
+            using (var reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss"))
+            {
+                foreach (var eachSubKeyname in reg.GetSubKeyNames())
+                {
+                    using (var subReg = reg.OpenSubKey(eachSubKeyname))
+                    {
+                        list.Add(new DistroListViewItem(subReg));
+                    }
+                }
+            }
+
+            return list;
+        }
+
         public static ListViewSubItem[] GetDistroProperties(RegistryKey key)
         {
             var properties = new List<ListViewSubItem>();
