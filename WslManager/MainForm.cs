@@ -22,6 +22,8 @@ namespace WslManager
         private static Type wscriptShellType = Type.GetTypeFromProgID("WScript.Shell");
         private static object shellObject = Activator.CreateInstance(wscriptShellType);
 
+        private Label emptyLabel;
+
         internal static string GetIconDirectoryPath()
         {
             return Path.Combine(
@@ -261,10 +263,18 @@ namespace WslManager
                 return;
             }
 
-            var items = Helpers.LoadDistroList().ToArray();
-            DistroListView.Items.Clear();
-            DistroListView.Items.AddRange(items);
-            TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
+            this.emptyLabel = new Label()
+            {
+                Parent = this,
+                Text = "No WSL distro installed.",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font(this.Font.FontFamily, 18f, FontStyle.Bold),
+                Dock = DockStyle.Fill,
+                UseMnemonic = false,
+                Visible = false,
+            };
+
+            refreshToolStripMenuItem.PerformClick();
 
             if (!IconGenerator.IsBusy)
                 IconGenerator.RunWorkerAsync();
@@ -289,6 +299,17 @@ namespace WslManager
             DistroListView.Items.Clear();
             DistroListView.Items.AddRange(items);
             TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
+
+            if (DistroListView.Items.Count < 1)
+            {
+                DistroListView.Visible = false;
+                emptyLabel.Visible = true;
+            }
+            else
+            {
+                DistroListView.Visible = true;
+                emptyLabel.Visible = false;
+            }
         }
 
         private void DistroListView_MouseUp(object sender, MouseEventArgs e)

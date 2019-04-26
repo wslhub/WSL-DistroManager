@@ -43,8 +43,12 @@ namespace WslManager
         public static IEnumerable<DistroListViewItem> LoadDistroList()
         {
             var list = new List<DistroListViewItem>();
+            var reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss");
 
-            using (var reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss"))
+            if (reg == null)
+                return list;
+
+            using (reg)
             {
                 foreach (var eachSubKeyname in reg.GetSubKeyNames())
                 {
