@@ -38,6 +38,8 @@
             this.ImageList = new System.Windows.Forms.ImageList(this.components);
             this.DistroContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openWithToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hyperToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exploreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.createShortcutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,6 +86,8 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.fromMicrosoftStoreToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openWithToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.hyperToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exploreToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
             this.createShortcutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -173,6 +177,7 @@
             this.DistroContextMenuStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.DistroContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
+            this.openWithToolStripMenuItem,
             this.exploreToolStripMenuItem,
             this.toolStripMenuItem3,
             this.createShortcutToolStripMenuItem,
@@ -185,7 +190,8 @@
             this.toolStripMenuItem12,
             this.propertiesToolStripMenuItem});
             this.DistroContextMenuStrip.Name = "DistroContextMenuStrip";
-            this.DistroContextMenuStrip.Size = new System.Drawing.Size(174, 204);
+            this.DistroContextMenuStrip.Size = new System.Drawing.Size(174, 154);
+            this.DistroContextMenuStrip.Opened += new System.EventHandler(this.DistroContextMenuStrip_Opening);
             // 
             // openToolStripMenuItem
             // 
@@ -193,6 +199,21 @@
             this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "&Open...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+            //
+            // openWithToolStripMenuItem
+            //
+            this.openWithToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hyperToolStripMenuItem});
+            this.openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
+            this.openWithToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.openWithToolStripMenuItem.Text = "&Open With...";
+            //
+            // hyperToolStripMenuItem
+            //
+            this.hyperToolStripMenuItem.Name = "hyperToolStripMenuItem";
+            this.hyperToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.hyperToolStripMenuItem.Text = "&Hyper...";
+            this.hyperToolStripMenuItem.Click += new System.EventHandler(this.HyperToolStripMenuItem_Click);
             // 
             // exploreToolStripMenuItem
             // 
@@ -453,6 +474,7 @@
             this.distroToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newDistroToolStripMenuItem1,
             this.openToolStripMenuItem1,
+            this.openWithToolStripMenuItem1,
             this.exploreToolStripMenuItem1,
             this.toolStripMenuItem9,
             this.createShortcutToolStripMenuItem1,
@@ -547,6 +569,21 @@
             this.openToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
             this.openToolStripMenuItem1.Text = "&Open...";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+            //
+            // openWithToolStripMenuItem1
+            //
+            this.openWithToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hyperToolStripMenuItem1});
+            this.openWithToolStripMenuItem1.Name = "openWithToolStripMenuItem1";
+            this.openWithToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.openWithToolStripMenuItem1.Text = "&Open With";
+            //
+            // hyperToolStripMenuItem1
+            //
+            this.hyperToolStripMenuItem1.Name = "hyperToolStripMenuItem1";
+            this.hyperToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.hyperToolStripMenuItem1.Text = "&Hyper...";
+            this.hyperToolStripMenuItem1.Click += new System.EventHandler(this.HyperToolStripMenuItem_Click);
             // 
             // exploreToolStripMenuItem1
             // 
@@ -789,6 +826,8 @@
         private System.Windows.Forms.ImageList ImageList;
         private System.Windows.Forms.ContextMenuStrip DistroContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openWithToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem hyperToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exploreToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exportDistroToolStripMenuItem;
@@ -819,6 +858,8 @@
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem openWithToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem hyperToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exploreToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem exportDistroToolStripMenuItem1;
