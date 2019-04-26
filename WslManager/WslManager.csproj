@@ -79,6 +79,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountCreateForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AccountCreateForm.Designer.cs">
+      <DependentUpon>AccountCreateForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DictionaryPropertyDescriptor.cs" />
     <Compile Include="DictionaryPropertyGridAdapter.cs" />
     <Compile Include="DistroListViewItem.cs" />
@@ -104,6 +110,7 @@
       <DependentUpon>MapAsDriveForm.cs</DependentUpon>
     </Compile>
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="PasswordScore.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="DownloadDistroForm.cs">
       <SubType>Form</SubType>
@@ -120,6 +127,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WslMappedDriveInfo.cs" />
     <Compile Include="WslMappedDriveInfoCollection.cs" />
+    <EmbeddedResource Include="AccountCreateForm.resx">
+      <DependentUpon>AccountCreateForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DistroNameRequestForm.resx">
       <DependentUpon>DistroNameRequestForm.cs</DependentUpon>
     </EmbeddedResource>
