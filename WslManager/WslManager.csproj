@@ -127,6 +127,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WslMappedDriveInfo.cs" />
     <Compile Include="WslMappedDriveInfoCollection.cs" />
+    <Compile Include="WslShimGenerator.cs" />
     <EmbeddedResource Include="AccountCreateForm.resx">
       <DependentUpon>AccountCreateForm.cs</DependentUpon>
     </EmbeddedResource>
