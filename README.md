@@ -2,7 +2,7 @@
 
 **You can download a latest release from [here](https://github.com/rkttu/WSL-DistroManager/releases/).**
 
-![Example](Assets/Images/Screenshot.png)
+![Example](Assets/Images/Screenshot-hyper.png)
 
 `WSL-DistroManager` is a highly customizable Windows Subsystem for Linux distro manager for Windows 10 (at least 19H1) and Windows Server 19H1 (or later).
 
