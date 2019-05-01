@@ -190,11 +190,21 @@ namespace WslManager
                 ElseOnClosing = true,
             };
 
+            var iconPath = Path.Combine(
+                Helpers.GetIconDirectoryPath(),
+                Helpers.GetImageKey(distroName) + ".ico");
+
+            var iconCompilerOption = string.Empty;
+            
+            if (File.Exists(iconPath))
+                iconCompilerOption = $@"/win32icon:""{iconPath}""";
+
             var compilerParameters = new CompilerParameters(new string[] { "System.dll", })
             {
                 GenerateExecutable = true,
                 GenerateInMemory = false,
-                OutputAssembly = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "test.exe"),
+                OutputAssembly = Path.Combine(outputPath, $"{distroName}.exe"),
+                CompilerOptions = string.Join(" ", "/optimize+", iconCompilerOption),
             };
 
             return codeDomProvider.CompileAssemblyFromDom(compilerParameters, codeCompileUnit);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -118,6 +119,20 @@ namespace WslManager
                 score++;
 
             return (PasswordScore)score;
+        }
+
+        public static string GetIconDirectoryPath()
+        {
+            return Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
+                "WslManagerIcons");
+        }
+
+        public static string GetWslShimDirectoryPath()
+        {
+            return Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "WslManagerShims");
         }
     }
 }

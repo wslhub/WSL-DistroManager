@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -23,13 +24,6 @@ namespace WslManager
         private static object shellObject = Activator.CreateInstance(wscriptShellType);
 
         private Label emptyLabel;
-
-        internal static string GetIconDirectoryPath()
-        {
-            return Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData),
-                "WslManagerIcons");
-        }
 
         private RegistryKey GetDistroRegistryKeyByDistroName(string distroName)
         {
@@ -419,6 +413,9 @@ namespace WslManager
                 DistroListView.Visible = true;
                 emptyLabel.Visible = false;
             }
+
+            if (!ShimGenerator.IsBusy)
+                ShimGenerator.RunWorkerAsync(items);
         }
 
         private void DistroListView_MouseUp(object sender, MouseEventArgs e)
@@ -755,14 +752,14 @@ Icons: https://www.icons8.com",
                 Environment.SpecialFolder.UserProfile);
             shortcut.Arguments = $@"-d {selectedDistro.DistroName}";
             shortcut.IconLocation = Path.Combine(
-                GetIconDirectoryPath(),
+                Helpers.GetIconDirectoryPath(),
                 Helpers.GetImageKey(selectedDistro.DistroName) + ".ico");
             shortcut.Save();
         }
 
         private void IconGenerator_DoWork(object sender, DoWorkEventArgs e)
         {
-            var targetDir = GetIconDirectoryPath();
+            var targetDir = Helpers.GetIconDirectoryPath();
 
             if (File.Exists(targetDir))
                 File.Delete(targetDir);
@@ -794,6 +791,71 @@ Icons: https://www.icons8.com",
                     dialog.SelectedDistro = selectedDistro.DistroName;
 
                 dialog.ShowDialog(this);
+            }
+        }
+
+        private void ShimGenerator_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var targetDir = Helpers.GetWslShimDirectoryPath();
+
+            if (File.Exists(targetDir))
+                File.Delete(targetDir);
+
+            if (!Directory.Exists(targetDir))
+                Directory.CreateDirectory(targetDir);
+
+            var items = e.Argument as DistroListViewItem[];
+
+            if (items == null)
+                return;
+
+            // Shim exe file may not have icon due to missing icon cache
+            var result = new Dictionary<string, CompilerResults>();
+            e.Result = result;
+
+            foreach (var eachItem in items)
+            {
+                var eachResult = WslShimGenerator.CreateWslShim(
+                    eachItem.DistroName, targetDir);
+
+                if (eachResult.Errors.HasErrors)
+                    result.Add(eachItem.DistroName, eachResult);
+
+                if (!File.Exists(eachResult.PathToAssembly))
+                    result.Add(eachItem.DistroName, eachResult);
+            }
+        }
+
+        private void ShimGenerator_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show(this, $"Cannot create WSL shim files due to error - {e.Error.Message}", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            if (e.Cancelled)
+            {
+                MessageBox.Show(this, $"Cannot create WSL shim files due to cancellation.", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            var result = e.Result as Dictionary<string, CompilerResults>;
+
+            if (result == null)
+            {
+                MessageBox.Show(this, $"Cannot create WSL shim files due to unexpected error.", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            if (result.Count > 0)
+            {
+                MessageBox.Show(this, $"Some WSL shim files not created due to unexpected error.", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
             }
         }
     }
