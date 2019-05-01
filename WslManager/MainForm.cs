@@ -101,7 +101,10 @@ namespace WslManager
 
                 foreach (DistroListViewItem eachItem in distroItems)
                 {
-                    string distroExecutable = eachItem.DistroName + ".exe";
+                    string distroExecutable = Path.Combine(
+                        Helpers.GetWslShimDirectoryPath(),
+                        eachItem.DistroName + "_simple.exe")
+                        .Replace("\\", "\\\\");
 
                     StreamReader input = new StreamReader(hyperConfigFile);
                     StreamWriter output = new StreamWriter(tempHyperConfigFile);
@@ -815,14 +818,19 @@ Icons: https://www.icons8.com",
 
             foreach (var eachItem in items)
             {
+                var key = eachItem.DistroName;
                 var eachResult = WslShimGenerator.CreateWslShim(
-                    eachItem.DistroName, targetDir);
+                    key, false, targetDir);
 
                 if (eachResult.Errors.HasErrors)
-                    result.Add(eachItem.DistroName, eachResult);
+                    result.Add(key, eachResult);
 
-                if (!File.Exists(eachResult.PathToAssembly))
-                    result.Add(eachItem.DistroName, eachResult);
+                key = eachItem.DistroName + "_simple";
+                eachResult = WslShimGenerator.CreateWslShim(
+                    key, true, targetDir);
+
+                if (eachResult.Errors.HasErrors)
+                    result.Add(key, eachResult);
             }
         }
 

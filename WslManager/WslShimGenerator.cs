@@ -4,12 +4,13 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 
 namespace WslManager
 {
     internal static class WslShimGenerator
     {
-        public static CompilerResults CreateWslShim(string distroName, string outputPath)
+        public static CompilerResults CreateWslShim(string distroName, bool ignoreSwitches, string outputPath)
         {
             var codeCompileUnit = new CodeCompileUnit();
 
@@ -64,12 +65,17 @@ namespace WslManager
                     new CodeVariableReferenceExpression(declareDistroNameVariable.Name))
                 );
 
-            var conditionStatement = new CodeConditionStatement(new CodeBinaryOperatorExpression(new CodeVariableReferenceExpression("args"), CodeBinaryOperatorType.IdentityInequality, new CodePrimitiveExpression(null)));
-            conditionStatement.TrueStatements.Add(new CodeMethodInvokeExpression(
-                new CodeVariableReferenceExpression(declareStringListVariable.Name),
-                nameof(List<string>.AddRange),
-                new CodeVariableReferenceExpression("args"))
-            );
+            CodeConditionStatement conditionStatement = null;
+
+            if (!ignoreSwitches)
+            {
+                conditionStatement = new CodeConditionStatement(new CodeBinaryOperatorExpression(new CodeVariableReferenceExpression("args"), CodeBinaryOperatorType.IdentityInequality, new CodePrimitiveExpression(null)));
+                conditionStatement.TrueStatements.Add(new CodeMethodInvokeExpression(
+                    new CodeVariableReferenceExpression(declareStringListVariable.Name),
+                    nameof(List<string>.AddRange),
+                    new CodeVariableReferenceExpression("args"))
+                );
+            }
 
             var declareWslArgsVariable = new CodeVariableDeclarationStatement(typeof(string), "wslArgs")
             {
@@ -158,7 +164,10 @@ namespace WslManager
             mainMethod.Statements.Add(declareWslPathVariable);
             mainMethod.Statements.Add(declareStringListVariable);
             mainMethod.Statements.Add(addPrependSwitchesStatement);
-            mainMethod.Statements.Add(conditionStatement);
+
+            if (!ignoreSwitches)
+                mainMethod.Statements.Add(conditionStatement);
+
             mainMethod.Statements.Add(declareWslArgsVariable);
             mainMethod.Statements.Add(declareProcessStartInfoVariable);
             mainMethod.Statements.Add(assignPsiUseShellExecuteStatement);
@@ -175,7 +184,6 @@ namespace WslManager
             mainMethod.Statements.Add(invokeWaitForExitStatement);
             mainMethod.Statements.Add(declareExitCodeVariable);
             mainMethod.Statements.Add(assignExitCodeStatement);
-            mainMethod.Statements.Add(invokeDisposeStatement);
             mainMethod.Statements.Add(returnStatement);
 
             targetType.Members.Add(mainMethod);
@@ -189,6 +197,9 @@ namespace WslManager
                 BlankLinesBetweenMembers = false,
                 ElseOnClosing = true,
             };
+
+            var buffer = new StringBuilder();
+            codeDomProvider.GenerateCodeFromCompileUnit(codeCompileUnit, new StringWriter(buffer), generatorOptions);
 
             var iconPath = Path.Combine(
                 Helpers.GetIconDirectoryPath(),
