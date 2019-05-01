@@ -818,19 +818,19 @@ Icons: https://www.icons8.com",
 
             foreach (var eachItem in items)
             {
-                var key = eachItem.DistroName;
+                var fileName = eachItem.DistroName;
                 var eachResult = WslShimGenerator.CreateWslShim(
-                    key, false, targetDir);
+                    eachItem.DistroName, false, targetDir, fileName);
 
                 if (eachResult.Errors.HasErrors)
-                    result.Add(key, eachResult);
+                    result.Add(fileName, eachResult);
 
-                key = eachItem.DistroName + "_simple";
+                fileName = eachItem.DistroName + "_simple";
                 eachResult = WslShimGenerator.CreateWslShim(
-                    key, true, targetDir);
+                    eachItem.DistroName, true, targetDir, fileName);
 
                 if (eachResult.Errors.HasErrors)
-                    result.Add(key, eachResult);
+                    result.Add(fileName, eachResult);
             }
         }
 

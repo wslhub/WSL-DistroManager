@@ -10,7 +10,7 @@ namespace WslManager
 {
     internal static class WslShimGenerator
     {
-        public static CompilerResults CreateWslShim(string distroName, bool ignoreSwitches, string outputPath)
+        public static CompilerResults CreateWslShim(string distroName, bool ignoreSwitches, string outputPath, string outputFileName)
         {
             var codeCompileUnit = new CodeCompileUnit();
 
@@ -38,7 +38,7 @@ namespace WslManager
 
             var declareDistroNameVariable = new CodeVariableDeclarationStatement(typeof(string), "distroName")
             {
-                InitExpression = new CodePrimitiveExpression("Ubuntu1604"),
+                InitExpression = new CodePrimitiveExpression(distroName),
             };
 
             var declareWslPathVariable = new CodeVariableDeclarationStatement(typeof(string), "wslPath")
@@ -214,7 +214,7 @@ namespace WslManager
             {
                 GenerateExecutable = true,
                 GenerateInMemory = false,
-                OutputAssembly = Path.Combine(outputPath, $"{distroName}.exe"),
+                OutputAssembly = Path.Combine(outputPath, $"{outputFileName}.exe"),
                 CompilerOptions = string.Join(" ", "/optimize+", iconCompilerOption),
             };
 
