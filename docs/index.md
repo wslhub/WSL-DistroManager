@@ -2,7 +2,7 @@
 
 **You can download a latest release from [here](https://github.com/rkttu/WSL-DistroManager/releases/).**
 
-![Example](Assets/Images/Screenshot-hyper.png)
+![Example](Images/Screenshot-hyper.png)
 
 `WSL-DistroManager` is a highly customizable Windows Subsystem for Linux distro manager for Windows 10 (at least 19H1) and Windows Server 19H1 (or later).
 
@@ -10,16 +10,17 @@ This program helps you install and manage multiple versions of the same Linux di
 
 ## Features
 
-Latest features introduced at [here](https://wslman.rkttu.com/)
-
 * Install official linux distros directly with -or- without using Microsoft Store.
 * Run your linux distro easily with GUI based interface.
+  * The list of Linux distributions is now updated in real time via the WMI query tracker. Works well with multiple windows.
 * Open/mount your linux distro directly without running each distro instance.
 * Import your own system tarball archive to Windows Subsystem for Linux.
 * Export/Backup your existing distro to tarball archive file.
 * Review detailed distro properties (such as distro total size, registry keys)
 * Create a desktop shortcut which runs distro with wsl.exe and decorated with custom icon.
+  * Create multiple desktop shortcuts with drag drop between this app and any folder shell view.
 * Initialize new distro with custom user account.
+* Add [hyper](https://hyper.is/) (Node based cross-platform terminal app) support.
 
 ## Planned features/enhancements
 
