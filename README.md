@@ -24,7 +24,8 @@ This program helps you install and manage multiple versions of the same Linux di
 
 ## Planned features/enhancements
 
-* Issue a command into distro directly.
+* Enhance simple WSL shim to full features WSL Distro Launcher (based on https://github.com/Microsoft/WSL-DistroLauncher)
+* Issue a command or script into distro directly.
 * Set default distro for wsl.exe and bash.exe.
 * Run distro as a specific user.
 * Add new user into distro.
