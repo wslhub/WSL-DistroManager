@@ -43,3 +43,4 @@ This project follows the MIT license.
 - App Icons: https://www.icons8.com
 - Imaging Helper: https://gist.github.com/darkfall/1656050
 - WMI Event Query/Monitoring: https://stackoverflow.com/questions/826971/registry-watcher-c-sharp
+- Project temporary logo: https://pixabay.com/vectors/monitor-informatics-windows-2108894/
