@@ -12,6 +12,7 @@ This program helps you install and manage multiple versions of the same Linux di
 
 * Install official linux distros directly with -or- without using Microsoft Store.
 * Run your linux distro easily with GUI based interface.
+  * The list of Linux distributions is now updated in real time via the WMI query tracker. Works well with multiple windows.
 * Open/mount your linux distro directly without running each distro instance.
 * Import your own system tarball archive to Windows Subsystem for Linux.
 * Export/Backup your existing distro to tarball archive file.
@@ -36,3 +37,9 @@ Thanks to the import and export capabilities of WSL, you can now exchange tarbal
 ## License
 
 This project follows the MIT license.
+
+## Thanks to
+
+- App Icons: https://www.icons8.com
+- Imaging Helper: https://gist.github.com/darkfall/1656050
+- WMI Event Query/Monitoring: https://stackoverflow.com/questions/826971/registry-watcher-c-sharp

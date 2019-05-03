@@ -8,7 +8,9 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Reflection;
+using System.Security.Principal;
 using System.Windows.Forms;
 
 namespace WslManager
@@ -24,6 +26,7 @@ namespace WslManager
         private static object shellObject = Activator.CreateInstance(wscriptShellType);
 
         private Label emptyLabel;
+        private ManagementEventWatcher managementEventWatcher;
 
         private RegistryKey GetDistroRegistryKeyByDistroName(string distroName)
         {
@@ -223,14 +226,6 @@ namespace WslManager
                     distroKey.SetValue("DefaultUid", uid, RegistryValueKind.DWord);
 
                 distroKey.Dispose();
-
-                if (InvokeRequired)
-                {
-                    Invoke(new Action(() =>
-                    {
-                        refreshToolStripMenuItem.PerformClick();
-                    }));
-                }
             };
         }
 
@@ -252,14 +247,6 @@ namespace WslManager
             {
                 if (IsDisposed)
                     return;
-
-                if (InvokeRequired)
-                {
-                    Invoke(new Action(() =>
-                    {
-                        refreshToolStripMenuItem.PerformClick();
-                    }));
-                }
             };
         }
 
@@ -546,7 +533,6 @@ namespace WslManager
 
             TerminateDistro(item);
             UnregisterDistro(item);
-            refreshToolStripMenuItem.PerformClick();
         }
 
         private void TerminateDistroToolStripMenuItem_Click(object sender, EventArgs e)
@@ -792,6 +778,9 @@ Icons: https://www.icons8.com",
 
         private void IconGenerator_DoWork(object sender, DoWorkEventArgs e)
         {
+            var results = new Dictionary<string, string>();
+            e.Result = results;
+
             var targetDir = Helpers.GetIconDirectoryPath();
             EnsureDirectoryCreate(targetDir, false);
 
@@ -803,7 +792,10 @@ Icons: https://www.icons8.com",
                 if (fileInfo.Exists && fileInfo.Length > 0L)
                     continue;
 
-                ImagingHelper.ConvertToIcon(ImageList.Images[eachKey], fileInfo.FullName);
+                var creationResult = ImagingHelper.ConvertToIcon(ImageList.Images[eachKey], fileInfo.FullName);
+
+                if (!creationResult)
+                    results.Add(eachKey, targetPath);
             }
         }
 
@@ -968,6 +960,68 @@ Icons: https://www.icons8.com",
                 MessageBox.Show(this, $"Some WSL shortcut files not created due to unexpected error.", Text,
                     MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 return;
+            }
+        }
+
+        private void IconGenerator_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show(this, $"Cannot create distro icon image files due to error - {e.Error.Message}", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            if (e.Cancelled)
+            {
+                MessageBox.Show(this, $"Cannot create distro icon image files due to cancellation.", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            var result = e.Result as Dictionary<string, string>;
+
+            if (result == null)
+            {
+                MessageBox.Show(this, $"Cannot create distro icon image files due to unexpected error.", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            if (result.Count > 0)
+            {
+                MessageBox.Show(this, $"Some distro icon image files not created due to unexpected error.", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            var query = new WqlEventQuery("SELECT * FROM RegistryTreeChangeEvent " +
+                "WHERE Hive = 'HKEY_USERS' AND " +
+                $@"RootPath = '{WindowsIdentity.GetCurrent().User.Value}\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Lxss'");
+            managementEventWatcher = new ManagementEventWatcher(query);
+            managementEventWatcher.EventArrived += ManagementEventWatcher_EventArrived;
+            managementEventWatcher.Start();
+        }
+
+        private void ManagementEventWatcher_EventArrived(object sender, EventArrivedEventArgs e)
+        {
+            if (InvokeRequired)
+                Invoke(new Action(refreshToolStripMenuItem.PerformClick));
+        }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (managementEventWatcher != null)
+            {
+                managementEventWatcher.EventArrived -= ManagementEventWatcher_EventArrived;
+
+                try { managementEventWatcher.Stop(); }
+                catch { }
+
+                try { managementEventWatcher.Dispose(); }
+                catch { }
+
+                managementEventWatcher = null;
             }
         }
     }
