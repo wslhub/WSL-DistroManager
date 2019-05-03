@@ -17,12 +17,14 @@ This program helps you install and manage multiple versions of the same Linux di
 * Export/Backup your existing distro to tarball archive file.
 * Review detailed distro properties (such as distro total size, registry keys)
 * Create a desktop shortcut which runs distro with wsl.exe and decorated with custom icon.
+  * Create multiple desktop shortcuts with drag drop between this app and any folder shell view.
 * Initialize new distro with custom user account.
 * Add [hyper](https://hyper.is/) (Node based cross-platform terminal app) support.
 
 ## Planned features/enhancements
 
 * Issue a command into distro directly.
+* Set default distro for wsl.exe and bash.exe.
 * Run distro as a specific user.
 * Add new user into distro.
 * Migrate to .NET Core 3.0 Windows Forms Project

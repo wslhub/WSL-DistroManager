@@ -94,6 +94,7 @@ namespace WslManager
         {
             string hyperConfigFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".hyper.js");
             string tempHyperConfigFile = hyperConfigFile + ".tmp";
+
             if (File.Exists(hyperConfigFile))
             {
                 if (distroItems == null || distroItems.Count() < 1)
@@ -128,6 +129,7 @@ namespace WslManager
                     var proc = Process.Start(startInfo);
                 }
             }
+
             if (!File.Exists(hyperConfigFile))
             {
                 MessageBox.Show(this, "Hyper installation not found!\n" +
@@ -351,6 +353,43 @@ namespace WslManager
             }
         }
 
+        private bool CreateDistroShortcut(DistroListViewItem selectedDistro, string targetFilePath)
+        {
+            var shortcut = (IWshShortcut)wscriptShellType.InvokeMember(
+                "CreateShortcut",
+                BindingFlags.InvokeMethod,
+                null, shellObject,
+                new object[] { targetFilePath });
+
+            shortcut.Description = selectedDistro.Name;
+            shortcut.TargetPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.System),
+                "wsl.exe");
+            shortcut.WorkingDirectory = Environment.GetFolderPath(
+                Environment.SpecialFolder.UserProfile);
+            shortcut.Arguments = $@"-d {selectedDistro.DistroName}";
+            shortcut.IconLocation = Path.Combine(
+                Helpers.GetIconDirectoryPath(),
+                Helpers.GetImageKey(selectedDistro.DistroName) + ".ico");
+            shortcut.Save();
+
+            return File.Exists(targetFilePath);
+        }
+
+        private string EnsureDirectoryCreate(string targetDirectoryPath, bool shouldEmptyDirectory)
+        {
+            if (File.Exists(targetDirectoryPath))
+                File.Delete(targetDirectoryPath);
+
+            if (shouldEmptyDirectory && Directory.Exists(targetDirectoryPath))
+                Directory.Delete(targetDirectoryPath, true);
+
+            if (!Directory.Exists(targetDirectoryPath))
+                Directory.CreateDirectory(targetDirectoryPath);
+
+            return targetDirectoryPath;
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             if (Environment.OSVersion.Version < new Version(10, 0, 18362))
@@ -419,6 +458,9 @@ namespace WslManager
 
             if (!ShimGenerator.IsBusy)
                 ShimGenerator.RunWorkerAsync(items);
+
+            if (!ShortcutGenerator.IsBusy)
+                ShortcutGenerator.RunWorkerAsync(items);
         }
 
         private void DistroListView_MouseUp(object sender, MouseEventArgs e)
@@ -740,35 +782,18 @@ Icons: https://www.icons8.com",
             if (ShortcutSaveFileDialog.ShowDialog(this) != DialogResult.OK)
                 return;
 
-            var targetFilePath = ShortcutSaveFileDialog.FileName;
-            var shortcut = (IWshShortcut)wscriptShellType.InvokeMember(
-                "CreateShortcut",
-                BindingFlags.InvokeMethod,
-                null, shellObject,
-                new object[] { targetFilePath });
-
-            shortcut.Description = selectedDistro.Name;
-            shortcut.TargetPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.System),
-                "wsl.exe");
-            shortcut.WorkingDirectory = Environment.GetFolderPath(
-                Environment.SpecialFolder.UserProfile);
-            shortcut.Arguments = $@"-d {selectedDistro.DistroName}";
-            shortcut.IconLocation = Path.Combine(
-                Helpers.GetIconDirectoryPath(),
-                Helpers.GetImageKey(selectedDistro.DistroName) + ".ico");
-            shortcut.Save();
+            if (!CreateDistroShortcut(selectedDistro, ShortcutSaveFileDialog.FileName))
+            {
+                MessageBox.Show(this, "Shortcut was not created due to error.", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
         }
 
         private void IconGenerator_DoWork(object sender, DoWorkEventArgs e)
         {
             var targetDir = Helpers.GetIconDirectoryPath();
-
-            if (File.Exists(targetDir))
-                File.Delete(targetDir);
-            
-            if (!Directory.Exists(targetDir))
-                Directory.CreateDirectory(targetDir);
+            EnsureDirectoryCreate(targetDir, false);
 
             foreach (var eachKey in ImageList.Images.Keys)
             {
@@ -800,12 +825,7 @@ Icons: https://www.icons8.com",
         private void ShimGenerator_DoWork(object sender, DoWorkEventArgs e)
         {
             var targetDir = Helpers.GetWslShimDirectoryPath();
-
-            if (File.Exists(targetDir))
-                File.Delete(targetDir);
-
-            if (!Directory.Exists(targetDir))
-                Directory.CreateDirectory(targetDir);
+            EnsureDirectoryCreate(targetDir, false);
 
             var items = e.Argument as DistroListViewItem[];
 
@@ -862,6 +882,90 @@ Icons: https://www.icons8.com",
             if (result.Count > 0)
             {
                 MessageBox.Show(this, $"Some WSL shim files not created due to unexpected error.", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+        }
+
+        private void DistroListView_ItemDrag(object sender, ItemDragEventArgs e)
+        {
+            var targetDir = Helpers.GetWslShortcutDirectoryPath();
+            EnsureDirectoryCreate(targetDir, false);
+
+            var filesToDrag = new List<string>();
+
+            foreach (var eachItem in DistroListView.SelectedItems)
+            {
+                var eachDistro = (DistroListViewItem)eachItem;
+                var targetPath = Path.Combine(targetDir, eachDistro.DistroName + ".lnk");
+
+                if (!File.Exists(targetDir))
+                    CreateDistroShortcut(eachDistro, targetPath);
+
+                if (File.Exists(targetPath))
+                    filesToDrag.Add(targetPath);
+            }
+
+            if (filesToDrag.Count > 0)
+            {
+                this.DistroListView.DoDragDrop(
+                    new DataObject(DataFormats.FileDrop, filesToDrag.ToArray()),
+                    DragDropEffects.Copy);
+            }
+        }
+
+        private void ShortcutGenerator_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var targetDir = Helpers.GetWslShortcutDirectoryPath();
+            EnsureDirectoryCreate(targetDir, false);
+
+            var items = e.Argument as DistroListViewItem[];
+
+            if (items == null)
+                return;
+
+            // Shorcut file may not have icon due to missing icon cache
+            var result = new Dictionary<string, string>();
+            e.Result = result;
+
+            foreach (var eachItem in items)
+            {
+                var targetFilePath = Path.Combine(targetDir, eachItem.DistroName + ".lnk");
+                var creationResult = CreateDistroShortcut(eachItem, targetFilePath);
+                
+                if (!creationResult)
+                    result.Add(eachItem.DistroName, targetFilePath);
+            }
+        }
+
+        private void ShortcutGenerator_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show(this, $"Cannot create WSL shortcut files due to error - {e.Error.Message}", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            if (e.Cancelled)
+            {
+                MessageBox.Show(this, $"Cannot create WSL shortcut files due to cancellation.", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            var result = e.Result as Dictionary<string, string>;
+
+            if (result == null)
+            {
+                MessageBox.Show(this, $"Cannot create WSL shortcut files due to unexpected error.", Text,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
+            }
+
+            if (result.Count > 0)
+            {
+                MessageBox.Show(this, $"Some WSL shortcut files not created due to unexpected error.", Text,
                     MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 return;
             }

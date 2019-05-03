@@ -134,5 +134,12 @@ namespace WslManager
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "WslManagerShims");
         }
+
+        public static string GetWslShortcutDirectoryPath()
+        {
+            return Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "WslManagerShortcuts");
+        }
     }
 }
