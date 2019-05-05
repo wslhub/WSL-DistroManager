@@ -7,7 +7,7 @@
       "title": "Ubuntu Linux 18.04",
       "url": "https://aka.ms/wsl-ubuntu-1804",
       "content_text": "Ubuntu Linux 18.04 from Canonical",
-      "image": "https://www.wslhub.com/icons/ubuntu.png",
+      "image": "https://wslhub.com/icons/ubuntu.png",
       "author": {
         "name": "Canonical",
         "url": "http://www.canonical.com"
@@ -18,7 +18,7 @@
       "title": "Ubuntu Linux 16.04",
       "url": "https://aka.ms/wsl-ubuntu-1604",
       "content_text": "Ubuntu Linux 16.04 from Canonical",
-      "image": "https://www.wslhub.com/icons/ubuntu.png",
+      "image": "https://wslhub.com/icons/ubuntu.png",
       "author": {
         "name": "Canonical",
         "url": "http://www.canonical.com"
