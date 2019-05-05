@@ -12,6 +12,7 @@ using System.Management;
 using System.Reflection;
 using System.Security.Principal;
 using System.Windows.Forms;
+using WslManager.Models;
 
 namespace WslManager
 {
@@ -589,41 +590,6 @@ Icons: https://www.icons8.com",
                 MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
 
-        private void Ubuntu1804ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InstallDistroFromUrl("https://aka.ms/wsl-ubuntu-1804");
-        }
-
-        private void Ubuntu1604ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InstallDistroFromUrl("https://aka.ms/wsl-ubuntu-1604");
-        }
-
-        private void DebianGNULinuxToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InstallDistroFromUrl("https://aka.ms/wsl-debian-gnulinux");
-        }
-
-        private void KaliLinuxToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InstallDistroFromUrl("https://aka.ms/wsl-kali-linux");
-        }
-
-        private void OpenSUSEToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InstallDistroFromUrl("https://aka.ms/wsl-opensuse-42");
-        }
-
-        private void SLESToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            InstallDistroFromUrl("https://aka.ms/wsl-sles-12");
-        }
-
-        private void FromMicrosoftStoreToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start("ms-windows-store://search/?query=Linux");
-        }
-
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
@@ -1022,6 +988,25 @@ Icons: https://www.icons8.com",
                 catch { }
 
                 managementEventWatcher = null;
+            }
+        }
+
+        private void NewDistroToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var gallery = new DistroGalleryForm())
+            {
+                if (gallery.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                var item = gallery.SelectedItem;
+
+                if (item == null)
+                    return;
+
+                if (item.IsAppxDistro())
+                    InstallDistroFromUrl(item.Url.AbsoluteUri);
+                else
+                    MessageBox.Show(this, "Custom distro installation is not supported.");
             }
         }
     }

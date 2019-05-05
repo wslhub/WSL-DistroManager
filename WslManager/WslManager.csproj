@@ -75,6 +75,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -87,6 +88,12 @@
     </Compile>
     <Compile Include="DictionaryPropertyDescriptor.cs" />
     <Compile Include="DictionaryPropertyGridAdapter.cs" />
+    <Compile Include="DistroGalleryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DistroGalleryForm.Designer.cs">
+      <DependentUpon>DistroGalleryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="DistroListViewItem.cs" />
     <Compile Include="DistroNameRequestForm.cs">
       <SubType>Form</SubType>
@@ -109,6 +116,11 @@
     <Compile Include="MapAsDriveForm.Designer.cs">
       <DependentUpon>MapAsDriveForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\DistroFeed.cs" />
+    <Compile Include="Models\DistroFeedItemAuthor.cs" />
+    <Compile Include="Models\DistroFeedAuthor.cs" />
+    <Compile Include="Models\DistroFeedItem.cs" />
+    <Compile Include="Models\Extensions.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="PasswordScore.cs" />
     <Compile Include="Program.cs" />
@@ -130,6 +142,9 @@
     <Compile Include="WslShimGenerator.cs" />
     <EmbeddedResource Include="AccountCreateForm.resx">
       <DependentUpon>AccountCreateForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DistroGalleryForm.resx">
+      <DependentUpon>DistroGalleryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DistroNameRequestForm.resx">
       <DependentUpon>DistroNameRequestForm.cs</DependentUpon>

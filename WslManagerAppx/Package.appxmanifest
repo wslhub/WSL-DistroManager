@@ -9,7 +9,7 @@
   <Identity
     Name="24424rkttu.com.WSL-DistroManager"
     Publisher="CN=F27EAB3B-0A0B-46DC-8AEA-E50F3E77C1FC"
-    Version="0.4.3.0" />
+    Version="0.5.0.0" />
 
   <Properties>
     <DisplayName>WSL-DistroManager</DisplayName>

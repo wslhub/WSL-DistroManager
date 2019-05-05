@@ -59,15 +59,6 @@
             this.listToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.detailsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-            this.newDistroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ubuntu1804ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ubuntu1604ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.debianGNULinuxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kaliLinuxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openSUSEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sLESToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
-            this.fromMicrosoftStoreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importDistroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,15 +67,6 @@
             this.ImportLocationFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.distroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newDistroToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ubuntu1804ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ubuntu1604ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.debianGNULinuxToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.kaliLinuxToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.openSUSEToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.sLESToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.fromMicrosoftStoreToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openWithToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.hyperToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -120,6 +102,8 @@
             this.IconGenerator = new System.ComponentModel.BackgroundWorker();
             this.ShimGenerator = new System.ComponentModel.BackgroundWorker();
             this.ShortcutGenerator = new System.ComponentModel.BackgroundWorker();
+            this.newDistroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newDistroToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.DistroContextMenuStrip.SuspendLayout();
             this.DefaultContextMenuStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -353,75 +337,6 @@
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
             this.toolStripMenuItem5.Size = new System.Drawing.Size(152, 6);
             // 
-            // newDistroToolStripMenuItem
-            // 
-            this.newDistroToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ubuntu1804ToolStripMenuItem,
-            this.ubuntu1604ToolStripMenuItem,
-            this.debianGNULinuxToolStripMenuItem,
-            this.kaliLinuxToolStripMenuItem,
-            this.openSUSEToolStripMenuItem,
-            this.sLESToolStripMenuItem,
-            this.toolStripMenuItem7,
-            this.fromMicrosoftStoreToolStripMenuItem});
-            this.newDistroToolStripMenuItem.Name = "newDistroToolStripMenuItem";
-            this.newDistroToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.newDistroToolStripMenuItem.Text = "&New Distro...";
-            // 
-            // ubuntu1804ToolStripMenuItem
-            // 
-            this.ubuntu1804ToolStripMenuItem.Name = "ubuntu1804ToolStripMenuItem";
-            this.ubuntu1804ToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.ubuntu1804ToolStripMenuItem.Text = "Ubuntu 18.04...";
-            this.ubuntu1804ToolStripMenuItem.Click += new System.EventHandler(this.Ubuntu1804ToolStripMenuItem_Click);
-            // 
-            // ubuntu1604ToolStripMenuItem
-            // 
-            this.ubuntu1604ToolStripMenuItem.Name = "ubuntu1604ToolStripMenuItem";
-            this.ubuntu1604ToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.ubuntu1604ToolStripMenuItem.Text = "Ubuntu 16.04...";
-            this.ubuntu1604ToolStripMenuItem.Click += new System.EventHandler(this.Ubuntu1604ToolStripMenuItem_Click);
-            // 
-            // debianGNULinuxToolStripMenuItem
-            // 
-            this.debianGNULinuxToolStripMenuItem.Name = "debianGNULinuxToolStripMenuItem";
-            this.debianGNULinuxToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.debianGNULinuxToolStripMenuItem.Text = "Debian GNU/Linux...";
-            this.debianGNULinuxToolStripMenuItem.Click += new System.EventHandler(this.DebianGNULinuxToolStripMenuItem_Click);
-            // 
-            // kaliLinuxToolStripMenuItem
-            // 
-            this.kaliLinuxToolStripMenuItem.Name = "kaliLinuxToolStripMenuItem";
-            this.kaliLinuxToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.kaliLinuxToolStripMenuItem.Text = "Kali Linux...";
-            this.kaliLinuxToolStripMenuItem.Click += new System.EventHandler(this.KaliLinuxToolStripMenuItem_Click);
-            // 
-            // openSUSEToolStripMenuItem
-            // 
-            this.openSUSEToolStripMenuItem.Name = "openSUSEToolStripMenuItem";
-            this.openSUSEToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.openSUSEToolStripMenuItem.Text = "OpenSUSE...";
-            this.openSUSEToolStripMenuItem.Click += new System.EventHandler(this.OpenSUSEToolStripMenuItem_Click);
-            // 
-            // sLESToolStripMenuItem
-            // 
-            this.sLESToolStripMenuItem.Name = "sLESToolStripMenuItem";
-            this.sLESToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.sLESToolStripMenuItem.Text = "SLES...";
-            this.sLESToolStripMenuItem.Click += new System.EventHandler(this.SLESToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem7
-            // 
-            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(195, 6);
-            // 
-            // fromMicrosoftStoreToolStripMenuItem
-            // 
-            this.fromMicrosoftStoreToolStripMenuItem.Name = "fromMicrosoftStoreToolStripMenuItem";
-            this.fromMicrosoftStoreToolStripMenuItem.Size = new System.Drawing.Size(198, 22);
-            this.fromMicrosoftStoreToolStripMenuItem.Text = "From Microsoft Store...";
-            this.fromMicrosoftStoreToolStripMenuItem.Click += new System.EventHandler(this.FromMicrosoftStoreToolStripMenuItem_Click);
-            // 
             // importDistroToolStripMenuItem
             // 
             this.importDistroToolStripMenuItem.Name = "importDistroToolStripMenuItem";
@@ -497,79 +412,10 @@
             this.distroToolStripMenuItem.Text = "&Distro";
             this.distroToolStripMenuItem.DropDownOpening += new System.EventHandler(this.DistroToolStripMenuItem_DropDownOpening);
             // 
-            // newDistroToolStripMenuItem1
-            // 
-            this.newDistroToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ubuntu1804ToolStripMenuItem1,
-            this.ubuntu1604ToolStripMenuItem1,
-            this.debianGNULinuxToolStripMenuItem1,
-            this.kaliLinuxToolStripMenuItem1,
-            this.openSUSEToolStripMenuItem1,
-            this.sLESToolStripMenuItem1,
-            this.toolStripSeparator1,
-            this.fromMicrosoftStoreToolStripMenuItem1});
-            this.newDistroToolStripMenuItem1.Name = "newDistroToolStripMenuItem1";
-            this.newDistroToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
-            this.newDistroToolStripMenuItem1.Text = "&New Distro";
-            // 
-            // ubuntu1804ToolStripMenuItem1
-            // 
-            this.ubuntu1804ToolStripMenuItem1.Name = "ubuntu1804ToolStripMenuItem1";
-            this.ubuntu1804ToolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
-            this.ubuntu1804ToolStripMenuItem1.Text = "Ubuntu 18.04...";
-            this.ubuntu1804ToolStripMenuItem1.Click += new System.EventHandler(this.Ubuntu1804ToolStripMenuItem_Click);
-            // 
-            // ubuntu1604ToolStripMenuItem1
-            // 
-            this.ubuntu1604ToolStripMenuItem1.Name = "ubuntu1604ToolStripMenuItem1";
-            this.ubuntu1604ToolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
-            this.ubuntu1604ToolStripMenuItem1.Text = "Ubuntu 16.04...";
-            this.ubuntu1604ToolStripMenuItem1.Click += new System.EventHandler(this.Ubuntu1604ToolStripMenuItem_Click);
-            // 
-            // debianGNULinuxToolStripMenuItem1
-            // 
-            this.debianGNULinuxToolStripMenuItem1.Name = "debianGNULinuxToolStripMenuItem1";
-            this.debianGNULinuxToolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
-            this.debianGNULinuxToolStripMenuItem1.Text = "Debian GNU/Linux...";
-            this.debianGNULinuxToolStripMenuItem1.Click += new System.EventHandler(this.DebianGNULinuxToolStripMenuItem_Click);
-            // 
-            // kaliLinuxToolStripMenuItem1
-            // 
-            this.kaliLinuxToolStripMenuItem1.Name = "kaliLinuxToolStripMenuItem1";
-            this.kaliLinuxToolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
-            this.kaliLinuxToolStripMenuItem1.Text = "Kali Linux...";
-            this.kaliLinuxToolStripMenuItem1.Click += new System.EventHandler(this.DebianGNULinuxToolStripMenuItem_Click);
-            // 
-            // openSUSEToolStripMenuItem1
-            // 
-            this.openSUSEToolStripMenuItem1.Name = "openSUSEToolStripMenuItem1";
-            this.openSUSEToolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
-            this.openSUSEToolStripMenuItem1.Text = "OpenSUSE...";
-            this.openSUSEToolStripMenuItem1.Click += new System.EventHandler(this.OpenSUSEToolStripMenuItem_Click);
-            // 
-            // sLESToolStripMenuItem1
-            // 
-            this.sLESToolStripMenuItem1.Name = "sLESToolStripMenuItem1";
-            this.sLESToolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
-            this.sLESToolStripMenuItem1.Text = "SLES...";
-            this.sLESToolStripMenuItem1.Click += new System.EventHandler(this.SLESToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(195, 6);
-            // 
-            // fromMicrosoftStoreToolStripMenuItem1
-            // 
-            this.fromMicrosoftStoreToolStripMenuItem1.Name = "fromMicrosoftStoreToolStripMenuItem1";
-            this.fromMicrosoftStoreToolStripMenuItem1.Size = new System.Drawing.Size(198, 22);
-            this.fromMicrosoftStoreToolStripMenuItem1.Text = "From Microsoft Store...";
-            this.fromMicrosoftStoreToolStripMenuItem1.Click += new System.EventHandler(this.FromMicrosoftStoreToolStripMenuItem_Click);
-            // 
             // openToolStripMenuItem1
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem1.Text = "&Open...";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
@@ -578,7 +424,7 @@
             this.openWithToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.hyperToolStripMenuItem1});
             this.openWithToolStripMenuItem1.Name = "openWithToolStripMenuItem1";
-            this.openWithToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.openWithToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.openWithToolStripMenuItem1.Text = "&Open With";
             // 
             // hyperToolStripMenuItem1
@@ -591,88 +437,88 @@
             // exploreToolStripMenuItem1
             // 
             this.exploreToolStripMenuItem1.Name = "exploreToolStripMenuItem1";
-            this.exploreToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.exploreToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.exploreToolStripMenuItem1.Text = "&Explore...";
             this.exploreToolStripMenuItem1.DisplayStyleChanged += new System.EventHandler(this.ExploreToolStripMenuItem_Click);
             // 
             // toolStripMenuItem9
             // 
             this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-            this.toolStripMenuItem9.Size = new System.Drawing.Size(170, 6);
+            this.toolStripMenuItem9.Size = new System.Drawing.Size(177, 6);
             // 
             // createShortcutToolStripMenuItem1
             // 
             this.createShortcutToolStripMenuItem1.Name = "createShortcutToolStripMenuItem1";
-            this.createShortcutToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.createShortcutToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.createShortcutToolStripMenuItem1.Text = "&Create Shortcut...";
             this.createShortcutToolStripMenuItem1.Click += new System.EventHandler(this.CreateShortcutToolStripMenuItem_Click);
             // 
             // mapAsADriveToolStripMenuItem1
             // 
             this.mapAsADriveToolStripMenuItem1.Name = "mapAsADriveToolStripMenuItem1";
-            this.mapAsADriveToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.mapAsADriveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.mapAsADriveToolStripMenuItem1.Text = "&Map as a drive...";
             this.mapAsADriveToolStripMenuItem1.Click += new System.EventHandler(this.MapAsADriveToolStripMenuItem_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(170, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(177, 6);
             // 
             // importDistroToolStripMenuItem1
             // 
             this.importDistroToolStripMenuItem1.Name = "importDistroToolStripMenuItem1";
-            this.importDistroToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.importDistroToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.importDistroToolStripMenuItem1.Text = "&Import Distro...";
             this.importDistroToolStripMenuItem1.Click += new System.EventHandler(this.ImportDistroToolStripMenuItem_Click);
             // 
             // exportDistroToolStripMenuItem1
             // 
             this.exportDistroToolStripMenuItem1.Name = "exportDistroToolStripMenuItem1";
-            this.exportDistroToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.exportDistroToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.exportDistroToolStripMenuItem1.Text = "E&xport Distro...";
             this.exportDistroToolStripMenuItem1.Click += new System.EventHandler(this.ExportDistroToolStripMenuItem_Click);
             // 
             // toolStripMenuItem8
             // 
             this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(170, 6);
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(177, 6);
             // 
             // unregisterDistroToolStripMenuItem1
             // 
             this.unregisterDistroToolStripMenuItem1.Name = "unregisterDistroToolStripMenuItem1";
-            this.unregisterDistroToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.unregisterDistroToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.unregisterDistroToolStripMenuItem1.Text = "&Unregister Distro...";
             this.unregisterDistroToolStripMenuItem1.Click += new System.EventHandler(this.UnregisterDistroToolStripMenuItem_Click);
             // 
             // terminateDistroToolStripMenuItem1
             // 
             this.terminateDistroToolStripMenuItem1.Name = "terminateDistroToolStripMenuItem1";
-            this.terminateDistroToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.terminateDistroToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.terminateDistroToolStripMenuItem1.Text = "&Terminate Distro...";
             this.terminateDistroToolStripMenuItem1.Click += new System.EventHandler(this.TerminateDistroToolStripMenuItem_Click);
             // 
             // toolStripMenuItem10
             // 
             this.toolStripMenuItem10.Name = "toolStripMenuItem10";
-            this.toolStripMenuItem10.Size = new System.Drawing.Size(170, 6);
+            this.toolStripMenuItem10.Size = new System.Drawing.Size(177, 6);
             // 
             // propertiesToolStripMenuItem1
             // 
             this.propertiesToolStripMenuItem1.Name = "propertiesToolStripMenuItem1";
-            this.propertiesToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.propertiesToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.propertiesToolStripMenuItem1.Text = "&Properties...";
             this.propertiesToolStripMenuItem1.Click += new System.EventHandler(this.PropertiesToolStripMenuItem_Click);
             // 
             // toolStripMenuItem13
             // 
             this.toolStripMenuItem13.Name = "toolStripMenuItem13";
-            this.toolStripMenuItem13.Size = new System.Drawing.Size(170, 6);
+            this.toolStripMenuItem13.Size = new System.Drawing.Size(177, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.closeToolStripMenuItem.Text = "E&xit";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
             // 
@@ -810,6 +656,20 @@
             this.ShortcutGenerator.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ShortcutGenerator_DoWork);
             this.ShortcutGenerator.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ShortcutGenerator_RunWorkerCompleted);
             // 
+            // newDistroToolStripMenuItem
+            // 
+            this.newDistroToolStripMenuItem.Name = "newDistroToolStripMenuItem";
+            this.newDistroToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newDistroToolStripMenuItem.Text = "&New Distro...";
+            this.newDistroToolStripMenuItem.Click += new System.EventHandler(this.NewDistroToolStripMenuItem_Click);
+            // 
+            // newDistroToolStripMenuItem1
+            // 
+            this.newDistroToolStripMenuItem1.Name = "newDistroToolStripMenuItem1";
+            this.newDistroToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.newDistroToolStripMenuItem1.Text = "&New Distro...";
+            this.newDistroToolStripMenuItem1.Click += new System.EventHandler(this.NewDistroToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -851,7 +711,6 @@
         private System.Windows.Forms.ToolStripMenuItem unregisterDistroToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem terminateDistroToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip DefaultContextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem newDistroToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem importDistroToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
@@ -859,14 +718,6 @@
         private System.Windows.Forms.SaveFileDialog ExportDistroFileDialog;
         private System.Windows.Forms.OpenFileDialog ImportDistroFileDialog;
         private System.Windows.Forms.FolderBrowserDialog ImportLocationFolderDialog;
-        private System.Windows.Forms.ToolStripMenuItem ubuntu1804ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ubuntu1604ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem debianGNULinuxToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem kaliLinuxToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem openSUSEToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sLESToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
-        private System.Windows.Forms.ToolStripMenuItem fromMicrosoftStoreToolStripMenuItem;
         private System.Windows.Forms.MenuStrip MainMenu;
         private System.Windows.Forms.ToolStripMenuItem distroToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -883,15 +734,6 @@
         private System.Windows.Forms.ToolStripMenuItem unregisterDistroToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem terminateDistroToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem10;
-        private System.Windows.Forms.ToolStripMenuItem newDistroToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem ubuntu1804ToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem ubuntu1604ToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem debianGNULinuxToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem kaliLinuxToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem openSUSEToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem sLESToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem fromMicrosoftStoreToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem importDistroToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem viewModeToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem largeIconToolStripMenuItem1;
@@ -928,6 +770,8 @@
         private System.ComponentModel.BackgroundWorker IconGenerator;
         private System.ComponentModel.BackgroundWorker ShimGenerator;
         private System.ComponentModel.BackgroundWorker ShortcutGenerator;
+        private System.Windows.Forms.ToolStripMenuItem newDistroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newDistroToolStripMenuItem1;
     }
 }
 
