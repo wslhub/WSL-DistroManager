@@ -1,9 +1,13 @@
 {
   "title": "Windows Subsystem for Linux Distro Gallery Feed",
   "version": "https://jsonfeed.org/version/1",
+  "author": {
+    "name": "rkttu.com",
+    "url": "https://www.rkttu.com"
+  },
   "items": [
     {
-      "id": "wsl_ubuntu_1804",
+      "id": "appx_ubuntu_1804",
       "title": "Ubuntu Linux 18.04",
       "url": "https://aka.ms/wsl-ubuntu-1804",
       "content_text": "Ubuntu Linux 18.04 from Canonical",
@@ -14,7 +18,7 @@
       }
     },
     {
-      "id": "wsl_ubuntu_1604",
+      "id": "appx_ubuntu_1604",
       "title": "Ubuntu Linux 16.04",
       "url": "https://aka.ms/wsl-ubuntu-1604",
       "content_text": "Ubuntu Linux 16.04 from Canonical",
