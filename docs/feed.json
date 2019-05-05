@@ -27,6 +27,50 @@
         "name": "Canonical",
         "url": "http://www.canonical.com"
       }
+    },
+    {
+      "id": "appx_debian",
+      "title": "Debian Linux",
+      "url": "https://aka.ms/wsl-debian-gnulinux",
+      "content_text": "Debian Linux 16.04",
+      "image": "https://wslhub.com/icons/debian.png",
+      "author": {
+        "name": "Debian",
+        "url": "http://www.debian.org"
+      }
+    },
+    {
+      "id": "appx_kali_linux",
+      "title": "Kali Linux",
+      "url": "https://aka.ms/wsl-kali-linux",
+      "content_text": "Kali Linux",
+      "image": "https://wslhub.com/icons/kali.png",
+      "author": {
+        "name": "Kali",
+        "url": "http://www.kali.org"
+      }
+    },
+    {
+      "id": "appx_opensuse",
+      "title": "OpenSUSE 42",
+      "url": "https://aka.ms/wsl-opensuse-42",
+      "content_text": "OpenSUSE Linux 42",
+      "image": "https://wslhub.com/icons/suse.png",
+      "author": {
+        "name": "OpenSUSE",
+        "url": "http://www.opensuse.org"
+      }
+    },
+    {
+      "id": "appx_sles",
+      "title": "SLES 12",
+      "url": "https://aka.ms/wsl-sles-12",
+      "content_text": "SLES 12",
+      "image": "https://wslhub.com/icons/suse.png",
+      "author": {
+        "name": "SUSE",
+        "url": "http://www.suse.com"
+      }
     }
   ]
 }
