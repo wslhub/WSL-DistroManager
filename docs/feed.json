@@ -1,0 +1,28 @@
+{
+  "title": "Windows Subsystem for Linux Distro Gallery Feed",
+  "version": "https://jsonfeed.org/version/1",
+  "items": [
+    {
+      "id": "wsl_ubuntu_1804",
+      "title": "Ubuntu Linux 18.04",
+      "url": "https://aka.ms/wsl-ubuntu-1804",
+      "content_text": "Ubuntu Linux 18.04 from Canonical",
+      "image": "https://www.wslhub.com/icons/ubuntu.png",
+      "author": {
+        "name": "Canonical",
+        "url": "http://www.canonical.com"
+      }
+    },
+    {
+      "id": "wsl_ubuntu_1604",
+      "title": "Ubuntu Linux 16.04",
+      "url": "https://aka.ms/wsl-ubuntu-1604",
+      "content_text": "Ubuntu Linux 16.04 from Canonical",
+      "image": "https://www.wslhub.com/icons/ubuntu.png",
+      "author": {
+        "name": "Canonical",
+        "url": "http://www.canonical.com"
+      }
+    }
+  ]
+}
