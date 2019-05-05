@@ -10,7 +10,7 @@
       "id": "appx_ubuntu_1804",
       "title": "Ubuntu Linux 18.04",
       "url": "https://aka.ms/wsl-ubuntu-1804",
-      "content_text": "Ubuntu Linux 18.04 from Canonical",
+      "content_text": "Ubuntu 18.04 on Windows allows one to use Ubuntu Terminal and run Ubuntu command line utilities including bash, ssh, git, apt and many more.",
       "image": "https://wslhub.com/icons/ubuntu.png",
       "author": {
         "name": "Canonical",
@@ -21,7 +21,7 @@
       "id": "appx_ubuntu_1604",
       "title": "Ubuntu Linux 16.04",
       "url": "https://aka.ms/wsl-ubuntu-1604",
-      "content_text": "Ubuntu Linux 16.04 from Canonical",
+      "content_text": "Ubuntu on Windows allows one to use Ubuntu Terminal and run Ubuntu command line utilities including bash, ssh, git, apt and many more.",
       "image": "https://wslhub.com/icons/ubuntu.png",
       "author": {
         "name": "Canonical",
@@ -32,10 +32,10 @@
       "id": "appx_debian",
       "title": "Debian Linux",
       "url": "https://aka.ms/wsl-debian-gnulinux",
-      "content_text": "Debian Linux 16.04",
+      "content_text": "With this distro you get Debian for the Windows Subsystem for Linux (WSL). You will be able to use a complete Debian command line environment containing a full current stable release environment.",
       "image": "https://wslhub.com/icons/debian.png",
       "author": {
-        "name": "Debian",
+        "name": "The Debian Project",
         "url": "http://www.debian.org"
       }
     },
@@ -43,10 +43,10 @@
       "id": "appx_kali_linux",
       "title": "Kali Linux",
       "url": "https://aka.ms/wsl-kali-linux",
-      "content_text": "Kali Linux",
+      "content_text": "The Kali for Windows application allows one to install and run the Kali Linux open-source penetration testing distribution natively, from the Windows 10 OS.",
       "image": "https://wslhub.com/icons/kali.png",
       "author": {
-        "name": "Kali",
+        "name": "Kali Linux",
         "url": "http://www.kali.org"
       }
     },
@@ -54,10 +54,10 @@
       "id": "appx_opensuse",
       "title": "OpenSUSE 42",
       "url": "https://aka.ms/wsl-opensuse-42",
-      "content_text": "OpenSUSE Linux 42",
+      "content_text": "The openSUSE distribution is a stable, easy to use and complete multi-purpose Linux distribution.",
       "image": "https://wslhub.com/icons/suse.png",
       "author": {
-        "name": "OpenSUSE",
+        "name": "SUSE",
         "url": "http://www.opensuse.org"
       }
     },
@@ -65,7 +65,7 @@
       "id": "appx_sles",
       "title": "SLES 12",
       "url": "https://aka.ms/wsl-sles-12",
-      "content_text": "SLES 12",
+      "content_text": "SUSE Linux Enterprise Server is a world-class, secure open source server operating system, built to power physical, virtual and cloud-based mission-critical workloads.",
       "image": "https://wslhub.com/icons/suse.png",
       "author": {
         "name": "SUSE",
