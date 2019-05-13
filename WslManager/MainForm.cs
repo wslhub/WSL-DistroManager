@@ -96,7 +96,7 @@ namespace WslManager
 
         private void LaunchHyper(IEnumerable<ListViewItem> distroItems)
         {
-            string hyperConfigFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".hyper.js");
+            string hyperConfigFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Hyper", ".hyper.js");
             string tempHyperConfigFile = hyperConfigFile + ".tmp";
 
             if (File.Exists(hyperConfigFile))
