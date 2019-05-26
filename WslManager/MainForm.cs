@@ -11,6 +11,7 @@ using System.Linq;
 using System.Management;
 using System.Reflection;
 using System.Security.Principal;
+using System.Text;
 using System.Windows.Forms;
 using WslManager.Models;
 
@@ -54,6 +55,41 @@ namespace WslManager
                 ShortcutGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroListViewItem[]>(triggeredByUser, items));
         }
 
+        private void OpenWslFolder(DistroListViewItem distro)
+        {
+            var startInfo = new ProcessStartInfo(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe"),
+                $@"\\wsl$\{distro.DistroName}")
+            {
+                UseShellExecute = false,
+            };
+
+            Process.Start(startInfo);
+        }
+
+        private void OpenWslConfig(DistroListViewItem distro)
+        {
+            var wslConfPath = $@"\\wsl$\{distro.DistroName}\etc\wsl.conf";
+
+            if (!File.Exists(wslConfPath))
+            {
+                try { File.WriteAllText(wslConfPath, "# https://docs.microsoft.com/en-us/windows/wsl/wsl-config#set-wsl-launch-settings\n", Encoding.ASCII); }
+                catch { }
+            }
+
+            if (!File.Exists(wslConfPath))
+                return;
+
+            var startInfo = new ProcessStartInfo(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "notepad.exe"),
+                wslConfPath)
+            {
+                UseShellExecute = false,
+            };
+
+            Process.Start(startInfo);
+        }
+
         private RegistryKey GetDistroRegistryKeyByDistroName(string distroName)
         {
             if (string.IsNullOrWhiteSpace(distroName))
@@ -85,7 +121,7 @@ namespace WslManager
             return null;
         }
 
-        private void LaunchWslDistro(bool openFolder, IEnumerable<ListViewItem> distroItems)
+        private void LaunchWslDistro(Action<DistroListViewItem> afterCallback, IEnumerable<ListViewItem> distroItems)
         {
             if (distroItems == null || distroItems.Count() < 1)
                 return;
@@ -96,26 +132,15 @@ namespace WslManager
 
                 startInfo = new ProcessStartInfo(
                     Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
-                    $@"-d {eachItem.DistroName} {(openFolder ? "-- exit" : "")}")
+                    $@"-d {eachItem.DistroName} {(afterCallback != null ? "-- exit" : "")}")
                 {
                     UseShellExecute = false,
                     WorkingDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
-                    CreateNoWindow = openFolder,
+                    CreateNoWindow = afterCallback != null,
                 };
 
                 var proc = Process.Start(startInfo);
-
-                if (openFolder)
-                {
-                    startInfo = new ProcessStartInfo(
-                        Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe"),
-                        $@"\\wsl$\{eachItem.DistroName}")
-                    {
-                        UseShellExecute = false,
-                    };
-
-                    Process.Start(startInfo).WaitForExit();
-                }
+                afterCallback?.Invoke(eachItem);
             }
         }
 
@@ -448,7 +473,9 @@ namespace WslManager
             }
 
             var shiftKeyPressed = ModifierKeys.HasFlag(Keys.Shift);
-            LaunchWslDistro(shiftKeyPressed, DistroListView.SelectedItems.Cast<ListViewItem>());
+            LaunchWslDistro(
+                shiftKeyPressed ? new Action<DistroListViewItem>(OpenWslFolder) : null,
+                DistroListView.SelectedItems.Cast<ListViewItem>());
         }
 
         private void RefreshToolStripMenuItem_Click(object sender, EventArgs e)
@@ -485,7 +512,9 @@ namespace WslManager
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var shiftKeyPressed = ModifierKeys.HasFlag(Keys.Shift);
-            LaunchWslDistro(shiftKeyPressed, DistroListView.SelectedItems.Cast<ListViewItem>());
+            LaunchWslDistro(
+                shiftKeyPressed ? new Action<DistroListViewItem>(OpenWslFolder) : null,
+                DistroListView.SelectedItems.Cast<ListViewItem>());
         }
 
         private void HyperToolStripMenuItem_Click(object sender, EventArgs e)
@@ -495,7 +524,9 @@ namespace WslManager
 
         private void ExploreToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LaunchWslDistro(true, DistroListView.SelectedItems.Cast<ListViewItem>());
+            LaunchWslDistro(
+                new Action<DistroListViewItem>(OpenWslFolder),
+                DistroListView.SelectedItems.Cast<ListViewItem>());
         }
 
         private void ExportDistroToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1031,6 +1062,13 @@ Icons: https://www.icons8.com",
                 else
                     MessageBox.Show(this, "Custom distro installation is not supported.");
             }
+        }
+
+        private void ConfigureDistroToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LaunchWslDistro(
+                new Action<DistroListViewItem>(OpenWslConfig),
+                DistroListView.SelectedItems.Cast<ListViewItem>());
         }
     }
 }
