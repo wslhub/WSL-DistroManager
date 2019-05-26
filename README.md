@@ -20,6 +20,7 @@ Latest features introduced at [here](https://wslman.rkttu.com/)
 * Review detailed distro properties (such as distro total size, registry keys)
 * Create a desktop shortcut which runs distro with wsl.exe and decorated with custom icon.
 * Initialize new distro with custom user account.
+* Open WSL configuration file (wsl.conf) with notepad. (Notepad in 19H1 supports/honors unix EOL)
 
 ## Planned features/enhancements
 
