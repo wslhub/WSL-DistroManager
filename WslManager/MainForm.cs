@@ -29,6 +29,31 @@ namespace WslManager
         private Label emptyLabel;
         private ManagementEventWatcher managementEventWatcher;
 
+        private void PerformRefreshDistroList(bool triggeredByUser)
+        {
+            var items = Helpers.LoadDistroList().ToArray();
+            DistroListView.Items.Clear();
+            DistroListView.Items.AddRange(items);
+            TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
+
+            if (DistroListView.Items.Count < 1)
+            {
+                DistroListView.Visible = false;
+                emptyLabel.Visible = true;
+            }
+            else
+            {
+                DistroListView.Visible = true;
+                emptyLabel.Visible = false;
+            }
+
+            if (!ShimGenerator.IsBusy)
+                ShimGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroListViewItem[]>(triggeredByUser, items));
+
+            if (!ShortcutGenerator.IsBusy)
+                ShortcutGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroListViewItem[]>(triggeredByUser, items));
+        }
+
         private RegistryKey GetDistroRegistryKeyByDistroName(string distroName)
         {
             if (string.IsNullOrWhiteSpace(distroName))
@@ -428,27 +453,7 @@ namespace WslManager
 
         private void RefreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var items = Helpers.LoadDistroList().ToArray();
-            DistroListView.Items.Clear();
-            DistroListView.Items.AddRange(items);
-            TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
-
-            if (DistroListView.Items.Count < 1)
-            {
-                DistroListView.Visible = false;
-                emptyLabel.Visible = true;
-            }
-            else
-            {
-                DistroListView.Visible = true;
-                emptyLabel.Visible = false;
-            }
-
-            if (!ShimGenerator.IsBusy)
-                ShimGenerator.RunWorkerAsync(items);
-
-            if (!ShortcutGenerator.IsBusy)
-                ShortcutGenerator.RunWorkerAsync(items);
+            PerformRefreshDistroList(true);
         }
 
         private void DistroListView_MouseUp(object sender, MouseEventArgs e)
@@ -785,16 +790,16 @@ Icons: https://www.icons8.com",
             var targetDir = Helpers.GetWslShimDirectoryPath();
             EnsureDirectoryCreate(targetDir, false);
 
-            var items = e.Argument as DistroListViewItem[];
+            var arg = e.Argument as BackgroundWorkerArgument<DistroListViewItem[]>;
 
-            if (items == null)
+            if (arg?.Argument == null)
                 return;
 
             // Shim exe file may not have icon due to missing icon cache
             var result = new Dictionary<string, CompilerResults>();
-            e.Result = result;
+            e.Result = new BackgroundWorkerResult<Dictionary<string, CompilerResults>>(arg.HasTriggeredByUser, result);
 
-            foreach (var eachItem in items)
+            foreach (var eachItem in arg.Argument)
             {
                 var fileName = eachItem.DistroName;
                 var eachResult = WslShimGenerator.CreateWslShim(
@@ -828,19 +833,28 @@ Icons: https://www.icons8.com",
                 return;
             }
 
-            var result = e.Result as Dictionary<string, CompilerResults>;
+            var result = e.Result as BackgroundWorkerResult<Dictionary<string, CompilerResults>>;
 
             if (result == null)
+                return;
+
+            if (result.Result == null)
             {
-                MessageBox.Show(this, $"Cannot create WSL shim files due to unexpected error.", Text,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                if (result.HasTriggeredByUser)
+                {
+                    MessageBox.Show(this, $"Cannot create WSL shim files due to unexpected error.", Text,
+                        MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                }
                 return;
             }
 
-            if (result.Count > 0)
+            if (result.Result.Count > 0)
             {
-                MessageBox.Show(this, $"Some WSL shim files not created due to unexpected error.", Text,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                if (result.HasTriggeredByUser)
+                {
+                    MessageBox.Show(this, $"Some WSL shim files not created due to unexpected error.", Text,
+                        MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                }
                 return;
             }
         }
@@ -877,16 +891,16 @@ Icons: https://www.icons8.com",
             var targetDir = Helpers.GetWslShortcutDirectoryPath();
             EnsureDirectoryCreate(targetDir, false);
 
-            var items = e.Argument as DistroListViewItem[];
+            var arg = e.Argument as BackgroundWorkerArgument<DistroListViewItem[]>;
 
-            if (items == null)
+            if (arg?.Argument == null)
                 return;
 
             // Shorcut file may not have icon due to missing icon cache
             var result = new Dictionary<string, string>();
-            e.Result = result;
+            e.Result = new BackgroundWorkerResult<Dictionary<string, string>>(arg.HasTriggeredByUser, result);
 
-            foreach (var eachItem in items)
+            foreach (var eachItem in arg.Argument)
             {
                 var targetFilePath = Path.Combine(targetDir, eachItem.DistroName + ".lnk");
                 var creationResult = CreateDistroShortcut(eachItem, targetFilePath);
@@ -912,19 +926,28 @@ Icons: https://www.icons8.com",
                 return;
             }
 
-            var result = e.Result as Dictionary<string, string>;
+            var result = e.Result as BackgroundWorkerResult<Dictionary<string, string>>;
 
             if (result == null)
+                return;
+
+            if (result.Result == null)
             {
-                MessageBox.Show(this, $"Cannot create WSL shortcut files due to unexpected error.", Text,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                if (result.HasTriggeredByUser)
+                {
+                    MessageBox.Show(this, $"Cannot create WSL shortcut files due to unexpected error.", Text,
+                        MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                }
                 return;
             }
 
-            if (result.Count > 0)
+            if (result.Result.Count > 0)
             {
-                MessageBox.Show(this, $"Some WSL shortcut files not created due to unexpected error.", Text,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                if (result.HasTriggeredByUser)
+                {
+                    MessageBox.Show(this, $"Some WSL shortcut files not created due to unexpected error.", Text,
+                        MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                }
                 return;
             }
         }
@@ -972,7 +995,7 @@ Icons: https://www.icons8.com",
         private void ManagementEventWatcher_EventArrived(object sender, EventArrivedEventArgs e)
         {
             if (InvokeRequired)
-                Invoke(new Action(refreshToolStripMenuItem.PerformClick));
+                Invoke(new Action<bool>(PerformRefreshDistroList), new object[] { false });
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

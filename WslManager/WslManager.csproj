@@ -86,6 +86,8 @@
     <Compile Include="AccountCreateForm.Designer.cs">
       <DependentUpon>AccountCreateForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BackgroundWorkerArgument.cs" />
+    <Compile Include="BackgroundWorkerResult.cs" />
     <Compile Include="DictionaryPropertyDescriptor.cs" />
     <Compile Include="DictionaryPropertyGridAdapter.cs" />
     <Compile Include="DistroGalleryForm.cs">
