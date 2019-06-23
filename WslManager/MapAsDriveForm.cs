@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Management;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using WslManager.Interop;
+using WslManager.Structures;
 
 namespace WslManager
 {
@@ -23,14 +20,7 @@ namespace WslManager
 
         public string SelectedDistro { get; set; }
 
-        private QueryResultModel latestQueryResult;
-
-        protected class QueryResultModel
-        {
-            public WslMappedDriveInfoCollection AvailableDrives { get; set; }
-
-            public string[] WslDistroList { get; set; }
-        }
+        private MappedDriveQueryResultModel latestQueryResult;
 
         private void DataSourceRefresher_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -64,8 +54,8 @@ namespace WslManager
 
             wslMappings = wslMappings.OrderByDescending(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
 
-            var items = Helpers.LoadDistroList().ToArray();
-            e.Result = new QueryResultModel()
+            var items = SharedRoutines.LoadDistroList().ToArray();
+            e.Result = new MappedDriveQueryResultModel()
             {
                 AvailableDrives = new WslMappedDriveInfoCollection(wslMappings.Select(x => new WslMappedDriveInfo() { DriveName = x.Key, DistroName = x.Value })),
                 WslDistroList = items.Select(x => x.DistroName).ToArray(),
@@ -91,7 +81,7 @@ namespace WslManager
                 return;
             }
 
-            var result = e.Result as QueryResultModel;
+            var result = e.Result as MappedDriveQueryResultModel;
             if (result == null)
             {
                 RefreshStatusLabel.Text = $"Data refresh task halted due to error - invalid data type found.";

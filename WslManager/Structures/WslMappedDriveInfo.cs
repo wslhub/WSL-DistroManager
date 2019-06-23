@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WslManager
+namespace WslManager.Structures
 {
     [Serializable]
     public sealed class WslMappedDriveInfo

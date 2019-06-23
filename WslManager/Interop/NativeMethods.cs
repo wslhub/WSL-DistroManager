@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace WslManager
+namespace WslManager.Interop
 {
     internal static class NativeMethods
     {

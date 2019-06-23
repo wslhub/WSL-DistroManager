@@ -2,7 +2,7 @@
 using System.Collections;
 using System.ComponentModel;
 
-namespace WslManager
+namespace WslManager.Helpers
 {
     internal sealed class DictionaryPropertyDescriptor : PropertyDescriptor
     {

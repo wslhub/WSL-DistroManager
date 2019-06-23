@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using WslManager.Structures;
 
 namespace WslManager
 {
@@ -46,7 +47,7 @@ namespace WslManager
                 }
             }
 
-            var rank = Helpers.CheckStrength(AccountPassword);
+            var rank = SharedRoutines.CheckStrength(AccountPassword);
 
             if (rank < ExpectedPasswordScore)
             {

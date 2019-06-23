@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WslManager
+namespace WslManager.Structures
 {
     public sealed class BackgroundWorkerArgument<T> : EventArgs
     {

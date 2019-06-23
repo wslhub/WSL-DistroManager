@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 
-namespace WslManager
+namespace WslManager.Helpers
 {
     internal static class WslShimGenerator
     {
@@ -202,8 +202,8 @@ namespace WslManager
             codeDomProvider.GenerateCodeFromCompileUnit(codeCompileUnit, new StringWriter(buffer), generatorOptions);
 
             var iconPath = Path.Combine(
-                Helpers.GetIconDirectoryPath(),
-                Helpers.GetImageKey(distroName) + ".ico");
+                SharedRoutines.GetIconDirectoryPath(),
+                SharedRoutines.GetImageKey(distroName) + ".ico");
 
             var iconCompilerOption = string.Empty;
             

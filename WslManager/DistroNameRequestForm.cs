@@ -31,7 +31,7 @@ namespace WslManager
 
             DistroName.Text = distroName;
 
-            var items = Helpers.LoadDistroList().ToArray();
+            var items = SharedRoutines.LoadDistroList().ToArray();
 
             if (items.Where(x => string.Equals(x.Text, distroName, StringComparison.Ordinal)).Count() > 0)
             {

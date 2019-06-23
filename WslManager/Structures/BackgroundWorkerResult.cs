@@ -1,4 +1,4 @@
-﻿namespace WslManager
+﻿namespace WslManager.Structures
 {
     public sealed class BackgroundWorkerResult<T>
     {

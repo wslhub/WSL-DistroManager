@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Dynamic;
 using System.IO;
 using System.Windows.Forms;
+using WslManager.Helpers;
 
 namespace WslManager
 {
@@ -44,8 +44,8 @@ namespace WslManager
             if (registryKey == null)
                 return;
 
-            DistroIcon.Image = ImageList.Images[Helpers.GetImageKey(DistroName)];
-            DistroLocation.Text = Helpers.NormalizePath((string)registryKey.GetValue("BasePath", ""));
+            DistroIcon.Image = ImageList.Images[SharedRoutines.GetImageKey(DistroName)];
+            DistroLocation.Text = SharedRoutines.NormalizePath((string)registryKey.GetValue("BasePath", ""));
             State.Text = "0x" + ((int)registryKey.GetValue("State", 0)).ToString("X8");
             AppxName.Text = (string)registryKey.GetValue("PackageFamilyName", "");
 

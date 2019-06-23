@@ -2,12 +2,12 @@
 using System.Runtime.Serialization;
 using System.Windows.Forms;
 
-namespace WslManager
+namespace WslManager.Structures
 {
     public class DistroListViewItem : ListViewItem
     {
         public DistroListViewItem(RegistryKey key)
-            : base(Helpers.GetDistroProperties(key), Helpers.GetImageKey(key))
+            : base(SharedRoutines.GetDistroProperties(key), SharedRoutines.GetImageKey(key))
         {
         }
 

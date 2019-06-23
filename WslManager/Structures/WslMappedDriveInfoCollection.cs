@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace WslManager
+namespace WslManager.Structures
 {
     [Serializable]
     public sealed class WslMappedDriveInfoCollection : KeyedCollection<string, WslMappedDriveInfo>

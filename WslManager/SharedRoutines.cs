@@ -3,11 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
+using WslManager.Structures;
 using static System.Windows.Forms.ListViewItem;
 
 namespace WslManager
 {
-    internal static class Helpers
+    internal static class SharedRoutines
     {
         public static string GetImageKey(string distroName)
         {

@@ -4,7 +4,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace WslManager
+namespace WslManager.Helpers
 {
     /// <summary>
     /// Adapted from this gist: https://gist.github.com/darkfall/1656050

@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Management;
@@ -13,8 +12,10 @@ using System.Reflection;
 using System.Security.Principal;
 using System.Text;
 using System.Windows.Forms;
+using WslManager.Helpers;
 using WslManager.Interop;
 using WslManager.Models;
+using WslManager.Structures;
 
 namespace WslManager
 {
@@ -33,7 +34,7 @@ namespace WslManager
 
         private void PerformRefreshDistroList(bool triggeredByUser)
         {
-            var items = Helpers.LoadDistroList().ToArray();
+            var items = SharedRoutines.LoadDistroList().ToArray();
             DistroListView.Items.Clear();
             DistroListView.Items.AddRange(items);
             TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
@@ -158,7 +159,7 @@ namespace WslManager
                 foreach (DistroListViewItem eachItem in distroItems)
                 {
                     string distroExecutable = Path.Combine(
-                        Helpers.GetWslShimDirectoryPath(),
+                        SharedRoutines.GetWslShimDirectoryPath(),
                         eachItem.DistroName + "_simple.exe")
                         .Replace("\\", "\\\\");
 
@@ -413,8 +414,8 @@ namespace WslManager
                 Environment.SpecialFolder.UserProfile);
             shortcut.Arguments = $@"-d {selectedDistro.DistroName}";
             shortcut.IconLocation = Path.Combine(
-                Helpers.GetIconDirectoryPath(),
-                Helpers.GetImageKey(selectedDistro.DistroName) + ".ico");
+                SharedRoutines.GetIconDirectoryPath(),
+                SharedRoutines.GetImageKey(selectedDistro.DistroName) + ".ico");
             shortcut.Save();
 
             return File.Exists(targetFilePath);
@@ -789,7 +790,7 @@ Icons: https://www.icons8.com",
             var results = new Dictionary<string, string>();
             e.Result = results;
 
-            var targetDir = Helpers.GetIconDirectoryPath();
+            var targetDir = SharedRoutines.GetIconDirectoryPath();
             EnsureDirectoryCreate(targetDir, false);
 
             foreach (var eachKey in ImageList.Images.Keys)
@@ -824,7 +825,7 @@ Icons: https://www.icons8.com",
 
         private void ShimGenerator_DoWork(object sender, DoWorkEventArgs e)
         {
-            var targetDir = Helpers.GetWslShimDirectoryPath();
+            var targetDir = SharedRoutines.GetWslShimDirectoryPath();
             EnsureDirectoryCreate(targetDir, false);
 
             var arg = e.Argument as BackgroundWorkerArgument<DistroListViewItem[]>;
@@ -898,7 +899,7 @@ Icons: https://www.icons8.com",
 
         private void DistroListView_ItemDrag(object sender, ItemDragEventArgs e)
         {
-            var targetDir = Helpers.GetWslShortcutDirectoryPath();
+            var targetDir = SharedRoutines.GetWslShortcutDirectoryPath();
             EnsureDirectoryCreate(targetDir, false);
 
             var filesToDrag = new List<string>();
@@ -925,7 +926,7 @@ Icons: https://www.icons8.com",
 
         private void ShortcutGenerator_DoWork(object sender, DoWorkEventArgs e)
         {
-            var targetDir = Helpers.GetWslShortcutDirectoryPath();
+            var targetDir = SharedRoutines.GetWslShortcutDirectoryPath();
             EnsureDirectoryCreate(targetDir, false);
 
             var arg = e.Argument as BackgroundWorkerArgument<DistroListViewItem[]>;

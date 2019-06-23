@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WslManager
+namespace WslManager.Structures
 {
     [Serializable]
     public enum PasswordScore : int
