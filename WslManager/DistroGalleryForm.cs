@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
@@ -26,7 +27,8 @@ namespace WslManager
 
         private void FeedLoadWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            var targetUri = new Uri($"https://wslhub.com/feed.json?t={DateTime.UtcNow.Ticks}", UriKind.Absolute);
+            var feedUrl = ConfigurationManager.AppSettings["FeedUrl"];
+            var targetUri = new Uri($"{feedUrl}?t={DateTime.UtcNow.Ticks}", UriKind.Absolute);
 
             using (var client = new WebClient()
             {
