@@ -41,6 +41,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
