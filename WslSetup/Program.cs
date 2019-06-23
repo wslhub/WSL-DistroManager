@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
+using System.Diagnostics;
 using System.IO;
+using System.IO.Compression;
+using System.Net;
 
 namespace WslSetup
 {
@@ -7,100 +11,248 @@ namespace WslSetup
     {
         private static void DownloadFile(string url, string filePath)
         {
-            throw new NotImplementedException();
+            using (var webClient = new WebClient())
+            {
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+
+                webClient.DownloadFile(url, filePath);
+            }
         }
 
         private static void ExpandArchive(string archivePath, string destDirectory, bool removeExistingContent)
         {
-            throw new NotImplementedException();
+            if (removeExistingContent && Directory.Exists(destDirectory))
+                Directory.Delete(destDirectory, true);
+
+            ZipFile.ExtractToDirectory(archivePath, destDirectory);
         }
 
-        private static void ImportTarballArchive(string distroName, string installDirectory, string tarballArchivePath)
+        private static int ImportTarballArchive(string distroName, string installDirectory, string tarballArchivePath)
         {
-            throw new NotImplementedException();
+            var psi = new ProcessStartInfo(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
+                $"--import {distroName} {installDirectory} {tarballArchivePath}")
+            {
+                UseShellExecute = false,
+            };
+
+            var proc = Process.Start(psi);
+            proc.WaitForExit();
+            return proc.ExitCode;
         }
 
-        private static void InvokeAddUserCommand(string distroName, string accountId)
+        private static int InvokeAddUserCommand(string distroName, string accountId)
         {
-            throw new NotImplementedException();
+            var psi = new ProcessStartInfo(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
+                $"-d {distroName} -u root -- adduser {accountId}")
+            {
+                UseShellExecute = false,
+            };
+
+            var proc = Process.Start(psi);
+            proc.WaitForExit();
+            return proc.ExitCode;
         }
 
         private static string GetWslDistroId(string distroName)
         {
-            throw new NotImplementedException();
+            using (var regKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss", false))
+            {
+                foreach (var eachSubKeyName in regKey.GetSubKeyNames())
+                {
+                    using (var eachSubKey = regKey.OpenSubKey(eachSubKeyName, false))
+                    {
+                        var eachDistroName = eachSubKey.GetValue("DistributionName", null) as string;
+                        if (eachDistroName == null || !string.Equals(eachDistroName, distroName, StringComparison.OrdinalIgnoreCase))
+                            continue;
+                        return Path.GetFileName(eachSubKey.Name);
+                    }
+                }
+            }
+
+            return null;
         }
 
-        private static int GetAccountUid(string distroName, string accountId)
+        private static int? GetAccountUid(string distroName, string accountId)
         {
-            throw new NotImplementedException();
+            var psi = new ProcessStartInfo(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
+                $"-d {distroName} -- id -u {accountId}")
+            {
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+            };
+
+            var proc = Process.Start(psi);
+            proc.WaitForExit();
+
+            if (proc.ExitCode != 0)
+                return null;
+
+            var accountUidRaw = (proc.StandardOutput.ReadToEnd() ?? string.Empty).Trim();
+            if (!int.TryParse(accountUidRaw, out int parsedValue))
+                return null;
+
+            return parsedValue;
         }
 
-        private static void SetDefaultAccountUid(string distroName, int accountUid)
+        private static void SetDefaultAccountUid(string distroGuid, int accountUid)
         {
-            throw new NotImplementedException();
+            using (var regKey = Registry.CurrentUser.OpenSubKey($@"Software\Microsoft\Windows\CurrentVersion\Lxss\{distroGuid}", true))
+            {
+                regKey.SetValue("DefaultUid", accountUid, RegistryValueKind.DWord);
+            }
         }
 
         private static void LaunchWslDistroAsync(string distroName)
         {
-            throw new NotImplementedException();
+            var psi = new ProcessStartInfo(
+                   Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
+                   $"-d {distroName}")
+            {
+                UseShellExecute = true,
+            };
+
+            Process.Start(psi);
         }
 
         [STAThread]
         private static void Main()
         {
+            if (IntPtr.Size == 4)
+            {
+                Console.Error.Write("This build of process seems 32-bit version. Please turn off 32-bit preferness or rebuild as x64 build.");
+                Environment.Exit(1);
+            }
+
             var distroType = "debian";
             var distroUrl = "https://aka.ms/wsl-debian-gnulinux";
+            var packageZipPath = Path.GetFullPath("package.zip");
+            var packageDirPath = Path.GetFullPath("package");
 
             Console.WriteLine($"This script will setup new {distroType} distro.");
 
-            Console.Write("Enter Distro Alias: ");
-            var distroName = Console.ReadLine();
+            try
+            {
+                string distroName;
+                string accountId;
 
-            Console.Write("Enter Account ID: ");
-            var accountId = Console.ReadLine();
+                do
+                {
+                    Console.Write("Enter Distro Alias: ");
+                    distroName = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(distroName))
+                    {
+                        distroName = null;
+                        Console.Error.WriteLine("Please specify distro alias.");
+                        continue;
+                    }
+                    if (GetWslDistroId(distroName) != null)
+                    {
+                        distroName = null;
+                        Console.Error.WriteLine("Already used distro alias.");
+                        continue;
+                    }
+                }
+                while (string.IsNullOrWhiteSpace(distroName));
 
-            Console.WriteLine($"Distro Name: {distroName}");
-            Console.WriteLine($"Account Id: {accountId}");
+                do
+                {
+                    Console.Write("Enter Account ID: ");
+                    accountId = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(accountId))
+                    {
+                        accountId = null;
+                        Console.Error.WriteLine("Please specify account ID.");
+                        continue;
+                    }
+                }
+                while (string.IsNullOrWhiteSpace(accountId));
 
-            Console.Write("Press Y for continue, N for cancel. [YN]");
+                Console.WriteLine($"Distro Name: {distroName}");
+                Console.WriteLine($"Account Id: {accountId}");
 
-            if (char.ToUpperInvariant(Console.ReadKey().KeyChar) != 'Y')
-                return;
+                Console.Write("Press Y for continue, N for cancel. [YN]");
 
-            Console.WriteLine($"Download {distroType} from Microsoft CDN");
-            DownloadFile(distroUrl, Path.GetFullPath("package.zip"));
-            ExpandArchive(Path.GetFullPath("package.zip"), Path.GetFullPath("package"), true);
+                if (char.ToUpperInvariant(Console.ReadKey().KeyChar) != 'Y')
+                {
+                    Environment.ExitCode = 2;
+                    return;
+                }
 
-            var distroDir = Path.Combine(
-                Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.System)),
-                "Distro", distroName);
-            Console.WriteLine($"Create distro installation directory at {distroDir}");
-            if (!Directory.Exists(distroDir))
-                Directory.CreateDirectory(distroDir);
+                Console.WriteLine();
 
-            Console.WriteLine($"Install distro {distroName}. This procedure may take long time. Please wait patiently.");
-            ImportTarballArchive(distroName, distroDir, Path.Combine(Path.GetFullPath("package"), "install.tar.gz"));
+                int subExitCode;
 
-            Console.WriteLine($"Add new user and set as a default user");
-            InvokeAddUserCommand(distroName, accountId);
+                Console.WriteLine($"Download {distroType} from Microsoft CDN");
+                DownloadFile(distroUrl, packageZipPath);
+                ExpandArchive(packageZipPath, packageDirPath, true);
 
-            Console.WriteLine($"Discover WSL distro ID");
-            var distroGuid = GetWslDistroId(distroName);
+                var distroDir = Path.Combine(
+                    Path.GetPathRoot(Environment.GetFolderPath(Environment.SpecialFolder.System)),
+                    "Distro", distroName);
+                Console.WriteLine($"Create distro installation directory at {distroDir}");
+                if (!Directory.Exists(distroDir))
+                    Directory.CreateDirectory(distroDir);
 
-            Console.WriteLine($"Discover Linux UID");
-            var accountUid = GetAccountUid(distroName, accountId);
+                Console.WriteLine($"Install distro {distroName}. This procedure may take long time. Please wait patiently.");
+                subExitCode = ImportTarballArchive(distroName, distroDir, Path.Combine(packageDirPath, "install.tar.gz"));
+                if (subExitCode != 0)
+                {
+                    Console.Error.WriteLine("WSL import failed.");
+                    Environment.ExitCode = 3;
+                    return;
+                }
 
-            Console.WriteLine("Change Default Linux UID");
-            SetDefaultAccountUid(distroName, accountUid);
+                Console.WriteLine($"Add new user and set as a default user");
+                subExitCode = InvokeAddUserCommand(distroName, accountId);
+                if (subExitCode != 0)
+                {
+                    Console.Error.WriteLine("WSL adduser failed.");
+                    Environment.ExitCode = 4;
+                    return;
+                }
 
-            Console.WriteLine("Launch installed new distro");
-            LaunchWslDistroAsync(distroName);
+                Console.WriteLine($"Discover WSL distro ID");
+                var distroGuid = GetWslDistroId(distroName);
+                if (distroGuid == null)
+                {
+                    Console.Error.WriteLine("Cannot find WSL distro ID.");
+                    Environment.ExitCode = 5;
+                    return;
+                }
 
-            Console.WriteLine("Cleaning up intermediate directory and files");
-            if (Directory.Exists(Path.GetFullPath("package")))
-                Directory.Delete(Path.GetFullPath("package"), true);
-            if (File.Exists(Path.GetFullPath("package.zip")))
-                File.Delete(Path.GetFullPath("package.zip"));
+                Console.WriteLine($"Discover Linux UID");
+                var accountUid = GetAccountUid(distroName, accountId);
+                if (!accountUid.HasValue)
+                {
+                    Console.Error.WriteLine("Cannot find user linux UID.");
+                    Environment.ExitCode = 6;
+                    return;
+                }
+
+                Console.WriteLine("Change Default Linux UID");
+                SetDefaultAccountUid(distroGuid, accountUid.Value);
+
+                Console.WriteLine("Launch installed new distro");
+                LaunchWslDistroAsync(distroName);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine(ex.ToString());
+                Environment.ExitCode = 7;
+            }
+            finally
+            {
+                Console.WriteLine("Cleaning up intermediate directory and files");
+                if (Directory.Exists(packageDirPath))
+                    Directory.Delete(packageDirPath, true);
+                if (File.Exists(packageZipPath))
+                    File.Delete(packageZipPath);
+            }
         }
     }
 }
