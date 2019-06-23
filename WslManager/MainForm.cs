@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Security.Principal;
 using System.Text;
 using System.Windows.Forms;
+using WslManager.Interop;
 using WslManager.Models;
 
 namespace WslManager
@@ -191,6 +192,11 @@ namespace WslManager
                     "Error: Hyper not Installed",
                     MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
+        }
+
+        private void LaunchWindowsTerminal(IEnumerable<ListViewItem> distroItems)
+        {
+            MessageBox.Show("TODO");
         }
 
         private void ExportDistro(DistroListViewItem distroItem, string filePath, bool revealAfterComplete)
@@ -1069,6 +1075,11 @@ Icons: https://www.icons8.com",
             LaunchWslDistro(
                 new Action<DistroListViewItem>(OpenWslConfig),
                 DistroListView.SelectedItems.Cast<ListViewItem>());
+        }
+
+        private void WindowsTerminalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LaunchWindowsTerminal(DistroListView.SelectedItems.Cast<ListViewItem>());
         }
     }
 }

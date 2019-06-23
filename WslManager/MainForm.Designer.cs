@@ -45,6 +45,7 @@
             this.createShortcutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mapAsADriveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.configureDistroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportDistroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.unregisterDistroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,7 +106,8 @@
             this.IconGenerator = new System.ComponentModel.BackgroundWorker();
             this.ShimGenerator = new System.ComponentModel.BackgroundWorker();
             this.ShortcutGenerator = new System.ComponentModel.BackgroundWorker();
-            this.configureDistroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowsTerminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.windowsTerminalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.DistroContextMenuStrip.SuspendLayout();
             this.DefaultContextMenuStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -180,7 +182,7 @@
             this.toolStripMenuItem12,
             this.propertiesToolStripMenuItem});
             this.DistroContextMenuStrip.Name = "DistroContextMenuStrip";
-            this.DistroContextMenuStrip.Size = new System.Drawing.Size(181, 270);
+            this.DistroContextMenuStrip.Size = new System.Drawing.Size(174, 248);
             this.DistroContextMenuStrip.Opened += new System.EventHandler(this.DistroContextMenuStrip_Opening);
             // 
             // openToolStripMenuItem
@@ -193,7 +195,8 @@
             // openWithToolStripMenuItem
             // 
             this.openWithToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hyperToolStripMenuItem});
+            this.hyperToolStripMenuItem,
+            this.windowsTerminalToolStripMenuItem});
             this.openWithToolStripMenuItem.Name = "openWithToolStripMenuItem";
             this.openWithToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openWithToolStripMenuItem.Text = "&Open With...";
@@ -201,7 +204,7 @@
             // hyperToolStripMenuItem
             // 
             this.hyperToolStripMenuItem.Name = "hyperToolStripMenuItem";
-            this.hyperToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.hyperToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
             this.hyperToolStripMenuItem.Text = "&Hyper...";
             this.hyperToolStripMenuItem.Click += new System.EventHandler(this.HyperToolStripMenuItem_Click);
             // 
@@ -235,6 +238,13 @@
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // configureDistroToolStripMenuItem
+            // 
+            this.configureDistroToolStripMenuItem.Name = "configureDistroToolStripMenuItem";
+            this.configureDistroToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.configureDistroToolStripMenuItem.Text = "&Configure Distro...";
+            this.configureDistroToolStripMenuItem.Click += new System.EventHandler(this.ConfigureDistroToolStripMenuItem_Click);
             // 
             // exportDistroToolStripMenuItem
             // 
@@ -440,7 +450,8 @@
             // openWithToolStripMenuItem1
             // 
             this.openWithToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hyperToolStripMenuItem1});
+            this.hyperToolStripMenuItem1,
+            this.windowsTerminalToolStripMenuItem1});
             this.openWithToolStripMenuItem1.Name = "openWithToolStripMenuItem1";
             this.openWithToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.openWithToolStripMenuItem1.Text = "&Open With";
@@ -448,7 +459,7 @@
             // hyperToolStripMenuItem1
             // 
             this.hyperToolStripMenuItem1.Name = "hyperToolStripMenuItem1";
-            this.hyperToolStripMenuItem1.Size = new System.Drawing.Size(115, 22);
+            this.hyperToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.hyperToolStripMenuItem1.Text = "&Hyper...";
             this.hyperToolStripMenuItem1.Click += new System.EventHandler(this.HyperToolStripMenuItem_Click);
             // 
@@ -681,12 +692,19 @@
             this.ShortcutGenerator.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ShortcutGenerator_DoWork);
             this.ShortcutGenerator.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ShortcutGenerator_RunWorkerCompleted);
             // 
-            // configureDistroToolStripMenuItem
+            // windowsTerminalToolStripMenuItem
             // 
-            this.configureDistroToolStripMenuItem.Name = "configureDistroToolStripMenuItem";
-            this.configureDistroToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.configureDistroToolStripMenuItem.Text = "&Configure Distro...";
-            this.configureDistroToolStripMenuItem.Click += new System.EventHandler(this.ConfigureDistroToolStripMenuItem_Click);
+            this.windowsTerminalToolStripMenuItem.Name = "windowsTerminalToolStripMenuItem";
+            this.windowsTerminalToolStripMenuItem.Size = new System.Drawing.Size(182, 22);
+            this.windowsTerminalToolStripMenuItem.Text = "&Windows Terminal...";
+            this.windowsTerminalToolStripMenuItem.Click += new System.EventHandler(this.WindowsTerminalToolStripMenuItem_Click);
+            // 
+            // windowsTerminalToolStripMenuItem1
+            // 
+            this.windowsTerminalToolStripMenuItem1.Name = "windowsTerminalToolStripMenuItem1";
+            this.windowsTerminalToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.windowsTerminalToolStripMenuItem1.Text = "&Windows Terminal";
+            this.windowsTerminalToolStripMenuItem1.Click += new System.EventHandler(this.WindowsTerminalToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -792,6 +810,8 @@
         private System.Windows.Forms.ToolStripMenuItem newDistroToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem configureDistroToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem configureDistroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem windowsTerminalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem windowsTerminalToolStripMenuItem1;
     }
 }
 

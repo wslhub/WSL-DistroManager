@@ -105,7 +105,10 @@
     </Compile>
     <Compile Include="Helpers.cs" />
     <Compile Include="ImagingHelper.cs" />
-    <Compile Include="IWshShortcut.cs" />
+    <Compile Include="Interop\ActivateOptions.cs" />
+    <Compile Include="Interop\ApplicationActivationManager.cs" />
+    <Compile Include="Interop\IApplicationActivationManager.cs" />
+    <Compile Include="Interop\IWshShortcut.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
