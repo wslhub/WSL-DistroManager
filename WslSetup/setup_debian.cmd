@@ -22,7 +22,7 @@ echo Create distro installation directory at %DistroDir%
 if not exist C:\Distro\%DistroName% mkdir %DistroDir%
 
 echo Install distro %DistroName%. This procedure will take long time. Please wait patiently.
-wsl --import %DistroName% C:\Distro\%DistroName% .\package\install.tar.gz
+wsl --import %DistroName% %DistroDir% .\package\install.tar.gz
 
 echo Add new user and set as a default user
 wsl -d %DistroName% -u root -- adduser %AccountId%
@@ -32,18 +32,18 @@ powershell -Command ^$items ^= Get-ChildItem -Path HKCU:\Software\Microsoft\Wind
 set /p DistroGuid=<.\package.txt
 echo Found WSL distro ID: %DistroGuid%
 
-echo Discover Linux UID
-wsl -d %DistroName% -- id -u rkttu > linuxuid.txt
-set /p DistroUid=<.\linuxuid.txt
-echo Found Linux UID: %DistroUid%
+echo Discover Linux UID of %AccountId%
+wsl -d %DistroName% -- id -u %AccountId% > linuxuid.txt
+set /p AccountUid=<.\linuxuid.txt
+echo Found Linux UID: %AccountUid%
 
 echo Change Default Linux UID
-reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Lxss\%DistroGuid% /v DefaultUid /t REG_DWORD /d %DistroUid% /f /reg:64
+reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Lxss\%DistroGuid% /v DefaultUid /t REG_DWORD /d %AccountUid% /f /reg:64
 
 echo Launching installed new distro
 start wsl -d %DistroName%
 
-echo Cleaning up temporary directory and files
+echo Cleaning up intermediate directory and files
 if exist .\package rd /s /q .\package
 if exist .\package.zip del /f /q .\package.zip
 if exist .\package.txt del /f /q .\package.txt
