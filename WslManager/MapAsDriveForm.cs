@@ -119,6 +119,7 @@ namespace WslManager
 
             TargetDistro.DataSource = latestQueryResult.WslDistroList;
             TargetDistro.SelectedItem = SelectedDistro;
+            RefreshStatusLabel.Text = "Ready";
         }
 
         private void MapAsDriveForm_FormClosed(object sender, FormClosedEventArgs e)
