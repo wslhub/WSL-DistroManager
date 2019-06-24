@@ -122,11 +122,6 @@
     <Compile Include="MapAsDriveForm.Designer.cs">
       <DependentUpon>MapAsDriveForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\DistroFeed.cs" />
-    <Compile Include="Models\DistroFeedItemAuthor.cs" />
-    <Compile Include="Models\DistroFeedAuthor.cs" />
-    <Compile Include="Models\DistroFeedItem.cs" />
-    <Compile Include="Models\Extensions.cs" />
     <Compile Include="Interop\NativeMethods.cs" />
     <Compile Include="Structures\PasswordScore.cs" />
     <Compile Include="Program.cs" />
@@ -198,6 +193,16 @@
     <Content Include="Icons\linux.png" />
     <Content Include="Icons\suse.png" />
     <Content Include="Icons\ubuntu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WslManager.Shared\WslManager.Shared.csproj">
+      <Project>{a8e01006-c3fe-4a26-9a8a-48305b57866e}</Project>
+      <Name>WslManager.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WslSetup\WslSetup.csproj">
+      <Project>{bd013bc3-3aa3-4874-a209-c181d4fe752f}</Project>
+      <Name>WslSetup</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

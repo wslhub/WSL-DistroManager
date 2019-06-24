@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace WslManager.Models
+namespace WslManager.Shared
 {
     [DataContract]
     public sealed class DistroFeedItem

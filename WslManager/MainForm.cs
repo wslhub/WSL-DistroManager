@@ -14,7 +14,7 @@ using System.Text;
 using System.Windows.Forms;
 using WslManager.Helpers;
 using WslManager.Interop;
-using WslManager.Models;
+using WslManager.Shared;
 using WslManager.Structures;
 
 namespace WslManager
@@ -342,60 +342,6 @@ namespace WslManager
 
             var proc = Process.Start(startInfo);
             proc.WaitForExit();
-        }
-
-        private void InstallDistroFromUrl(string url)
-        {
-            string userId, password;
-
-            using (var accountForm = new AccountCreateForm()
-            {
-                UsedAccountIdList = new string[] { "root", },
-                ExpectedPasswordScore = PasswordScore.Weak,
-            })
-            {
-                if (accountForm.ShowDialog(this) != DialogResult.OK)
-                    return;
-
-                userId = accountForm.AccountId;
-                password = accountForm.AccountPassword;
-            }
-
-            using (var downloadForm = new DownloadDistroForm()
-            {
-                DownloadUrl = url,
-            })
-            {
-                var response = downloadForm.ShowDialog(this);
-
-                if (response != DialogResult.OK)
-                    return;
-
-                if (!File.Exists(downloadForm.LocalFilePath))
-                    return;
-
-                var filePath = downloadForm.LocalFilePath;
-
-                if (!File.Exists(filePath))
-                    return;
-
-                response = ImportLocationFolderDialog.ShowDialog(this);
-
-                if (response != DialogResult.OK)
-                    return;
-
-                using (var dlg = new DistroNameRequestForm())
-                {
-                    var inferredDistroName = Path.GetFileNameWithoutExtension(ImportLocationFolderDialog.SelectedPath);
-                    dlg.SelectedDistroName = inferredDistroName;
-                    response = dlg.ShowDialog(this);
-
-                    if (response != DialogResult.OK)
-                        return;
-
-                    InstallDistro(downloadForm.LocalFilePath, dlg.SelectedDistroName, ImportLocationFolderDialog.SelectedPath, userId, password);
-                }
-            }
         }
 
         private bool CreateDistroShortcut(DistroListViewItem selectedDistro, string targetFilePath)
@@ -1064,10 +1010,21 @@ Icons: https://www.icons8.com",
                 if (item == null)
                     return;
 
-                if (item.IsAppxDistro())
-                    InstallDistroFromUrl(item.Url.AbsoluteUri);
-                else
+                if (!item.IsAppxDistro())
                     MessageBox.Show(this, "Custom distro installation is not supported.");
+
+                //item.Id
+                var currentAssemblyDir = Path.GetDirectoryName(this.GetType().Assembly.Location);
+                var wslSetupPath = Path.Combine(currentAssemblyDir, "WslSetup.exe");
+                if (!File.Exists(wslSetupPath))
+                    MessageBox.Show(this, "WslSetup.exe is missing.");
+
+                var psi = new ProcessStartInfo(wslSetupPath, item.Id)
+                {
+                    UseShellExecute = true,
+                };
+
+                Process.Start(psi);
             }
         }
 

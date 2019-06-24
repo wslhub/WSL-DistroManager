@@ -1,9 +1,13 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net;
+using System.Net.Security;
+using WslManager.Shared;
 
 namespace WslSetup
 {
@@ -120,25 +124,68 @@ namespace WslSetup
         }
 
         [STAThread]
-        private static void Main()
+        private static void Main(string[] args)
         {
             if (IntPtr.Size == 4)
             {
-                Console.Error.Write("This build of process seems 32-bit version. Please turn off 32-bit preferness or rebuild as x64 build.");
+                Console.Error.WriteLine("This build of process seems 32-bit version. Please turn off 32-bit preferness or rebuild as x64 build.");
                 Environment.Exit(1);
             }
 
-            var distroType = "debian";
-            var distroUrl = "https://aka.ms/wsl-debian-gnulinux";
             var packageZipPath = Path.GetFullPath("package.zip");
             var packageDirPath = Path.GetFullPath("package");
 
+            var distroType = args.ElementAtOrDefault(0);
             Console.WriteLine($"This script will setup new {distroType} distro.");
 
             try
             {
-                string distroName;
+                ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, error) =>
+                {
+                    // If the certificate is a valid, signed certificate, return true.
+                    if (error == SslPolicyErrors.None)
+                        return true;
+
+                    Console.Error.WriteLine("X509Certificate [{0}] Policy Error: '{1}'",
+                        cert.Subject,
+                        error.ToString());
+
+                    return false;
+                };
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
                 string accountId;
+
+                Console.WriteLine("Loading WSLHUB feed.");
+                var feedUrl = ConfigurationManager.AppSettings["FeedUrl"];
+                var feed = Extensions.LoadDistroFeed(feedUrl);
+                if (feed == null)
+                {
+                    Console.Error.WriteLine("Cannot load WSLHUB feed.");
+                    Environment.Exit(1);
+                }
+
+                var distro = feed.Items
+                    .Where(x => string.Equals(x.Id, distroType, StringComparison.Ordinal))
+                    .FirstOrDefault();
+
+                if (distro == null)
+                {
+                    Console.Error.WriteLine("Cannot find distro URL from feed.");
+                    Environment.ExitCode = 1;
+                    return;
+                }
+
+                if (!distro.IsAppxDistro())
+                {
+                    Console.Error.WriteLine("Unsupported distro type.");
+                    Environment.ExitCode = 1;
+                    return;
+                }
+
+                var distroUrl = distro.Url.AbsoluteUri;
+                var distroName = string.IsNullOrWhiteSpace(distro.Title) ? distro.Id : distro.Title;
 
                 do
                 {

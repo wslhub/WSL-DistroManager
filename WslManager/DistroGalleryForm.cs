@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
-using System.Net.Cache;
-using System.Runtime.Serialization.Json;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using WslManager.Models;
+using WslManager.Shared;
 
 namespace WslManager
 {
@@ -28,23 +23,7 @@ namespace WslManager
         private void FeedLoadWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             var feedUrl = ConfigurationManager.AppSettings["FeedUrl"];
-            var targetUri = new Uri($"{feedUrl}?t={DateTime.UtcNow.Ticks}", UriKind.Absolute);
-
-            using (var client = new WebClient()
-            {
-                CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore),
-            })
-            {
-                var feed = default(DistroFeed);
-                using (var feedStream = client.OpenRead(targetUri))
-                {
-                    var deserializer = new DataContractJsonSerializer(typeof(DistroFeed));
-                    feed = deserializer.ReadObject(feedStream) as DistroFeed;
-                }
-
-                if (feed != null)
-                    e.Result = feed;
-            }
+            e.Result = Extensions.LoadDistroFeed(feedUrl);
         }
 
         private void DistroGalleryForm_Load(object sender, EventArgs e)

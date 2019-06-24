@@ -40,7 +40,7 @@
       }
     },
     {
-      "id": "appx_kali_linux",
+      "id": "appxbundle_kali_linux",
       "title": "Kali Linux",
       "url": "https://aka.ms/wsl-kali-linux",
       "content_text": "The Kali for Windows application allows one to install and run the Kali Linux open-source penetration testing distribution natively, from the Windows 10 OS.",
