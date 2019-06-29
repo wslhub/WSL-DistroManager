@@ -1067,5 +1067,20 @@ Icons: https://www.icons8.com",
         {
             ShutdownDistro();
         }
+
+        private void WSLManagerOfficialWebSiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://www.wslhub.com/") { UseShellExecute = true });
+        }
+
+        private void WSLOfficialBlogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://blogs.msdn.microsoft.com/wsl/") { UseShellExecute = true });
+        }
+
+        private void WSLDocumentationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://docs.microsoft.com/en-us/windows/wsl/about") { UseShellExecute = true });
+        }
     }
 }

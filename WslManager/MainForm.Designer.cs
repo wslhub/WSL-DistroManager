@@ -109,6 +109,11 @@
             this.ShimGenerator = new System.ComponentModel.BackgroundWorker();
             this.ShortcutGenerator = new System.ComponentModel.BackgroundWorker();
             this.shutdownAllDistrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wSLManagerOfficialWebSiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.wSLOfficialBlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
+            this.wSLDocumentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripSeparator();
             this.DistroContextMenuStrip.SuspendLayout();
             this.DefaultContextMenuStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -650,6 +655,11 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.wSLDocumentationToolStripMenuItem,
+            this.toolStripMenuItem14,
+            this.wSLOfficialBlogToolStripMenuItem,
+            this.wSLManagerOfficialWebSiteToolStripMenuItem,
+            this.toolStripMenuItem7,
             this.AboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(75, 34);
@@ -717,6 +727,37 @@
             this.shutdownAllDistrosToolStripMenuItem.Size = new System.Drawing.Size(344, 40);
             this.shutdownAllDistrosToolStripMenuItem.Text = "&Shutdown All Distros...";
             this.shutdownAllDistrosToolStripMenuItem.Click += new System.EventHandler(this.ShutdownAllDistrosToolStripMenuItem_Click);
+            // 
+            // wSLManagerOfficialWebSiteToolStripMenuItem
+            // 
+            this.wSLManagerOfficialWebSiteToolStripMenuItem.Name = "wSLManagerOfficialWebSiteToolStripMenuItem";
+            this.wSLManagerOfficialWebSiteToolStripMenuItem.Size = new System.Drawing.Size(443, 40);
+            this.wSLManagerOfficialWebSiteToolStripMenuItem.Text = "WSL Manager Official Web Site...";
+            this.wSLManagerOfficialWebSiteToolStripMenuItem.Click += new System.EventHandler(this.WSLManagerOfficialWebSiteToolStripMenuItem_Click);
+            // 
+            // wSLOfficialBlogToolStripMenuItem
+            // 
+            this.wSLOfficialBlogToolStripMenuItem.Name = "wSLOfficialBlogToolStripMenuItem";
+            this.wSLOfficialBlogToolStripMenuItem.Size = new System.Drawing.Size(443, 40);
+            this.wSLOfficialBlogToolStripMenuItem.Text = "WSL Official Blog...";
+            this.wSLOfficialBlogToolStripMenuItem.Click += new System.EventHandler(this.WSLOfficialBlogToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(440, 6);
+            // 
+            // wSLDocumentationToolStripMenuItem
+            // 
+            this.wSLDocumentationToolStripMenuItem.Name = "wSLDocumentationToolStripMenuItem";
+            this.wSLDocumentationToolStripMenuItem.Size = new System.Drawing.Size(443, 40);
+            this.wSLDocumentationToolStripMenuItem.Text = "WSL Documentation...";
+            this.wSLDocumentationToolStripMenuItem.Click += new System.EventHandler(this.WSLDocumentationToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem14
+            // 
+            this.toolStripMenuItem14.Name = "toolStripMenuItem14";
+            this.toolStripMenuItem14.Size = new System.Drawing.Size(440, 6);
             // 
             // MainForm
             // 
@@ -826,6 +867,11 @@
         private System.Windows.Forms.ToolStripMenuItem windowsTerminalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsTerminalToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem shutdownAllDistrosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wSLManagerOfficialWebSiteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem wSLOfficialBlogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripMenuItem wSLDocumentationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem14;
     }
 }
 
