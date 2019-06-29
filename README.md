@@ -1,6 +1,7 @@
 # WSL-DistroManager
 
-**You can download a latest release from [here](https://github.com/rkttu/WSL-DistroManager/releases/).**
+- [Installer](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManagerSetup.exe)
+- [Xcopy Friendly](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManager.zip)
 
 ![Example](Assets/Images/Screenshot-hyper.png)
 

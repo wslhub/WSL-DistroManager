@@ -176,6 +176,8 @@
     <None Include="Publish.cmd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="SignNSIS.cmd" />
+    <None Include="WslManagerSetup.nsi" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
