@@ -5,7 +5,8 @@ You can download and use WSL Manager by selecting one of the links below.
 - [Installer](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManagerSetup.exe)
 - [Xcopy Friendly](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManager.zip)
 
-![Example](Assets/Images/Screenshot-hyper.png)
+<img src="Assets/Images/Screenshot1.png" alt="Screenshot 1" style="width: 20%;" />
+<img src="Assets/Images/Screenshot2.png" alt="Screenshot 2" style="width: 20%;" />
 
 **WSL Manager** is a highly customizable Windows Subsystem for Linux distro manager for Windows 10 (at least 19H1) and Windows Server 19H1 (or later).
 
@@ -13,7 +14,7 @@ This program helps you install and manage multiple versions of the same Linux di
 
 ## Features
 
-Latest features introduced at [here](https://wslman.rkttu.com/)
+Latest features introduced at [here](https://www.wslhub.com/)
 
 * Install official linux distros directly with -or- without using Microsoft Store.
 * Run your linux distro easily with GUI based interface.
