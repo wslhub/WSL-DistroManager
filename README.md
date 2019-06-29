@@ -1,5 +1,7 @@
 # WSL Manager
 
+You can download and use WSL Manager by selecting one of the links below.
+
 - [Installer](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManagerSetup.exe)
 - [Xcopy Friendly](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManager.zip)
 

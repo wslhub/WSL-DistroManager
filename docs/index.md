@@ -1,26 +1,29 @@
-# WSL-DistroManager
+# WSL Manager
 
-**You can download a latest release from [here](https://github.com/rkttu/WSL-DistroManager/releases/).**
+You can download and use WSL Manager by selecting one of the links below.
 
-![Example](images/Screenshot-hyper.png)
+- [Installer](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManagerSetup.exe)
+- [Xcopy Friendly](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManager.zip)
 
-`WSL-DistroManager` is a highly customizable Windows Subsystem for Linux distro manager for Windows 10 (at least 19H1) and Windows Server 19H1 (or later).
+![Example](Assets/Images/Screenshot-hyper.png)
+
+**WSL Manager** is a highly customizable Windows Subsystem for Linux distro manager for Windows 10 (at least 19H1) and Windows Server 19H1 (or later).
 
 This program helps you install and manage multiple versions of the same Linux distribution on the Windows Subsystem for Linux. This program is currently under development and may take some time to complete its first function.
 
 ## Features
 
+Latest features introduced at [here](https://wslman.rkttu.com/)
+
 * Install official linux distros directly with -or- without using Microsoft Store.
 * Run your linux distro easily with GUI based interface.
-  * The list of Linux distributions is now updated in real time via the WMI query tracker. Works well with multiple windows.
 * Open/mount your linux distro directly without running each distro instance.
 * Import your own system tarball archive to Windows Subsystem for Linux.
 * Export/Backup your existing distro to tarball archive file.
 * Review detailed distro properties (such as distro total size, registry keys)
 * Create a desktop shortcut which runs distro with wsl.exe and decorated with custom icon.
-  * Create multiple desktop shortcuts with drag drop between this app and any folder shell view.
 * Initialize new distro with custom user account.
-* Add [hyper](https://hyper.is/) (Node based cross-platform terminal app) support.
+* Open WSL configuration file (wsl.conf) with notepad. (Notepad in 19H1 supports/honors unix EOL)
 
 ## Planned features/enhancements
 
@@ -44,3 +47,4 @@ This project follows the MIT license.
 - App Icons: https://www.icons8.com
 - Imaging Helper: https://gist.github.com/darkfall/1656050
 - WMI Event Query/Monitoring: https://stackoverflow.com/questions/826971/registry-watcher-c-sharp
+- Project temporary logo: https://pixabay.com/vectors/monitor-informatics-windows-2108894/
