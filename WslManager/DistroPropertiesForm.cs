@@ -48,6 +48,7 @@ namespace WslManager
             DistroLocation.Text = SharedRoutines.NormalizePath((string)registryKey.GetValue("BasePath", ""));
             State.Text = "0x" + ((int)registryKey.GetValue("State", 0)).ToString("X8");
             AppxName.Text = (string)registryKey.GetValue("PackageFamilyName", "");
+            WSLVersion.Text = ((int)registryKey.GetValue("Version", 0)).ToString();
 
             var dictionary = new Dictionary<string, object>();
             dictionary.Add("UniqueId", Path.GetFileName(registryKey.Name));
