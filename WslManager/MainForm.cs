@@ -35,8 +35,19 @@ namespace WslManager
         private void PerformRefreshDistroList(bool triggeredByUser)
         {
             var items = SharedRoutines.LoadDistroList().ToArray();
+
             DistroListView.Items.Clear();
-            DistroListView.Items.AddRange(items);
+            foreach (var eachItem in items)
+            {
+                var lvItem = new ListViewItem(
+                    eachItem.Properties.Select(x => x.Value).ToArray(),
+                    eachItem.ImageKey)
+                {
+                    Tag = eachItem,
+                };
+
+                DistroListView.Items.Add(lvItem);
+            }
             TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
 
             if (DistroListView.Items.Count < 1)
@@ -51,13 +62,13 @@ namespace WslManager
             }
 
             if (!ShimGenerator.IsBusy)
-                ShimGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroListViewItem[]>(triggeredByUser, items));
+                ShimGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroProperties[]>(triggeredByUser, items));
 
             if (!ShortcutGenerator.IsBusy)
-                ShortcutGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroListViewItem[]>(triggeredByUser, items));
+                ShortcutGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroProperties[]>(triggeredByUser, items));
         }
 
-        private void OpenWslFolder(DistroListViewItem distro)
+        private void OpenWslFolder(DistroProperties distro)
         {
             var startInfo = new ProcessStartInfo(
                 Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "explorer.exe"),
@@ -69,7 +80,7 @@ namespace WslManager
             Process.Start(startInfo);
         }
 
-        private void OpenWslConfig(DistroListViewItem distro)
+        private void OpenWslConfig(DistroProperties distro)
         {
             var wslConfPath = $@"\\wsl$\{distro.DistroName}\etc\wsl.conf";
 
@@ -123,12 +134,12 @@ namespace WslManager
             return null;
         }
 
-        private void LaunchWslDistro(Action<DistroListViewItem> afterCallback, IEnumerable<ListViewItem> distroItems)
+        private void LaunchWslDistro(Action<DistroProperties> afterCallback, IEnumerable<ListViewItem> distroItems)
         {
             if (distroItems == null || distroItems.Count() < 1)
                 return;
 
-            foreach (DistroListViewItem eachItem in distroItems)
+            foreach (DistroProperties eachItem in distroItems.Select(x => x.Tag as DistroProperties))
             {
                 ProcessStartInfo startInfo;
 
@@ -156,7 +167,7 @@ namespace WslManager
                 if (distroItems == null || distroItems.Count() < 1)
                     return;
 
-                foreach (DistroListViewItem eachItem in distroItems)
+                foreach (DistroProperties eachItem in distroItems.Select(x => x.Tag as DistroProperties))
                 {
                     string distroExecutable = Path.Combine(
                         SharedRoutines.GetWslShimDirectoryPath(),
@@ -200,7 +211,7 @@ namespace WslManager
             MessageBox.Show("TODO");
         }
 
-        private void ExportDistro(DistroListViewItem distroItem, string filePath, bool revealAfterComplete)
+        private void ExportDistro(DistroProperties distroItem, string filePath, bool revealAfterComplete)
         {
             if (distroItem == null)
                 return;
@@ -308,7 +319,7 @@ namespace WslManager
             };
         }
 
-        private void TerminateDistro(DistroListViewItem distroItem)
+        private void TerminateDistro(DistroProperties distroItem)
         {
             if (distroItem == null)
                 return;
@@ -344,7 +355,7 @@ namespace WslManager
             proc.WaitForExit();
         }
 
-        private void UnregisterDistro(DistroListViewItem distroItem)
+        private void UnregisterDistro(DistroProperties distroItem)
         {
             if (distroItem == null)
                 return;
@@ -362,7 +373,7 @@ namespace WslManager
             proc.WaitForExit();
         }
 
-        private bool CreateDistroShortcut(DistroListViewItem selectedDistro, string targetFilePath)
+        private bool CreateDistroShortcut(DistroProperties selectedDistro, string targetFilePath)
         {
             var shortcut = (IWshShortcut)wscriptShellType.InvokeMember(
                 "CreateShortcut",
@@ -370,7 +381,7 @@ namespace WslManager
                 null, shellObject,
                 new object[] { targetFilePath });
 
-            shortcut.Description = selectedDistro.Name;
+            shortcut.Description = selectedDistro.DistroName;
             shortcut.TargetPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.System),
                 "wsl.exe");
@@ -407,6 +418,24 @@ namespace WslManager
                     Text, MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                 Close();
                 return;
+            }
+
+            DistroListView.Columns.Clear();
+            foreach (var eachProperty in typeof(DistroProperties).GetProperties())
+            {
+                var browsableAttr = eachProperty.GetCustomAttribute<BrowsableAttribute>();
+                if (browsableAttr != null && !browsableAttr.Browsable)
+                    continue;
+
+                var colItem = new ColumnHeader();
+
+                var displayNameAttr = eachProperty.GetCustomAttribute<DisplayNameAttribute>();
+                if (displayNameAttr != null)
+                    colItem.Text = displayNameAttr.DisplayName;
+                else
+                    colItem.Text = eachProperty.Name;
+
+                DistroListView.Columns.Add(colItem);
             }
 
             if (!SharedRoutines.IsWsl2SupportedOS())
@@ -450,7 +479,7 @@ namespace WslManager
 
             var shiftKeyPressed = ModifierKeys.HasFlag(Keys.Shift);
             LaunchWslDistro(
-                shiftKeyPressed ? new Action<DistroListViewItem>(OpenWslFolder) : null,
+                shiftKeyPressed ? new Action<DistroProperties>(OpenWslFolder) : null,
                 DistroListView.SelectedItems.Cast<ListViewItem>());
         }
 
@@ -489,7 +518,7 @@ namespace WslManager
         {
             var shiftKeyPressed = ModifierKeys.HasFlag(Keys.Shift);
             LaunchWslDistro(
-                shiftKeyPressed ? new Action<DistroListViewItem>(OpenWslFolder) : null,
+                shiftKeyPressed ? new Action<DistroProperties>(OpenWslFolder) : null,
                 DistroListView.SelectedItems.Cast<ListViewItem>());
         }
 
@@ -501,13 +530,13 @@ namespace WslManager
         private void ExploreToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LaunchWslDistro(
-                new Action<DistroListViewItem>(OpenWslFolder),
+                new Action<DistroProperties>(OpenWslFolder),
                 DistroListView.SelectedItems.Cast<ListViewItem>());
         }
 
         private void ExportDistroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = DistroListView.SelectedItems.Cast<DistroListViewItem>().FirstOrDefault();
+            var item = DistroListView.SelectedItems.Cast<DistroProperties>().FirstOrDefault();
 
             if (item == null)
                 return;
@@ -532,7 +561,7 @@ namespace WslManager
 
         private void UnregisterDistroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = DistroListView.SelectedItems.Cast<DistroListViewItem>().FirstOrDefault();
+            var item = DistroListView.SelectedItems.Cast<DistroProperties>().FirstOrDefault();
 
             if (item == null)
                 return;
@@ -550,7 +579,7 @@ namespace WslManager
 
         private void TerminateDistroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = DistroListView.SelectedItems.Cast<DistroListViewItem>().FirstOrDefault();
+            var item = DistroListView.SelectedItems.Cast<DistroProperties>().FirstOrDefault();
 
             if (item == null)
                 return;
@@ -713,7 +742,7 @@ Icons: https://www.icons8.com",
 
         private void PropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = DistroListView.SelectedItems.Cast<DistroListViewItem>().FirstOrDefault();
+            var item = DistroListView.SelectedItems.Cast<DistroProperties>().FirstOrDefault();
 
             if (item == null)
                 return;
@@ -736,13 +765,13 @@ Icons: https://www.icons8.com",
         private void CreateShortcutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedDistro = DistroListView.SelectedItems
-                .Cast<DistroListViewItem>()
+                .Cast<DistroProperties>()
                 .FirstOrDefault();
 
             if (selectedDistro == null)
                 return;
 
-            ShortcutSaveFileDialog.FileName = $"{selectedDistro.Name}.lnk";
+            ShortcutSaveFileDialog.FileName = $"{selectedDistro.DistroName}.lnk";
             if (ShortcutSaveFileDialog.ShowDialog(this) != DialogResult.OK)
                 return;
 
@@ -780,7 +809,7 @@ Icons: https://www.icons8.com",
         private void MapAsADriveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedDistro = DistroListView.SelectedItems
-                .Cast<DistroListViewItem>()
+                .Cast<DistroProperties>()
                 .FirstOrDefault();
 
             using (var dialog = new MapAsDriveForm())
@@ -797,7 +826,7 @@ Icons: https://www.icons8.com",
             var targetDir = SharedRoutines.GetWslShimDirectoryPath();
             EnsureDirectoryCreate(targetDir, false);
 
-            var arg = e.Argument as BackgroundWorkerArgument<DistroListViewItem[]>;
+            var arg = e.Argument as BackgroundWorkerArgument<DistroProperties[]>;
 
             if (arg?.Argument == null)
                 return;
@@ -875,7 +904,7 @@ Icons: https://www.icons8.com",
 
             foreach (var eachItem in DistroListView.SelectedItems)
             {
-                var eachDistro = (DistroListViewItem)eachItem;
+                var eachDistro = (DistroProperties)eachItem;
                 var targetPath = Path.Combine(targetDir, eachDistro.DistroName + ".lnk");
 
                 if (!File.Exists(targetDir))
@@ -898,7 +927,7 @@ Icons: https://www.icons8.com",
             var targetDir = SharedRoutines.GetWslShortcutDirectoryPath();
             EnsureDirectoryCreate(targetDir, false);
 
-            var arg = e.Argument as BackgroundWorkerArgument<DistroListViewItem[]>;
+            var arg = e.Argument as BackgroundWorkerArgument<DistroProperties[]>;
 
             if (arg?.Argument == null)
                 return;
@@ -1054,7 +1083,7 @@ Icons: https://www.icons8.com",
         private void ConfigureDistroToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LaunchWslDistro(
-                new Action<DistroListViewItem>(OpenWslConfig),
+                new Action<DistroProperties>(OpenWslConfig),
                 DistroListView.SelectedItems.Cast<ListViewItem>());
         }
 

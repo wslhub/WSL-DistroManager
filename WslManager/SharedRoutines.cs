@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using WslManager.Structures;
-using static System.Windows.Forms.ListViewItem;
 
 namespace WslManager
 {
@@ -42,9 +41,9 @@ namespace WslManager
             return Regex.Replace(rawPath ?? string.Empty, @"(^\\\\\?\\)", string.Empty, RegexOptions.Compiled);
         }
 
-        public static IEnumerable<DistroListViewItem> LoadDistroList()
+        public static IEnumerable<DistroProperties> LoadDistroList()
         {
-            var list = new List<DistroListViewItem>();
+            var list = new List<DistroProperties>();
             var reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss");
 
             if (reg == null)
@@ -56,7 +55,7 @@ namespace WslManager
                 {
                     using (var subReg = reg.OpenSubKey(eachSubKeyname))
                     {
-                        list.Add(new DistroListViewItem(subReg));
+                        list.Add(new DistroProperties(subReg));
                     }
                 }
             }
@@ -64,38 +63,35 @@ namespace WslManager
             return list;
         }
 
-        public static ListViewSubItem[] GetDistroProperties(RegistryKey key)
+        public static Dictionary<string, string> GetDistroProperties(RegistryKey key)
         {
-            var properties = new List<ListViewSubItem>();
+            var properties = new Dictionary<string, string>();
 
             if (key == null)
-                return properties.ToArray();
+                return properties;
 
             var distroName = (string)key.GetValue("DistributionName", "");
-            properties.Add(new ListViewSubItem {
-                Name = nameof(DistroListViewItem.DistroName),
-                Text = distroName,
-            });
+            properties.Add(
+                nameof(DistroProperties.DistroName),
+                distroName);
 
-            properties.Add(new ListViewSubItem
-            {
-                Name = nameof(DistroListViewItem.UniqueId),
-                Text = Path.GetFileName(key.Name),
-            });
+            properties.Add(
+                nameof(DistroProperties.UniqueId),
+                Path.GetFileName(key.Name));
 
-            properties.Add(new ListViewSubItem
-            {
-                Name = nameof(DistroListViewItem.AppxPackageName),
-                Text = (string)key.GetValue("PackageFamilyName", ""),
-            });
+            properties.Add(
+                nameof(DistroProperties.AppxPackageName),
+                (string)key.GetValue("PackageFamilyName", ""));
 
-            properties.Add(new ListViewSubItem
-            {
-                Name = nameof(DistroListViewItem.BasePath),
-                Text = NormalizePath((string)key.GetValue("BasePath", "")),
-            });
+            properties.Add(
+                nameof(DistroProperties.BasePath),
+                NormalizePath((string)key.GetValue("BasePath", "")));
 
-            return properties.ToArray();
+            properties.Add(
+                nameof(DistroProperties.Version),
+                key.GetValue("Version", 0).ToString());
+
+            return properties;
         }
 
         public static PasswordScore CheckStrength(string password)

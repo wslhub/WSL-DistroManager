@@ -97,7 +97,7 @@
     <Compile Include="DistroGalleryForm.Designer.cs">
       <DependentUpon>DistroGalleryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Structures\DistroListViewItem.cs" />
+    <Compile Include="Structures\DistroProperties.cs" />
     <Compile Include="DistroNameRequestForm.cs">
       <SubType>Form</SubType>
     </Compile>

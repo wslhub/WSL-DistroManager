@@ -33,7 +33,7 @@ namespace WslManager
 
             var items = SharedRoutines.LoadDistroList().ToArray();
 
-            if (items.Where(x => string.Equals(x.Text, distroName, StringComparison.Ordinal)).Count() > 0)
+            if (items.Where(x => string.Equals(x.DistroName, distroName, StringComparison.Ordinal)).Count() > 0)
             {
                 MessageBox.Show(this,
                     "You can not specify a distro name that is already in use. Please specify new one.",
