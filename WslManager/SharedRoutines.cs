@@ -142,5 +142,14 @@ namespace WslManager
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "WslManagerShortcuts");
         }
+
+        public static bool IsWsl2SupportedOS()
+        {
+            var osVersion = Environment.OSVersion;
+            return (osVersion.Platform == PlatformID.Win32NT &&
+                osVersion.Version.Major >= 10 &&
+                osVersion.Version.Major >= 0 &&
+                osVersion.Version.Build >= 18917);
+        }
     }
 }

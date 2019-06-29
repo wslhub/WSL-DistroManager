@@ -326,6 +326,24 @@ namespace WslManager
             proc.WaitForExit();
         }
 
+        private void ShutdownDistro()
+        {
+            if (!SharedRoutines.IsWsl2SupportedOS())
+                return;
+
+            ProcessStartInfo startInfo;
+
+            startInfo = new ProcessStartInfo(
+                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
+                $@"--shutdown")
+            {
+                UseShellExecute = false,
+            };
+
+            var proc = Process.Start(startInfo);
+            proc.WaitForExit();
+        }
+
         private void UnregisterDistro(DistroListViewItem distroItem)
         {
             if (distroItem == null)
@@ -389,6 +407,11 @@ namespace WslManager
                     Text, MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
                 Close();
                 return;
+            }
+
+            if (!SharedRoutines.IsWsl2SupportedOS())
+            {
+                shutdownAllDistrosToolStripMenuItem.Visible = false;
             }
 
             if (!File.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe")))
@@ -1038,6 +1061,11 @@ Icons: https://www.icons8.com",
         private void WindowsTerminalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LaunchWindowsTerminal(DistroListView.SelectedItems.Cast<ListViewItem>());
+        }
+
+        private void ShutdownAllDistrosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShutdownDistro();
         }
     }
 }
