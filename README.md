@@ -19,7 +19,7 @@ You can download and use WSL Manager by selecting one of the links below.
 
 This program helps you install and manage multiple versions of the same Linux distribution on the Windows Subsystem for Linux. This program is currently under development and may take some time to complete its first function.
 
-Good news! This project was introduced in ![BetaPage](Assets/Images/BetaPageLogo.png).
+Good news! This project was introduced in **BetaPage**!
 
 ## Features
 
