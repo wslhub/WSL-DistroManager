@@ -1,11 +1,11 @@
-# WSL-DistroManager
+# WSL Manager
 
 - [Installer](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManagerSetup.exe)
 - [Xcopy Friendly](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManager.zip)
 
 ![Example](Assets/Images/Screenshot-hyper.png)
 
-`WSL-DistroManager` is a highly customizable Windows Subsystem for Linux distro manager for Windows 10 (at least 19H1) and Windows Server 19H1 (or later).
+**WSL Manager** is a highly customizable Windows Subsystem for Linux distro manager for Windows 10 (at least 19H1) and Windows Server 19H1 (or later).
 
 This program helps you install and manage multiple versions of the same Linux distribution on the Windows Subsystem for Linux. This program is currently under development and may take some time to complete its first function.
 
