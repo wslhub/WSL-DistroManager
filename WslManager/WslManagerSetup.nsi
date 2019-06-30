@@ -11,6 +11,9 @@
 
 SetCompressor lzma
 
+!include LogicLib.nsh
+!include x64.nsh
+
 ; MUI 1.67 compatible ------
 !include "MUI.nsh"
 
@@ -44,21 +47,31 @@ SetCompressor lzma
 
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 OutFile "WslManagerSetup.exe"
-InstallDir "$PROGRAMFILES\WSLManager"
+InstallDir "$PROGRAMFILES64\WSLManager"
 InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails hide
 ShowUnInstDetails hide
+
+VIProductVersion "1.0.0.0"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "Windows Subsystem for Linux Distro Manager"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "Comments" "This program helps you manage Linux packages for Windows Subsystem for Linux."
+VIAddVersionKey /LANG=${LANG_ENGLISH} "CompanyName" "rkttu.com"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalTrademarks" "WSL Manager"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "LegalCopyright" "Copyright (c) 2019 rkttu.com, All rights reserved."
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileDescription" "WSL Manager"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "1.0.0"
 
 Section "MainSection" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite try
   File /r /x Publish.cmd /x WslManager.zip "bin\x64\Release\*"
-  CreateDirectory "$SMPROGRAMS\WSLManager"
-  CreateShortCut "$SMPROGRAMS\WSL Manager\WSL Manager.lnk" "$INSTDIR\WslManager.exe"
+  CreateDirectory "$SMPROGRAMS64\WSLManager"
+  CreateShortCut "$SMPROGRAMS64\WSL Manager\WSL Manager.lnk" "$INSTDIR\WslManager.exe"
   CreateShortCut "$DESKTOP\WSL Manager.lnk" "$INSTDIR\WslManager.exe"
 SectionEnd
 
 Section -Post
+  SetRegView 64
   WriteUninstaller "$INSTDIR\uninst.exe"
   WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\WslManager.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
@@ -80,10 +93,11 @@ Function un.onInit
 FunctionEnd
 
 Section Uninstall
+  SetRegVIew 64
   Delete "$DESKTOP\WSL Manager.lnk"
-  Delete "$SMPROGRAMS\WSL Manager\WSL Manager.lnk"
+  Delete "$SMPROGRAMS64\WSL Manager\WSL Manager.lnk"
 
-  RMDir "$SMPROGRAMS\WSL Manager"
+  RMDir "$SMPROGRAMS64\WSL Manager"
   RMDir /r "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
