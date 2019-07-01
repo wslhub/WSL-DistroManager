@@ -5,6 +5,8 @@ You can download and use WSL Manager by selecting one of the links below.
 - [Installer](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManagerSetup.exe)
 - [Xcopy Friendly](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManager.zip)
 
+You can access or contribute to the source code of this project from the GitHub repository: [https://github.com/rkttu/WSL-DistroManager](https://github.com/rkttu/WSL-DistroManager)
+
 <a target="_blank" href="Assets/Images/Screenshot3.png">
 	<img src="Assets/Images/Screenshot3.png" alt="Distro Gallery" style="width: 40%;" />
 </a>
@@ -43,6 +45,14 @@ Latest features introduced at [here](https://www.wslhub.com/)
 * Run distro as a specific user.
 * Add new user into distro.
 * Migrate to .NET Core 3.0 Windows Forms Project
+
+## FAQ
+
+### The functionality of this tool is already provided by wsl.exe. Why should I use this tool?
+
+This tool is designed to enable the use of WSL functionality in a GUI manner. Of course, it is useful to call wsl.exe directly if you are familiar with using the command line.
+
+However, if you use this tool, you will get additional convenience features that can not be solved by wsl.exe alone.
 
 ## Distro manager as a Service
 
