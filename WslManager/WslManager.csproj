@@ -82,6 +82,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interop\EoAuthnCap.cs" />
+    <Compile Include="Interop\ILxssInstance.cs" />
+    <Compile Include="Interop\ILxssSession.cs" />
+    <Compile Include="Interop\LxssSession.cs" />
+    <Compile Include="Interop\LxssSessionState.cs" />
     <Compile Include="Interop\RpcAuthnLevel.cs" />
     <Compile Include="Interop\RpcImpLevel.cs" />
     <Compile Include="Structures\BackgroundWorkerArgument.cs" />
