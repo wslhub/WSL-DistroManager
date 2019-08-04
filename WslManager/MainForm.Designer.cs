@@ -73,9 +73,7 @@
             this.exploreToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
             this.createShortcutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.mapAsADriveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
-            this.importDistroToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportDistroToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
             this.unregisterDistroToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,7 +81,6 @@
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripSeparator();
             this.propertiesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem13 = new System.Windows.Forms.ToolStripSeparator();
-            this.shutdownAllDistrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewModeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -108,6 +105,11 @@
             this.IconGenerator = new System.ComponentModel.BackgroundWorker();
             this.ShimGenerator = new System.ComponentModel.BackgroundWorker();
             this.ShortcutGenerator = new System.ComponentModel.BackgroundWorker();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importDistroToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.shutdownAllDistrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mapAsADriveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripSeparator();
             this.DistroContextMenuStrip.SuspendLayout();
             this.DefaultContextMenuStrip.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -160,7 +162,7 @@
             this.toolStripMenuItem12,
             this.propertiesToolStripMenuItem});
             this.DistroContextMenuStrip.Name = "DistroContextMenuStrip";
-            this.DistroContextMenuStrip.Size = new System.Drawing.Size(181, 248);
+            this.DistroContextMenuStrip.Size = new System.Drawing.Size(174, 226);
             this.DistroContextMenuStrip.Opened += new System.EventHandler(this.DistroContextMenuStrip_Opening);
             // 
             // openToolStripMenuItem
@@ -378,6 +380,7 @@
             this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.distroToolStripMenuItem,
             this.viewToolStripMenuItem,
+            this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
@@ -392,12 +395,10 @@
             this.newDistroToolStripMenuItem1,
             this.openToolStripMenuItem1,
             this.openWithToolStripMenuItem1,
-            this.exploreToolStripMenuItem1,
             this.toolStripMenuItem9,
+            this.exploreToolStripMenuItem1,
             this.createShortcutToolStripMenuItem1,
-            this.mapAsADriveToolStripMenuItem1,
             this.toolStripMenuItem6,
-            this.importDistroToolStripMenuItem1,
             this.exportDistroToolStripMenuItem1,
             this.toolStripMenuItem8,
             this.unregisterDistroToolStripMenuItem1,
@@ -405,7 +406,6 @@
             this.toolStripMenuItem10,
             this.propertiesToolStripMenuItem1,
             this.toolStripMenuItem13,
-            this.shutdownAllDistrosToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.distroToolStripMenuItem.Name = "distroToolStripMenuItem";
             this.distroToolStripMenuItem.Size = new System.Drawing.Size(51, 22);
@@ -468,24 +468,10 @@
             this.createShortcutToolStripMenuItem1.Text = "&Create Shortcut...";
             this.createShortcutToolStripMenuItem1.Click += new System.EventHandler(this.CreateShortcutToolStripMenuItem_Click);
             // 
-            // mapAsADriveToolStripMenuItem1
-            // 
-            this.mapAsADriveToolStripMenuItem1.Name = "mapAsADriveToolStripMenuItem1";
-            this.mapAsADriveToolStripMenuItem1.Size = new System.Drawing.Size(197, 22);
-            this.mapAsADriveToolStripMenuItem1.Text = "&Map as a drive...";
-            this.mapAsADriveToolStripMenuItem1.Click += new System.EventHandler(this.MapAsADriveToolStripMenuItem_Click);
-            // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
             this.toolStripMenuItem6.Size = new System.Drawing.Size(194, 6);
-            // 
-            // importDistroToolStripMenuItem1
-            // 
-            this.importDistroToolStripMenuItem1.Name = "importDistroToolStripMenuItem1";
-            this.importDistroToolStripMenuItem1.Size = new System.Drawing.Size(197, 22);
-            this.importDistroToolStripMenuItem1.Text = "&Import Distro...";
-            this.importDistroToolStripMenuItem1.Click += new System.EventHandler(this.ImportDistroToolStripMenuItem_Click);
             // 
             // exportDistroToolStripMenuItem1
             // 
@@ -529,13 +515,6 @@
             // 
             this.toolStripMenuItem13.Name = "toolStripMenuItem13";
             this.toolStripMenuItem13.Size = new System.Drawing.Size(194, 6);
-            // 
-            // shutdownAllDistrosToolStripMenuItem
-            // 
-            this.shutdownAllDistrosToolStripMenuItem.Name = "shutdownAllDistrosToolStripMenuItem";
-            this.shutdownAllDistrosToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.shutdownAllDistrosToolStripMenuItem.Text = "&Shutdown All Distros...";
-            this.shutdownAllDistrosToolStripMenuItem.Click += new System.EventHandler(this.ShutdownAllDistrosToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
@@ -714,6 +693,43 @@
             this.ShortcutGenerator.DoWork += new System.ComponentModel.DoWorkEventHandler(this.ShortcutGenerator_DoWork);
             this.ShortcutGenerator.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.ShortcutGenerator_RunWorkerCompleted);
             // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importDistroToolStripMenuItem1,
+            this.mapAsADriveToolStripMenuItem1,
+            this.toolStripMenuItem15,
+            this.shutdownAllDistrosToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 22);
+            this.toolsToolStripMenuItem.Text = "&Tools";
+            // 
+            // importDistroToolStripMenuItem1
+            // 
+            this.importDistroToolStripMenuItem1.Name = "importDistroToolStripMenuItem1";
+            this.importDistroToolStripMenuItem1.Size = new System.Drawing.Size(197, 22);
+            this.importDistroToolStripMenuItem1.Text = "&Import Distro...";
+            this.importDistroToolStripMenuItem1.Click += new System.EventHandler(this.ImportDistroToolStripMenuItem_Click);
+            // 
+            // shutdownAllDistrosToolStripMenuItem
+            // 
+            this.shutdownAllDistrosToolStripMenuItem.Name = "shutdownAllDistrosToolStripMenuItem";
+            this.shutdownAllDistrosToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.shutdownAllDistrosToolStripMenuItem.Text = "&Shutdown All Distros...";
+            this.shutdownAllDistrosToolStripMenuItem.Click += new System.EventHandler(this.ShutdownAllDistrosToolStripMenuItem_Click);
+            // 
+            // mapAsADriveToolStripMenuItem1
+            // 
+            this.mapAsADriveToolStripMenuItem1.Name = "mapAsADriveToolStripMenuItem1";
+            this.mapAsADriveToolStripMenuItem1.Size = new System.Drawing.Size(197, 22);
+            this.mapAsADriveToolStripMenuItem1.Text = "&Map as a drive...";
+            this.mapAsADriveToolStripMenuItem1.Click += new System.EventHandler(this.MapAsADriveToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem15
+            // 
+            this.toolStripMenuItem15.Name = "toolStripMenuItem15";
+            this.toolStripMenuItem15.Size = new System.Drawing.Size(194, 6);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -778,7 +794,6 @@
         private System.Windows.Forms.ToolStripMenuItem unregisterDistroToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem terminateDistroToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem10;
-        private System.Windows.Forms.ToolStripMenuItem importDistroToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem viewModeToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem largeIconToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem tileToolStripMenuItem1;
@@ -805,7 +820,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem mapAsADriveToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem9;
-        private System.Windows.Forms.ToolStripMenuItem mapAsADriveToolStripMenuItem1;
         private System.Windows.Forms.SaveFileDialog ShortcutSaveFileDialog;
         private System.ComponentModel.BackgroundWorker IconGenerator;
         private System.ComponentModel.BackgroundWorker ShimGenerator;
@@ -814,12 +828,16 @@
         private System.Windows.Forms.ToolStripMenuItem newDistroToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem windowsTerminalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowsTerminalToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem shutdownAllDistrosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wSLManagerOfficialWebSiteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem wSLOfficialBlogToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem wSLDocumentationToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem14;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importDistroToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem mapAsADriveToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem shutdownAllDistrosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem15;
     }
 }
 
