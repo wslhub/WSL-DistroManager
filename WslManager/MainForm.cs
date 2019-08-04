@@ -536,7 +536,7 @@ namespace WslManager
 
         private void ExportDistroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = DistroListView.SelectedItems.Cast<DistroProperties>().FirstOrDefault();
+            var item = DistroListView.SelectedItems.Cast<ListViewItem>().Select(x => x.Tag).Cast<DistroProperties>().FirstOrDefault();
 
             if (item == null)
                 return;
@@ -561,7 +561,7 @@ namespace WslManager
 
         private void UnregisterDistroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = DistroListView.SelectedItems.Cast<DistroProperties>().FirstOrDefault();
+            var item = DistroListView.SelectedItems.Cast<ListViewItem>().Select(x => x.Tag).Cast<DistroProperties>().FirstOrDefault();
 
             if (item == null)
                 return;
@@ -579,7 +579,7 @@ namespace WslManager
 
         private void TerminateDistroToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = DistroListView.SelectedItems.Cast<DistroProperties>().FirstOrDefault();
+            var item = DistroListView.SelectedItems.Cast<ListViewItem>().Select(x => x.Tag).Cast<DistroProperties>().FirstOrDefault();
 
             if (item == null)
                 return;
@@ -742,7 +742,7 @@ Icons: https://www.icons8.com",
 
         private void PropertiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var item = DistroListView.SelectedItems.Cast<DistroProperties>().FirstOrDefault();
+            var item = DistroListView.SelectedItems.Cast<ListViewItem>().Select(x => x.Tag).Cast<DistroProperties>().FirstOrDefault();
 
             if (item == null)
                 return;
@@ -765,6 +765,8 @@ Icons: https://www.icons8.com",
         private void CreateShortcutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedDistro = DistroListView.SelectedItems
+                .Cast<ListViewItem>()
+                .Select(x => x.Tag)
                 .Cast<DistroProperties>()
                 .FirstOrDefault();
 
@@ -809,6 +811,8 @@ Icons: https://www.icons8.com",
         private void MapAsADriveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedDistro = DistroListView.SelectedItems
+                .Cast<ListViewItem>()
+                .Select(x => x.Tag)
                 .Cast<DistroProperties>()
                 .FirstOrDefault();
 
