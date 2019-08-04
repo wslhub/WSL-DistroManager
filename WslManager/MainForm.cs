@@ -1084,13 +1084,6 @@ Icons: https://www.icons8.com",
             }
         }
 
-        private void ConfigureDistroToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LaunchWslDistro(
-                new Action<DistroProperties>(OpenWslConfig),
-                DistroListView.SelectedItems.Cast<ListViewItem>());
-        }
-
         private void WindowsTerminalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LaunchWindowsTerminal(DistroListView.SelectedItems.Cast<ListViewItem>());
