@@ -26,17 +26,27 @@ namespace WslManager
             InitializeComponent();
         }
 
+        public enum GroupTypes
+        {
+            None = 0,
+            WSLVersion,
+            DistroType,
+        }
+
         private static Type wscriptShellType = Type.GetTypeFromProgID("WScript.Shell");
         private static object shellObject = Activator.CreateInstance(wscriptShellType);
 
         private Label emptyLabel;
         private ManagementEventWatcher managementEventWatcher;
+        private GroupTypes groupType;
 
         private void PerformRefreshDistroList(bool triggeredByUser)
         {
             var items = SharedRoutines.LoadDistroList().ToArray();
 
+            DistroListView.Groups.Clear();
             DistroListView.Items.Clear();
+
             foreach (var eachItem in items)
             {
                 var lvItem = new ListViewItem(
@@ -48,6 +58,67 @@ namespace WslManager
 
                 DistroListView.Items.Add(lvItem);
             }
+
+            switch (groupType)
+            {
+                case GroupTypes.WSLVersion:
+                    DistroListView.ShowGroups = true;
+                    var v1Group = DistroListView.Groups.Add("v1", "Windows Subsystem for Linux v1");
+                    var v2Group = DistroListView.Groups.Add("v2", "Windows Subsystem for Linux v2");
+
+                    foreach (ListViewItem eachItem in DistroListView.Items)
+                    {
+                        var distroProperties = eachItem.Tag as DistroProperties;
+                        if (distroProperties == null)
+                            continue;
+
+                        if (string.Equals(distroProperties.Version, "1", StringComparison.OrdinalIgnoreCase))
+                            eachItem.Group = v1Group;
+                        else
+                            eachItem.Group = v2Group;
+                    }
+                    break;
+
+                case GroupTypes.DistroType:
+                    DistroListView.ShowGroups = true;
+                    var debianGroup = DistroListView.Groups.Add("debian", "Debian");
+                    var ubuntuGroup = DistroListView.Groups.Add("ubuntu", "Ubuntu");
+                    var suseGroup = DistroListView.Groups.Add("suse", "SUSE");
+                    var kaliGroup = DistroListView.Groups.Add("kali", "Kali");
+                    var linuxGroup = DistroListView.Groups.Add("linux", "Variant");
+
+                    foreach (ListViewItem eachItem in DistroListView.Items)
+                    {
+                        var distroProperties = eachItem.Tag as DistroProperties;
+                        if (distroProperties == null)
+                            continue;
+
+                        switch (SharedRoutines.GetImageKey(distroProperties.DistroName))
+                        {
+                            case "debian":
+                                eachItem.Group = debianGroup;
+                                break;
+                            case "ubuntu":
+                                eachItem.Group = ubuntuGroup;
+                                break;
+                            case "suse":
+                                eachItem.Group = suseGroup;
+                                break;
+                            case "kali":
+                                eachItem.Group = kaliGroup;
+                                break;
+                            default:
+                                eachItem.Group = linuxGroup;
+                                break;
+                        }
+                    }
+                    break;
+
+                default:
+                    DistroListView.ShowGroups = false;
+                    break;
+            }
+
             TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
 
             if (DistroListView.Items.Count < 1)
@@ -1107,6 +1178,45 @@ Icons: https://www.icons8.com",
         private void WSLDocumentationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(new ProcessStartInfo("https://docs.microsoft.com/en-us/windows/wsl/about") { UseShellExecute = true });
+        }
+
+        private void WSLVersionGroupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            groupType = GroupTypes.WSLVersion;
+            PerformRefreshDistroList(true);
+        }
+
+        private void DistroTypesGroupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            groupType = GroupTypes.DistroType;
+            PerformRefreshDistroList(true);
+        }
+
+        private void NoneGroupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            groupType = GroupTypes.None;
+            PerformRefreshDistroList(true);
+        }
+
+        private void GroupByToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            wSLVersionGroupToolStripMenuItem.Checked =
+                distroTypesGroupToolStripMenuItem.Checked =
+                noneGroupToolStripMenuItem.Checked =
+                false;
+
+            switch (groupType)
+            {
+                case GroupTypes.WSLVersion:
+                    wSLVersionGroupToolStripMenuItem.Checked = true;
+                    break;
+                case GroupTypes.DistroType:
+                    distroTypesGroupToolStripMenuItem.Checked = true;
+                    break;
+                default:
+                    noneGroupToolStripMenuItem.Checked = true;
+                    break;
+            }
         }
     }
 }
