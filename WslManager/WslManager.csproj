@@ -81,6 +81,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interop\EoAuthnCap.cs" />
+    <Compile Include="Interop\RpcAuthnLevel.cs" />
+    <Compile Include="Interop\RpcImpLevel.cs" />
     <Compile Include="Structures\BackgroundWorkerArgument.cs" />
     <Compile Include="Structures\BackgroundWorkerResult.cs" />
     <Compile Include="Helpers\DictionaryPropertyDescriptor.cs" />
