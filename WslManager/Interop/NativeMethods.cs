@@ -4,7 +4,7 @@ namespace WslManager.Interop
 {
     internal static class NativeMethods
     {
-        [StructLayout(LayoutKind.Sequential)]
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         public struct NetworkResource
         {
             public int iScope;
@@ -17,30 +17,30 @@ namespace WslManager.Interop
             public string sProvider;
         }
 
-        [DllImport("mpr.dll")]
-        public static extern int WNetAddConnection2A(
+        [DllImport("mpr.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
+        public static extern int WNetAddConnection2W(
             ref NetworkResource pstNetRes,
             string psPassword,
             string psUsername,
             int piFlags);
 
-        [DllImport("mpr.dll")]
-        public static extern int WNetCancelConnection2A(
+        [DllImport("mpr.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
+        public static extern int WNetCancelConnection2W(
             string psName,
             int piFlags,
             int pfForce);
 
-        [DllImport("mpr.dll")]
+        [DllImport("mpr.dll", ExactSpelling = true, CharSet = CharSet.None)]
         public static extern int WNetConnectionDialog(
             int phWnd,
             int piType);
 
-        [DllImport("mpr.dll")]
+        [DllImport("mpr.dll", ExactSpelling = true, CharSet = CharSet.None)]
         public static extern int WNetDisconnectDialog(
             int phWnd,
             int piType);
 
-        [DllImport("mpr.dll")]
+        [DllImport("mpr.dll", ExactSpelling = true, CharSet = CharSet.Unicode)]
         public static extern int WNetRestoreConnectionW(
             int phWnd,
             string psLocalDrive);

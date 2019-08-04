@@ -174,7 +174,7 @@ namespace WslManager
             if (PersistentConnection.Checked)
                 flags += NativeMethods.CONNECT_UPDATE_PROFILE;
 
-            var resultCode = NativeMethods.WNetAddConnection2A(ref parameters, null, null, flags);
+            var resultCode = NativeMethods.WNetAddConnection2W(ref parameters, null, null, flags);
 
             if (resultCode > 0)
             {
@@ -202,7 +202,7 @@ namespace WslManager
             if (PersistentConnection.Checked)
                 flags += NativeMethods.CONNECT_UPDATE_PROFILE;
 
-            var resultCode = NativeMethods.WNetCancelConnection2A(selectedDrive.DriveName, flags, Convert.ToInt32(false));
+            var resultCode = NativeMethods.WNetCancelConnection2W(selectedDrive.DriveName, flags, Convert.ToInt32(false));
 
             if (resultCode > 0)
             {
