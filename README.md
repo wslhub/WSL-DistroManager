@@ -60,7 +60,7 @@ Thanks to the import and export capabilities of WSL, you can now exchange tarbal
 
 This project follows the MIT license.
 
-This project uses WslQuery project, which follows GPL v3 license. But this project does not link the WslQuery utility direct.
+This project uses [WslQuery](https://github.com/rkttu/WslQuery) project, which follows GPL v3 license. But this project does not link the WslQuery utility direct.
 
 ## Thanks to
 
