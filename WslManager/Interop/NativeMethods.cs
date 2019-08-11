@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace WslManager.Interop
 {
@@ -53,10 +52,5 @@ namespace WslManager.Interop
         public const int CONNECT_REDIRECT = 0x00000080;
         public const int CONNECT_COMMANDLINE = 0x00000800;
         public const int CONNECT_CMD_SAVECRED = 0x00001000;
-
-        [DllImport("ole32.dll")]
-        public static extern int CoInitializeSecurity(IntPtr pVoid,
-            int cAuthSvc, IntPtr asAuthSvc, IntPtr pReserved1, RpcAuthnLevel level,
-            RpcImpLevel impers, IntPtr pAuthList, EoAuthnCap dwCapabilities, IntPtr pReserved3);
     }
 }
