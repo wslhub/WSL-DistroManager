@@ -3,7 +3,6 @@
 You can download and use WSL Manager by selecting one of the links below.
 
 - [Installer](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManagerSetup.exe)
-- [Xcopy Friendly](https://github.com/rkttu/WSL-DistroManager/releases/latest/download/WslManager.zip)
 
 You can access or contribute to the source code of this project from the GitHub repository: [https://github.com/rkttu/WSL-DistroManager](https://github.com/rkttu/WSL-DistroManager)
 
@@ -60,6 +59,8 @@ Thanks to the import and export capabilities of WSL, you can now exchange tarbal
 ## License
 
 This project follows the MIT license.
+
+This project uses WslQuery project, which follows GPL v3 license. But this project does not link the WslQuery utility direct.
 
 ## Thanks to
 
