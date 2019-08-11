@@ -189,6 +189,9 @@
     <Content Include="Icons\linux.png" />
     <Content Include="Icons\suse.png" />
     <Content Include="Icons\ubuntu.png" />
+    <Content Include="WslQuery.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WslManager.Shared\WslManager.Shared.csproj">

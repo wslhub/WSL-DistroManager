@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.Cache;
 using System.Runtime.Serialization.Json;
@@ -49,6 +51,30 @@ namespace WslManager.Shared
 
                 return feed;
             }
+        }
+
+        public static WslQueryModel LoadWslDistroInfo(string wslQueryExecPath)
+        {
+            if (!File.Exists(wslQueryExecPath))
+                throw new FileNotFoundException("Cannot execute WslQuery utility.");
+
+            var psi = new ProcessStartInfo("WslQuery.exe")
+            {
+                UseShellExecute = false,
+                CreateNoWindow = true,
+                RedirectStandardOutput = true,
+            };
+
+            var result = default(WslQueryModel);
+
+            using (var proc = Process.Start(psi))
+            {
+                proc.WaitForExit();
+                var deserializer = new DataContractJsonSerializer(typeof(WslQueryModel));
+                result = deserializer.ReadObject(proc.StandardOutput.BaseStream) as WslQueryModel;
+            }
+
+            return result;
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using WslManager.Shared;
 using WslManager.Structures;
 
 namespace WslManager
@@ -31,9 +33,9 @@ namespace WslManager
             return "linux";
         }
 
-        public static string GetImageKey(RegistryKey key)
+        public static string GetImageKey(WslQueryDistroModel model)
         {
-            return GetImageKey(key?.GetValue("DistributionName", string.Empty) as string);
+            return GetImageKey(model?.DistroName);
         }
 
         public static string NormalizePath(string rawPath)
@@ -43,53 +45,54 @@ namespace WslManager
 
         public static IEnumerable<DistroProperties> LoadDistroList()
         {
+            var content = Extensions.LoadWslDistroInfo(Path.Combine(
+                Path.GetDirectoryName(typeof(Program).Assembly.Location),
+                "WslQuery.exe"));
+
             var list = new List<DistroProperties>();
-            var reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss");
 
-            if (reg == null)
-                return list;
+            if (content == null)
+                throw new Exception("Cannot lookup WSL distro states from the system.");
 
-            using (reg)
+            if (!content.Succeed)
             {
-                foreach (var eachSubKeyname in reg.GetSubKeyNames())
-                {
-                    using (var subReg = reg.OpenSubKey(eachSubKeyname))
-                    {
-                        list.Add(new DistroProperties(subReg));
-                    }
-                }
+                if (content.HResult.HasValue)
+                    Marshal.ThrowExceptionForHR((int)content.HResult.Value);
+                else
+                    throw new Exception($"Unexpected error occurred: {content.Error}");
             }
 
+            list.AddRange(content.Distros.Select(x => new DistroProperties(x)));
             return list;
         }
 
-        public static Dictionary<string, string> GetDistroProperties(RegistryKey key)
+        public static Dictionary<string, string> GetDistroProperties(WslQueryDistroModel model)
         {
             var properties = new Dictionary<string, string>();
 
-            if (key == null)
+            if (model == null)
                 return properties;
 
-            var distroName = (string)key.GetValue("DistributionName", "");
+            var distroName = model.DistroName;
             properties.Add(
                 nameof(DistroProperties.DistroName),
                 distroName);
 
             properties.Add(
                 nameof(DistroProperties.UniqueId),
-                Path.GetFileName(key.Name));
+                model.DistroId);
 
             properties.Add(
-                nameof(DistroProperties.AppxPackageName),
-                (string)key.GetValue("PackageFamilyName", ""));
+                nameof(DistroProperties.DistroStatus),
+                model.DistroStatus);
 
             properties.Add(
                 nameof(DistroProperties.BasePath),
-                NormalizePath((string)key.GetValue("BasePath", "")));
+                NormalizePath(model.BasePath));
 
             properties.Add(
                 nameof(DistroProperties.Version),
-                key.GetValue("Version", 0).ToString());
+                model.WslVersion.ToString());
 
             return properties;
         }

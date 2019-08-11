@@ -1,16 +1,20 @@
-﻿using Microsoft.Win32;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using WslManager.Shared;
 
 namespace WslManager.Structures
 {
     public class DistroProperties 
     {
-        public DistroProperties(RegistryKey key)
+        public DistroProperties(WslQueryDistroModel model)
         {
-            this.Properties = SharedRoutines.GetDistroProperties(key);
-            this.ImageKey = SharedRoutines.GetImageKey(key);
+            WslDistroInfo = model ?? throw new ArgumentNullException(nameof(model));
+            Properties = SharedRoutines.GetDistroProperties(model);
+            ImageKey = SharedRoutines.GetImageKey(model);
         }
+
+        public WslQueryDistroModel WslDistroInfo { get; private set; }
 
         [DisplayName("Distro Name")]
         public string DistroName {
@@ -24,10 +28,10 @@ namespace WslManager.Structures
             set => Properties[nameof(UniqueId)] = value;
         }
 
-        [DisplayName("Store Package Name")]
-        public string AppxPackageName {
-            get => Properties[nameof(AppxPackageName)];
-            set => Properties[nameof(AppxPackageName)] = value;
+        [DisplayName("Distro Status")]
+        public string DistroStatus {
+            get => Properties[nameof(DistroStatus)];
+            set => Properties[nameof(DistroStatus)] = value;
         }
 
         [DisplayName("Distro Base Path")]

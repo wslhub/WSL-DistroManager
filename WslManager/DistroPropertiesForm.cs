@@ -1,10 +1,10 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using WslManager.Helpers;
+using WslManager.Shared;
 
 namespace WslManager
 {
@@ -15,50 +15,43 @@ namespace WslManager
             InitializeComponent();
         }
 
-        public string DistroName
-        {
-            get => DistroNameText.Text;
-            set => DistroNameText.Text = value;
-        }
+        public WslQueryDistroModel Model { get; set; }
 
         private void DistroPropertiesForm_Load(object sender, EventArgs e)
         {
-            using (var reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss"))
-            {
-                foreach (var eachSubKeyname in reg.GetSubKeyNames())
-                {
-                    using (var subReg = reg.OpenSubKey(eachSubKeyname))
-                    {
-                        if (string.Equals(subReg.GetValue("DistributionName", "") as string, DistroName, StringComparison.Ordinal))
-                        {
-                            ReadDistroProperties(subReg);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+            var model = Model;
 
-        private void ReadDistroProperties(RegistryKey registryKey)
-        {
-            if (registryKey == null)
+            if (model == null)
                 return;
 
-            DistroIcon.Image = ImageList.Images[SharedRoutines.GetImageKey(DistroName)];
-            DistroLocation.Text = SharedRoutines.NormalizePath((string)registryKey.GetValue("BasePath", ""));
-            State.Text = "0x" + ((int)registryKey.GetValue("State", 0)).ToString("X8");
-            AppxName.Text = (string)registryKey.GetValue("PackageFamilyName", "");
-            WSLVersion.Text = ((int)registryKey.GetValue("Version", 0)).ToString();
+            DistroNameText.Text = model.DistroName;
+            DistroIcon.Image = ImageList.Images[SharedRoutines.GetImageKey(model.DistroName)];
+            DistroLocation.Text = model.BasePath;
+            State.Text = model.DistroName;
+            IsDefaultDistro.Text = model.IsDefaultDistro ? "Yes" : "No";
+            WSLVersion.Text = model.WslVersion.ToString();
 
             var dictionary = new Dictionary<string, object>();
-            dictionary.Add("UniqueId", Path.GetFileName(registryKey.Name));
-
-            foreach (var eachName in registryKey.GetValueNames())
-                dictionary.Add(eachName, registryKey.GetValue(eachName, null));
+            dictionary.Add("Append NT Path", (model.AppendNtPath ? "Yes" : "No"));
+            dictionary.Add("Enable Drive Mounting", (model.EnableDriveMounting ? "Yes" : "No"));
+            dictionary.Add("Enable Interop", (model.EnableInterop ? "Yes" : "No"));
+            dictionary.Add("Kernel Command Line", model.KernelCommandLine);
+            dictionary.Add("Default Environment Variables", model.DefaultEnvironment);
+            dictionary.Add("Default User ID", model.DefaultUid.ToString());
+            dictionary.Add("Distro Unique ID", model.DistroId);
 
             DistroPropertyGrid.SelectedObject = new DictionaryPropertyGridAdapter(dictionary);
-            DistroSizeCalculator.RunWorkerAsync(DistroLocation.Text);
-            Text = $"{DistroName} Properties";
+
+            var ext4VhdxPath = Path.Combine(
+                Path.GetFullPath(model.BasePath),
+                "ext4.vhdx");
+
+            if (model.WslVersion < 2 || !File.Exists(ext4VhdxPath))
+                DistroSizeCalculator.RunWorkerAsync(DistroLocation.Text);
+            else
+                DistroSize.Text = $"{(new FileInfo(ext4VhdxPath).Length / 1024 / 1024)} MiB";
+
+            Text = $"{model.DistroName} Properties";
         }
 
         private void DistroSizeCalculator_DoWork(object sender, DoWorkEventArgs e)

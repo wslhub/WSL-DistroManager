@@ -35,10 +35,10 @@
             this.DistroLocationLabel = new System.Windows.Forms.Label();
             this.DistroSizeLabel = new System.Windows.Forms.Label();
             this.StateLabel = new System.Windows.Forms.Label();
-            this.AppxNameLabel = new System.Windows.Forms.Label();
+            this.IsDefaultDistroLabel = new System.Windows.Forms.Label();
             this.DistroPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.ConfirmButton = new System.Windows.Forms.Button();
-            this.AppxName = new System.Windows.Forms.Label();
+            this.IsDefaultDistro = new System.Windows.Forms.Label();
             this.State = new System.Windows.Forms.Label();
             this.DistroSize = new System.Windows.Forms.Label();
             this.DistroLocation = new System.Windows.Forms.Label();
@@ -52,62 +52,56 @@
             // DistroIcon
             // 
             this.DistroIcon.Image = ((System.Drawing.Image)(resources.GetObject("DistroIcon.Image")));
-            this.DistroIcon.Location = new System.Drawing.Point(21, 21);
-            this.DistroIcon.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.DistroIcon.Location = new System.Drawing.Point(12, 12);
             this.DistroIcon.Name = "DistroIcon";
-            this.DistroIcon.Size = new System.Drawing.Size(84, 84);
+            this.DistroIcon.Size = new System.Drawing.Size(48, 48);
             this.DistroIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.DistroIcon.TabIndex = 0;
             this.DistroIcon.TabStop = false;
             // 
             // DistroNameText
             // 
-            this.DistroNameText.Location = new System.Drawing.Point(175, 68);
-            this.DistroNameText.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.DistroNameText.Location = new System.Drawing.Point(100, 39);
             this.DistroNameText.Name = "DistroNameText";
             this.DistroNameText.ReadOnly = true;
-            this.DistroNameText.Size = new System.Drawing.Size(403, 32);
+            this.DistroNameText.Size = new System.Drawing.Size(232, 21);
             this.DistroNameText.TabIndex = 0;
             // 
             // DistroLocationLabel
             // 
             this.DistroLocationLabel.AutoSize = true;
-            this.DistroLocationLabel.Location = new System.Drawing.Point(21, 149);
-            this.DistroLocationLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.DistroLocationLabel.Location = new System.Drawing.Point(12, 85);
             this.DistroLocationLabel.Name = "DistroLocationLabel";
-            this.DistroLocationLabel.Size = new System.Drawing.Size(97, 21);
+            this.DistroLocationLabel.Size = new System.Drawing.Size(61, 12);
             this.DistroLocationLabel.TabIndex = 1;
             this.DistroLocationLabel.Text = "Location: ";
             // 
             // DistroSizeLabel
             // 
             this.DistroSizeLabel.AutoSize = true;
-            this.DistroSizeLabel.Location = new System.Drawing.Point(21, 205);
-            this.DistroSizeLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.DistroSizeLabel.Location = new System.Drawing.Point(12, 117);
             this.DistroSizeLabel.Name = "DistroSizeLabel";
-            this.DistroSizeLabel.Size = new System.Drawing.Size(61, 21);
+            this.DistroSizeLabel.Size = new System.Drawing.Size(38, 12);
             this.DistroSizeLabel.TabIndex = 3;
             this.DistroSizeLabel.Text = "Size: ";
             // 
             // StateLabel
             // 
             this.StateLabel.AutoSize = true;
-            this.StateLabel.Location = new System.Drawing.Point(21, 261);
-            this.StateLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.StateLabel.Location = new System.Drawing.Point(12, 149);
             this.StateLabel.Name = "StateLabel";
-            this.StateLabel.Size = new System.Drawing.Size(70, 21);
+            this.StateLabel.Size = new System.Drawing.Size(41, 12);
             this.StateLabel.TabIndex = 5;
             this.StateLabel.Text = "State: ";
             // 
-            // AppxNameLabel
+            // IsDefaultDistroLabel
             // 
-            this.AppxNameLabel.AutoSize = true;
-            this.AppxNameLabel.Location = new System.Drawing.Point(21, 315);
-            this.AppxNameLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.AppxNameLabel.Name = "AppxNameLabel";
-            this.AppxNameLabel.Size = new System.Drawing.Size(124, 21);
-            this.AppxNameLabel.TabIndex = 7;
-            this.AppxNameLabel.Text = "Appx Name: ";
+            this.IsDefaultDistroLabel.AutoSize = true;
+            this.IsDefaultDistroLabel.Location = new System.Drawing.Point(12, 180);
+            this.IsDefaultDistroLabel.Name = "IsDefaultDistroLabel";
+            this.IsDefaultDistroLabel.Size = new System.Drawing.Size(51, 12);
+            this.IsDefaultDistroLabel.TabIndex = 7;
+            this.IsDefaultDistroLabel.Text = "Default: ";
             // 
             // DistroPropertyGrid
             // 
@@ -115,11 +109,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DistroPropertyGrid.HelpVisible = false;
-            this.DistroPropertyGrid.Location = new System.Drawing.Point(21, 421);
-            this.DistroPropertyGrid.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.DistroPropertyGrid.Location = new System.Drawing.Point(12, 241);
             this.DistroPropertyGrid.Name = "DistroPropertyGrid";
             this.DistroPropertyGrid.PropertySort = System.Windows.Forms.PropertySort.NoSort;
-            this.DistroPropertyGrid.Size = new System.Drawing.Size(560, 173);
+            this.DistroPropertyGrid.Size = new System.Drawing.Size(320, 99);
             this.DistroPropertyGrid.TabIndex = 9;
             this.DistroPropertyGrid.ToolbarVisible = false;
             // 
@@ -127,35 +120,32 @@
             // 
             this.ConfirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ConfirmButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ConfirmButton.Location = new System.Drawing.Point(450, 606);
-            this.ConfirmButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.ConfirmButton.Location = new System.Drawing.Point(257, 346);
             this.ConfirmButton.Name = "ConfirmButton";
-            this.ConfirmButton.Size = new System.Drawing.Size(131, 40);
+            this.ConfirmButton.Size = new System.Drawing.Size(75, 23);
             this.ConfirmButton.TabIndex = 10;
             this.ConfirmButton.Text = "&Close";
             this.ConfirmButton.UseVisualStyleBackColor = true;
             // 
-            // AppxName
+            // IsDefaultDistro
             // 
-            this.AppxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.IsDefaultDistro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.AppxName.AutoEllipsis = true;
-            this.AppxName.Location = new System.Drawing.Point(172, 315);
-            this.AppxName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.AppxName.Name = "AppxName";
-            this.AppxName.Size = new System.Drawing.Size(410, 21);
-            this.AppxName.TabIndex = 8;
-            this.AppxName.Text = "...";
+            this.IsDefaultDistro.AutoEllipsis = true;
+            this.IsDefaultDistro.Location = new System.Drawing.Point(98, 180);
+            this.IsDefaultDistro.Name = "IsDefaultDistro";
+            this.IsDefaultDistro.Size = new System.Drawing.Size(234, 12);
+            this.IsDefaultDistro.TabIndex = 8;
+            this.IsDefaultDistro.Text = "...";
             // 
             // State
             // 
             this.State.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.State.AutoEllipsis = true;
-            this.State.Location = new System.Drawing.Point(172, 261);
-            this.State.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.State.Location = new System.Drawing.Point(98, 149);
             this.State.Name = "State";
-            this.State.Size = new System.Drawing.Size(410, 21);
+            this.State.Size = new System.Drawing.Size(234, 12);
             this.State.TabIndex = 6;
             this.State.Text = "0x00000000";
             // 
@@ -164,10 +154,9 @@
             this.DistroSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DistroSize.AutoEllipsis = true;
-            this.DistroSize.Location = new System.Drawing.Point(172, 205);
-            this.DistroSize.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.DistroSize.Location = new System.Drawing.Point(98, 117);
             this.DistroSize.Name = "DistroSize";
-            this.DistroSize.Size = new System.Drawing.Size(410, 21);
+            this.DistroSize.Size = new System.Drawing.Size(234, 12);
             this.DistroSize.TabIndex = 4;
             this.DistroSize.Text = "0 byte";
             // 
@@ -176,10 +165,9 @@
             this.DistroLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DistroLocation.AutoEllipsis = true;
-            this.DistroLocation.Location = new System.Drawing.Point(172, 149);
-            this.DistroLocation.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.DistroLocation.Location = new System.Drawing.Point(98, 85);
             this.DistroLocation.Name = "DistroLocation";
-            this.DistroLocation.Size = new System.Drawing.Size(410, 21);
+            this.DistroLocation.Size = new System.Drawing.Size(234, 12);
             this.DistroLocation.TabIndex = 2;
             this.DistroLocation.Text = "...";
             // 
@@ -204,10 +192,9 @@
             // WSLVersionLabel
             // 
             this.WSLVersionLabel.AutoSize = true;
-            this.WSLVersionLabel.Location = new System.Drawing.Point(21, 369);
-            this.WSLVersionLabel.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.WSLVersionLabel.Location = new System.Drawing.Point(12, 211);
             this.WSLVersionLabel.Name = "WSLVersionLabel";
-            this.WSLVersionLabel.Size = new System.Drawing.Size(135, 21);
+            this.WSLVersionLabel.Size = new System.Drawing.Size(85, 12);
             this.WSLVersionLabel.TabIndex = 7;
             this.WSLVersionLabel.Text = "WSL Version: ";
             // 
@@ -216,29 +203,28 @@
             this.WSLVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.WSLVersion.AutoEllipsis = true;
-            this.WSLVersion.Location = new System.Drawing.Point(172, 369);
-            this.WSLVersion.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.WSLVersion.Location = new System.Drawing.Point(98, 211);
             this.WSLVersion.Name = "WSLVersion";
-            this.WSLVersion.Size = new System.Drawing.Size(410, 21);
+            this.WSLVersion.Size = new System.Drawing.Size(234, 12);
             this.WSLVersion.TabIndex = 8;
             this.WSLVersion.Text = "...";
             // 
             // DistroPropertiesForm
             // 
             this.AcceptButton = this.ConfirmButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(168F, 168F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.ConfirmButton;
-            this.ClientSize = new System.Drawing.Size(602, 667);
+            this.ClientSize = new System.Drawing.Size(344, 381);
             this.Controls.Add(this.ConfirmButton);
             this.Controls.Add(this.DistroPropertyGrid);
             this.Controls.Add(this.DistroLocation);
             this.Controls.Add(this.DistroSize);
             this.Controls.Add(this.State);
             this.Controls.Add(this.WSLVersion);
-            this.Controls.Add(this.AppxName);
+            this.Controls.Add(this.IsDefaultDistro);
             this.Controls.Add(this.WSLVersionLabel);
-            this.Controls.Add(this.AppxNameLabel);
+            this.Controls.Add(this.IsDefaultDistroLabel);
             this.Controls.Add(this.StateLabel);
             this.Controls.Add(this.DistroSizeLabel);
             this.Controls.Add(this.DistroLocationLabel);
@@ -246,7 +232,6 @@
             this.Controls.Add(this.DistroIcon);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DistroPropertiesForm";
@@ -268,10 +253,10 @@
         private System.Windows.Forms.Label DistroLocationLabel;
         private System.Windows.Forms.Label DistroSizeLabel;
         private System.Windows.Forms.Label StateLabel;
-        private System.Windows.Forms.Label AppxNameLabel;
+        private System.Windows.Forms.Label IsDefaultDistroLabel;
         private System.Windows.Forms.PropertyGrid DistroPropertyGrid;
         private System.Windows.Forms.Button ConfirmButton;
-        private System.Windows.Forms.Label AppxName;
+        private System.Windows.Forms.Label IsDefaultDistro;
         private System.Windows.Forms.Label State;
         private System.Windows.Forms.Label DistroSize;
         private System.Windows.Forms.Label DistroLocation;

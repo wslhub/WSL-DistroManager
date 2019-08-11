@@ -820,7 +820,7 @@ Icons: https://www.icons8.com",
 
             using (var propertiesDialog = new DistroPropertiesForm())
             {
-                propertiesDialog.DistroName = item.DistroName;
+                propertiesDialog.Model = item.WslDistroInfo;
                 propertiesDialog.ShowDialog(this);
             }
         }
