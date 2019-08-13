@@ -35,56 +35,6 @@ namespace WslManager
         private OrderTypes orderType;
         private SortOrder sortOrder;
 
-        private void PerformDisplayingDistroList(bool triggeredByUser)
-        {
-            DistroListView.Items.Clear();
-
-            var items = SharedRoutines.LoadDistroList().ToArray();
-
-            foreach (var eachItem in items)
-            {
-                var lvItem = new ListViewItem()
-                {
-                    ImageKey = eachItem.ImageKey,
-                    Tag = eachItem,
-                    Text = eachItem.DistroName,
-                };
-                foreach (ColumnHeader eachColumn in DistroListView.Columns.Cast<ColumnHeader>().Skip(1))
-                {
-                    var propName = eachColumn.Tag as string;
-                    var subItem = new ListViewItem.ListViewSubItem(lvItem, string.Empty);
-
-                    if (propName != null && eachItem.Properties.ContainsKey(propName))
-                        subItem.Text = eachItem.Properties[propName] as string;
-                    else
-                        subItem.Text = string.Empty;
-
-                    lvItem.SubItems.Add(subItem);
-                }
-
-                DistroListView.Items.Add(lvItem);
-            }
-
-            TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
-
-            if (DistroListView.Items.Count < 1)
-            {
-                DistroListView.Visible = false;
-                emptyLabel.Visible = true;
-            }
-            else
-            {
-                DistroListView.Visible = true;
-                emptyLabel.Visible = false;
-            }
-
-            if (!ShimGenerator.IsBusy)
-                ShimGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroProperties[]>(triggeredByUser, items));
-
-            if (!ShortcutGenerator.IsBusy)
-                ShortcutGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroProperties[]>(triggeredByUser, items));
-        }
-
         private void PerformGrouppingDistroList()
         {
             DistroListView.Groups.Clear();
@@ -232,11 +182,56 @@ namespace WslManager
 
         private void PerformRefreshDistroList(bool triggeredByUser)
         {
-            PerformDisplayingDistroList(triggeredByUser);
+            DistroListView.Items.Clear();
+
+            var items = SharedRoutines.LoadDistroList().ToArray();
+
+            foreach (var eachItem in items)
+            {
+                var lvItem = new ListViewItem()
+                {
+                    ImageKey = eachItem.ImageKey,
+                    Tag = eachItem,
+                    Text = eachItem.DistroName,
+                };
+                foreach (ColumnHeader eachColumn in DistroListView.Columns.Cast<ColumnHeader>().Skip(1))
+                {
+                    var propName = eachColumn.Tag as string;
+                    var subItem = new ListViewItem.ListViewSubItem(lvItem, string.Empty);
+
+                    if (propName != null && eachItem.Properties.ContainsKey(propName))
+                        subItem.Text = eachItem.Properties[propName] as string;
+                    else
+                        subItem.Text = string.Empty;
+
+                    lvItem.SubItems.Add(subItem);
+                }
+
+                DistroListView.Items.Add(lvItem);
+            }
 
             PerformGrouppingDistroList();
 
             PerformSortingDistroList();
+
+            TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
+
+            if (DistroListView.Items.Count < 1)
+            {
+                DistroListView.Visible = false;
+                emptyLabel.Visible = true;
+            }
+            else
+            {
+                DistroListView.Visible = true;
+                emptyLabel.Visible = false;
+            }
+
+            if (!ShimGenerator.IsBusy)
+                ShimGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroProperties[]>(triggeredByUser, items));
+
+            if (!ShortcutGenerator.IsBusy)
+                ShortcutGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroProperties[]>(triggeredByUser, items));
         }
 
         private void OpenWslFolder(DistroProperties distro)
