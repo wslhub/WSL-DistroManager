@@ -7,13 +7,18 @@ namespace WslManager.Structures
 {
     public class DistroProperties 
     {
-        public DistroProperties(WslQueryDistroModel model)
+        public DistroProperties(int order, WslQueryDistroModel model)
         {
+            Order = order;
             WslDistroInfo = model ?? throw new ArgumentNullException(nameof(model));
             Properties = SharedRoutines.GetDistroProperties(model);
             ImageKey = SharedRoutines.GetImageKey(model);
         }
 
+        [Browsable(false)]
+        public int Order { get; private set; }
+
+        [Browsable(false)]
         public WslQueryDistroModel WslDistroInfo { get; private set; }
 
         [DisplayName("Distro Name")]
@@ -22,7 +27,7 @@ namespace WslManager.Structures
             set => Properties[nameof(DistroName)] = value;
         }
 
-        [DisplayName("Unique ID")]
+        [Browsable(false)]
         public string UniqueId {
             get => Properties[nameof(UniqueId)];
             set => Properties[nameof(UniqueId)] = value;
