@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\AdaptableComparer.cs" />
     <Compile Include="Structures\BackgroundWorkerArgument.cs" />
     <Compile Include="Structures\BackgroundWorkerResult.cs" />
     <Compile Include="Helpers\DictionaryPropertyDescriptor.cs" />
@@ -117,6 +118,8 @@
       <DependentUpon>MapAsDriveForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Interop\NativeMethods.cs" />
+    <Compile Include="Structures\GroupTypes.cs" />
+    <Compile Include="Structures\OrderTypes.cs" />
     <Compile Include="Structures\PasswordScore.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="DownloadDistroForm.cs">
