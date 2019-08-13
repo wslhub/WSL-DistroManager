@@ -62,7 +62,9 @@ namespace WslManager
                     throw new Exception($"Unexpected error occurred: {content.Error}");
             }
 
-            list.AddRange(content.Distros.Select(x => new DistroProperties(x)));
+            var array = content.Distros.ToArray();
+            for (int i = 0, cnt = array.Length; i < cnt; i++)
+                list.Add(new DistroProperties(i, array[i]));
             return list;
         }
 

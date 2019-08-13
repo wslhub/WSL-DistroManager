@@ -26,38 +26,68 @@ namespace WslManager
             InitializeComponent();
         }
 
-        public enum GroupTypes
-        {
-            None = 0,
-            WSLVersion,
-            DistroType,
-        }
-
         private static Type wscriptShellType = Type.GetTypeFromProgID("WScript.Shell");
         private static object shellObject = Activator.CreateInstance(wscriptShellType);
 
         private Label emptyLabel;
         private ManagementEventWatcher managementEventWatcher;
         private GroupTypes groupType;
+        private OrderTypes orderType;
+        private SortOrder sortOrder;
 
-        private void PerformRefreshDistroList(bool triggeredByUser)
+        private void PerformDisplayingDistroList(bool triggeredByUser)
         {
-            var items = SharedRoutines.LoadDistroList().ToArray();
-
-            DistroListView.Groups.Clear();
             DistroListView.Items.Clear();
+
+            var items = SharedRoutines.LoadDistroList().ToArray();
 
             foreach (var eachItem in items)
             {
-                var lvItem = new ListViewItem(
-                    eachItem.Properties.Select(x => x.Value).ToArray(),
-                    eachItem.ImageKey)
+                var lvItem = new ListViewItem()
                 {
+                    ImageKey = eachItem.ImageKey,
                     Tag = eachItem,
+                    Text = eachItem.DistroName,
                 };
+                foreach (ColumnHeader eachColumn in DistroListView.Columns.Cast<ColumnHeader>().Skip(1))
+                {
+                    var propName = eachColumn.Tag as string;
+                    var subItem = new ListViewItem.ListViewSubItem(lvItem, string.Empty);
+
+                    if (propName != null && eachItem.Properties.ContainsKey(propName))
+                        subItem.Text = eachItem.Properties[propName] as string;
+                    else
+                        subItem.Text = string.Empty;
+
+                    lvItem.SubItems.Add(subItem);
+                }
 
                 DistroListView.Items.Add(lvItem);
             }
+
+            TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
+
+            if (DistroListView.Items.Count < 1)
+            {
+                DistroListView.Visible = false;
+                emptyLabel.Visible = true;
+            }
+            else
+            {
+                DistroListView.Visible = true;
+                emptyLabel.Visible = false;
+            }
+
+            if (!ShimGenerator.IsBusy)
+                ShimGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroProperties[]>(triggeredByUser, items));
+
+            if (!ShortcutGenerator.IsBusy)
+                ShortcutGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroProperties[]>(triggeredByUser, items));
+        }
+
+        private void PerformGrouppingDistroList()
+        {
+            DistroListView.Groups.Clear();
 
             switch (groupType)
             {
@@ -114,29 +144,99 @@ namespace WslManager
                     }
                     break;
 
+                case GroupTypes.DistroStatus:
+                    DistroListView.ShowGroups = true;
+                    var stoppedGroup = DistroListView.Groups.Add("stopped", "Stopped");
+                    var runningGroup = DistroListView.Groups.Add("running", "Running");
+                    var installingGroup = DistroListView.Groups.Add("installing", "Installing");
+                    var uninstallingGroup = DistroListView.Groups.Add("uninstalling", "Uninstalling");
+                    var convertingGroup = DistroListView.Groups.Add("converting", "Converting");
+                    var unknownGroup = DistroListView.Groups.Add("unknown", "Unknown");
+
+                    foreach (ListViewItem eachItem in DistroListView.Items)
+                    {
+                        var distroProperties = eachItem.Tag as DistroProperties;
+                        if (distroProperties == null)
+                            continue;
+
+                        switch (distroProperties.DistroStatus?.ToUpperInvariant()?.Trim())
+                        {
+                            case "STOPPED":
+                                eachItem.Group = stoppedGroup;
+                                break;
+                            case "RUNNING":
+                                eachItem.Group = runningGroup;
+                                break;
+                            case "INSTALLING":
+                                eachItem.Group = installingGroup;
+                                break;
+                            case "UNINSTALLING":
+                                eachItem.Group = uninstallingGroup;
+                                break;
+                            case "CONVERTING":
+                                eachItem.Group = convertingGroup;
+                                break;
+                            default:
+                                eachItem.Group = unknownGroup;
+                                break;
+                        }
+                    }
+                    break;
+
                 default:
                     DistroListView.ShowGroups = false;
                     break;
             }
+        }
 
-            TotalCountLabel.Text = $"{items.Length} item{(items.Length > 1 ? "s" : "")}";
+        private void PerformSortingDistroList()
+        {
+            DistroListView.ListViewItemSorter = null;
+            DistroListView.Sorting = SortOrder.None;
 
-            if (DistroListView.Items.Count < 1)
+            switch (orderType)
             {
-                DistroListView.Visible = false;
-                emptyLabel.Visible = true;
-            }
-            else
-            {
-                DistroListView.Visible = true;
-                emptyLabel.Visible = false;
+                case OrderTypes.DistroName:
+                    DistroListView.ListViewItemSorter = new AdaptableComparer<ListViewItem>(
+                        (x, y) => string.Compare(
+                            (x.Tag as DistroProperties)?.DistroName,
+                            (y.Tag as DistroProperties)?.DistroName,
+                            false));
+                    break;
+
+                case OrderTypes.DistroStatus:
+                    DistroListView.ListViewItemSorter = new AdaptableComparer<ListViewItem>(
+                        (x, y) => string.Compare(
+                            (x.Tag as DistroProperties)?.DistroStatus,
+                            (y.Tag as DistroProperties)?.DistroStatus,
+                            false));
+                    break;
+
+                case OrderTypes.DistroType:
+                    DistroListView.ListViewItemSorter = new AdaptableComparer<ListViewItem>(
+                        (x, y) => string.Compare(
+                            (x.Tag as DistroProperties)?.ImageKey,
+                            (y.Tag as DistroProperties)?.ImageKey,
+                            false));
+                    break;
+
+                default:
+                    DistroListView.ListViewItemSorter = new AdaptableComparer<ListViewItem>(
+                        (x, y) => ((DistroProperties)x.Tag).Order.CompareTo(((DistroProperties)y.Tag).Order));
+                    break;
             }
 
-            if (!ShimGenerator.IsBusy)
-                ShimGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroProperties[]>(triggeredByUser, items));
+            DistroListView.Sorting = this.sortOrder;
+            DistroListView.Sort();
+        }
 
-            if (!ShortcutGenerator.IsBusy)
-                ShortcutGenerator.RunWorkerAsync(new BackgroundWorkerArgument<DistroProperties[]>(triggeredByUser, items));
+        private void PerformRefreshDistroList(bool triggeredByUser)
+        {
+            PerformDisplayingDistroList(triggeredByUser);
+
+            PerformGrouppingDistroList();
+
+            PerformSortingDistroList();
         }
 
         private void OpenWslFolder(DistroProperties distro)
@@ -271,7 +371,7 @@ namespace WslManager
             if (!File.Exists(hyperConfigFile))
             {
                 MessageBox.Show(this, "Hyper installation not found!\n" +
-                    "Hyper can be installed from: https://hyper.is", 
+                    "Hyper can be installed from: https://hyper.is",
                     "Error: Hyper not Installed",
                     MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
@@ -506,6 +606,7 @@ namespace WslManager
                 else
                     colItem.Text = eachProperty.Name;
 
+                colItem.Tag = eachProperty.Name;
                 DistroListView.Columns.Add(colItem);
             }
 
@@ -1015,7 +1116,7 @@ Icons: https://www.icons8.com",
             {
                 var targetFilePath = Path.Combine(targetDir, eachItem.DistroName + ".lnk");
                 var creationResult = CreateDistroShortcut(eachItem, targetFilePath);
-                
+
                 if (!creationResult)
                     result.Add(eachItem.DistroName, targetFilePath);
             }
@@ -1192,6 +1293,12 @@ Icons: https://www.icons8.com",
             PerformRefreshDistroList(true);
         }
 
+        private void DistroStatusGroupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            groupType = GroupTypes.DistroStatus;
+            PerformRefreshDistroList(true);
+        }
+
         private void NoneGroupToolStripMenuItem_Click(object sender, EventArgs e)
         {
             groupType = GroupTypes.None;
@@ -1203,6 +1310,7 @@ Icons: https://www.icons8.com",
             wSLVersionGroupToolStripMenuItem.Checked =
                 distroTypesGroupToolStripMenuItem.Checked =
                 noneGroupToolStripMenuItem.Checked =
+                distroStatusGroupToolStripMenuItem.Checked =
                 false;
 
             switch (groupType)
@@ -1213,8 +1321,86 @@ Icons: https://www.icons8.com",
                 case GroupTypes.DistroType:
                     distroTypesGroupToolStripMenuItem.Checked = true;
                     break;
+                case GroupTypes.DistroStatus:
+                    distroStatusGroupToolStripMenuItem.Checked = true;
+                    break;
                 default:
                     noneGroupToolStripMenuItem.Checked = true;
+                    break;
+            }
+        }
+
+        private void OrderByRegisteredOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            orderType = OrderTypes.None;
+            PerformRefreshDistroList(true);
+        }
+
+        private void OrderByDistroNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            orderType = OrderTypes.DistroName;
+            PerformRefreshDistroList(true);
+        }
+
+        private void OrderByDistroTypesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            orderType = OrderTypes.DistroType;
+            PerformRefreshDistroList(true);
+        }
+
+        private void OrderByDistroStatusToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            orderType = OrderTypes.DistroStatus;
+            PerformRefreshDistroList(true);
+        }
+
+        private void AscendingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sortOrder = SortOrder.Ascending;
+            PerformRefreshDistroList(true);
+        }
+
+        private void DescendingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            sortOrder = SortOrder.Descending;
+            PerformRefreshDistroList(true);
+        }
+
+        private void OrderByToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            orderByRegisteredOrderToolStripMenuItem.Checked =
+                orderByDistroNameToolStripMenuItem.Checked =
+                orderByDistroStatusToolStripMenuItem.Checked =
+                orderByDistroTypesToolStripMenuItem.Checked =
+                false;
+
+            switch (orderType)
+            {
+                case OrderTypes.DistroName:
+                    orderByDistroNameToolStripMenuItem.Checked = true;
+                    break;
+                case OrderTypes.DistroStatus:
+                    orderByDistroStatusToolStripMenuItem.Checked = true;
+                    break;
+                case OrderTypes.DistroType:
+                    orderByDistroTypesToolStripMenuItem.Checked = true;
+                    break;
+                default:
+                    orderByRegisteredOrderToolStripMenuItem.Checked = true;
+                    break;
+            }
+
+            ascendingToolStripMenuItem.Checked =
+                descendingToolStripMenuItem.Checked =
+                false;
+
+            switch (sortOrder)
+            {
+                case SortOrder.Ascending:
+                    ascendingToolStripMenuItem.Checked = true;
+                    break;
+                case SortOrder.Descending:
+                    descendingToolStripMenuItem.Checked = true;
                     break;
             }
         }
