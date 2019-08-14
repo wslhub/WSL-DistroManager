@@ -45,22 +45,17 @@
             // 
             // ItemListView
             // 
-            this.ItemListView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.ItemListView, "ItemListView");
             this.ItemListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.NameColumn,
             this.AuthorColumn});
             this.ItemListView.FullRowSelect = true;
             this.ItemListView.HideSelection = false;
             this.ItemListView.LargeImageList = this.DefaultImageList;
-            this.ItemListView.Location = new System.Drawing.Point(12, 12);
             this.ItemListView.MultiSelect = false;
             this.ItemListView.Name = "ItemListView";
             this.ItemListView.ShowItemToolTips = true;
-            this.ItemListView.Size = new System.Drawing.Size(352, 388);
             this.ItemListView.SmallImageList = this.DefaultImageList;
-            this.ItemListView.TabIndex = 0;
             this.ItemListView.UseCompatibleStateImageBehavior = false;
             this.ItemListView.View = System.Windows.Forms.View.Tile;
             this.ItemListView.ItemActivate += new System.EventHandler(this.ItemListView_ItemActivate);
@@ -68,11 +63,11 @@
             // 
             // NameColumn
             // 
-            this.NameColumn.Text = "Distro Name";
+            resources.ApplyResources(this.NameColumn, "NameColumn");
             // 
             // AuthorColumn
             // 
-            this.AuthorColumn.Text = "Author";
+            resources.ApplyResources(this.AuthorColumn, "AuthorColumn");
             // 
             // DefaultImageList
             // 
@@ -96,70 +91,48 @@
             // 
             // DetailView
             // 
-            this.DetailView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.DetailView, "DetailView");
             this.DetailView.IsWebBrowserContextMenuEnabled = false;
-            this.DetailView.Location = new System.Drawing.Point(370, 12);
-            this.DetailView.MinimumSize = new System.Drawing.Size(20, 20);
             this.DetailView.Name = "DetailView";
             this.DetailView.ScriptErrorsSuppressed = true;
-            this.DetailView.Size = new System.Drawing.Size(242, 388);
-            this.DetailView.TabIndex = 1;
             this.DetailView.TabStop = false;
             this.DetailView.Url = new System.Uri("about:blank", System.UriKind.Absolute);
             this.DetailView.WebBrowserShortcutsEnabled = false;
             // 
             // DeclineButton
             // 
-            this.DeclineButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.DeclineButton, "DeclineButton");
             this.DeclineButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.DeclineButton.Location = new System.Drawing.Point(537, 406);
             this.DeclineButton.Name = "DeclineButton";
-            this.DeclineButton.Size = new System.Drawing.Size(75, 23);
-            this.DeclineButton.TabIndex = 5;
-            this.DeclineButton.Text = "&Cancel";
             this.DeclineButton.UseVisualStyleBackColor = true;
             // 
             // InstallButton
             // 
-            this.InstallButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.InstallButton.Location = new System.Drawing.Point(456, 406);
+            resources.ApplyResources(this.InstallButton, "InstallButton");
             this.InstallButton.Name = "InstallButton";
-            this.InstallButton.Size = new System.Drawing.Size(75, 23);
-            this.InstallButton.TabIndex = 4;
-            this.InstallButton.Text = "&Install";
             this.InstallButton.UseVisualStyleBackColor = true;
             this.InstallButton.Click += new System.EventHandler(this.InstallButton_Click);
             // 
             // ContributeButton
             // 
-            this.ContributeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ContributeButton.Location = new System.Drawing.Point(12, 406);
+            resources.ApplyResources(this.ContributeButton, "ContributeButton");
             this.ContributeButton.Name = "ContributeButton";
-            this.ContributeButton.Size = new System.Drawing.Size(75, 23);
-            this.ContributeButton.TabIndex = 2;
-            this.ContributeButton.Text = "Contribute";
             this.ContributeButton.UseVisualStyleBackColor = true;
             this.ContributeButton.Click += new System.EventHandler(this.ContributeButton_Click);
             // 
             // BrowseMSStoreButton
             // 
-            this.BrowseMSStoreButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.BrowseMSStoreButton.Location = new System.Drawing.Point(93, 406);
+            resources.ApplyResources(this.BrowseMSStoreButton, "BrowseMSStoreButton");
             this.BrowseMSStoreButton.Name = "BrowseMSStoreButton";
-            this.BrowseMSStoreButton.Size = new System.Drawing.Size(163, 23);
-            this.BrowseMSStoreButton.TabIndex = 3;
-            this.BrowseMSStoreButton.Text = "Open Microsoft Store";
             this.BrowseMSStoreButton.UseVisualStyleBackColor = true;
             this.BrowseMSStoreButton.Click += new System.EventHandler(this.BrowseMSStoreButton_Click);
             // 
             // DistroGalleryForm
             // 
             this.AcceptButton = this.InstallButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.DeclineButton;
-            this.ClientSize = new System.Drawing.Size(624, 441);
             this.Controls.Add(this.BrowseMSStoreButton);
             this.Controls.Add(this.ContributeButton);
             this.Controls.Add(this.InstallButton);
@@ -167,11 +140,8 @@
             this.Controls.Add(this.DetailView);
             this.Controls.Add(this.ItemListView);
             this.DoubleBuffered = true;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DistroGalleryForm";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Distro Gallery";
             this.Load += new System.EventHandler(this.DistroGalleryForm_Load);
             this.ResumeLayout(false);
 

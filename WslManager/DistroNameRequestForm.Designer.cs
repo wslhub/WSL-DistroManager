@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DistroNameRequestForm));
             this.InstructionLabel = new System.Windows.Forms.Label();
             this.DistroName = new System.Windows.Forms.TextBox();
             this.DeclineButton = new System.Windows.Forms.Button();
@@ -36,51 +37,34 @@
             // 
             // InstructionLabel
             // 
-            this.InstructionLabel.AutoSize = true;
-            this.InstructionLabel.Location = new System.Drawing.Point(13, 13);
+            resources.ApplyResources(this.InstructionLabel, "InstructionLabel");
             this.InstructionLabel.Name = "InstructionLabel";
-            this.InstructionLabel.Size = new System.Drawing.Size(196, 12);
-            this.InstructionLabel.TabIndex = 0;
-            this.InstructionLabel.Text = "Please specify new distro name: ";
             // 
             // DistroName
             // 
-            this.DistroName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.DistroName.Location = new System.Drawing.Point(15, 37);
+            resources.ApplyResources(this.DistroName, "DistroName");
             this.DistroName.Name = "DistroName";
-            this.DistroName.Size = new System.Drawing.Size(317, 21);
-            this.DistroName.TabIndex = 1;
             // 
             // DeclineButton
             // 
-            this.DeclineButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.DeclineButton, "DeclineButton");
             this.DeclineButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.DeclineButton.Location = new System.Drawing.Point(257, 76);
             this.DeclineButton.Name = "DeclineButton";
-            this.DeclineButton.Size = new System.Drawing.Size(75, 23);
-            this.DeclineButton.TabIndex = 3;
-            this.DeclineButton.Text = "&Cancel";
             this.DeclineButton.UseVisualStyleBackColor = true;
             // 
             // ConfirmButton
             // 
-            this.ConfirmButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ConfirmButton.Location = new System.Drawing.Point(176, 76);
+            resources.ApplyResources(this.ConfirmButton, "ConfirmButton");
             this.ConfirmButton.Name = "ConfirmButton";
-            this.ConfirmButton.Size = new System.Drawing.Size(75, 23);
-            this.ConfirmButton.TabIndex = 2;
-            this.ConfirmButton.Text = "&OK";
             this.ConfirmButton.UseVisualStyleBackColor = true;
             this.ConfirmButton.Click += new System.EventHandler(this.ConfirmButton_Click);
             // 
             // DistroNameRequestForm
             // 
             this.AcceptButton = this.ConfirmButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.DeclineButton;
-            this.ClientSize = new System.Drawing.Size(344, 111);
             this.Controls.Add(this.ConfirmButton);
             this.Controls.Add(this.DeclineButton);
             this.Controls.Add(this.DistroName);
@@ -91,8 +75,6 @@
             this.MinimizeBox = false;
             this.Name = "DistroNameRequestForm";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "New Distro Name";
             this.ResumeLayout(false);
             this.PerformLayout();
 

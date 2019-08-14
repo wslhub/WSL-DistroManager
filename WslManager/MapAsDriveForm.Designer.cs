@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MapAsDriveForm));
             this.DriveLetterLabel = new System.Windows.Forms.Label();
             this.DriveLetter = new System.Windows.Forms.ComboBox();
             this.TargetDistroLabel = new System.Windows.Forms.Label();
@@ -45,95 +46,59 @@
             // 
             // DriveLetterLabel
             // 
-            this.DriveLetterLabel.AutoSize = true;
-            this.DriveLetterLabel.Location = new System.Drawing.Point(21, 18);
+            resources.ApplyResources(this.DriveLetterLabel, "DriveLetterLabel");
             this.DriveLetterLabel.Name = "DriveLetterLabel";
-            this.DriveLetterLabel.Size = new System.Drawing.Size(76, 12);
-            this.DriveLetterLabel.TabIndex = 0;
-            this.DriveLetterLabel.Text = "Drive Letter: ";
             // 
             // DriveLetter
             // 
+            resources.ApplyResources(this.DriveLetter, "DriveLetter");
             this.DriveLetter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.DriveLetter.FormattingEnabled = true;
-            this.DriveLetter.Location = new System.Drawing.Point(111, 15);
             this.DriveLetter.Name = "DriveLetter";
-            this.DriveLetter.Size = new System.Drawing.Size(148, 20);
-            this.DriveLetter.TabIndex = 1;
             this.DriveLetter.SelectedIndexChanged += new System.EventHandler(this.DriveLetter_SelectedIndexChanged);
             // 
             // TargetDistroLabel
             // 
-            this.TargetDistroLabel.AutoSize = true;
-            this.TargetDistroLabel.Location = new System.Drawing.Point(12, 48);
+            resources.ApplyResources(this.TargetDistroLabel, "TargetDistroLabel");
             this.TargetDistroLabel.Name = "TargetDistroLabel";
-            this.TargetDistroLabel.Size = new System.Drawing.Size(85, 12);
-            this.TargetDistroLabel.TabIndex = 2;
-            this.TargetDistroLabel.Text = "Target Distro: ";
             // 
             // TargetDistro
             // 
-            this.TargetDistro.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.TargetDistro, "TargetDistro");
             this.TargetDistro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.TargetDistro.FormattingEnabled = true;
-            this.TargetDistro.Location = new System.Drawing.Point(111, 45);
             this.TargetDistro.Name = "TargetDistro";
-            this.TargetDistro.Size = new System.Drawing.Size(221, 20);
-            this.TargetDistro.TabIndex = 3;
             // 
             // OptionsLabel
             // 
-            this.OptionsLabel.AutoSize = true;
-            this.OptionsLabel.Location = new System.Drawing.Point(41, 81);
+            resources.ApplyResources(this.OptionsLabel, "OptionsLabel");
             this.OptionsLabel.Name = "OptionsLabel";
-            this.OptionsLabel.Size = new System.Drawing.Size(56, 12);
-            this.OptionsLabel.TabIndex = 4;
-            this.OptionsLabel.Text = "Options: ";
             // 
             // PersistentConnection
             // 
-            this.PersistentConnection.AutoSize = true;
-            this.PersistentConnection.Location = new System.Drawing.Point(111, 80);
+            resources.ApplyResources(this.PersistentConnection, "PersistentConnection");
             this.PersistentConnection.Name = "PersistentConnection";
-            this.PersistentConnection.Size = new System.Drawing.Size(148, 16);
-            this.PersistentConnection.TabIndex = 5;
-            this.PersistentConnection.Text = "Persistent Connection";
             this.PersistentConnection.UseVisualStyleBackColor = true;
             // 
             // MapDriveButton
             // 
-            this.MapDriveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.MapDriveButton.Enabled = false;
-            this.MapDriveButton.Location = new System.Drawing.Point(12, 124);
+            resources.ApplyResources(this.MapDriveButton, "MapDriveButton");
             this.MapDriveButton.Name = "MapDriveButton";
-            this.MapDriveButton.Size = new System.Drawing.Size(84, 23);
-            this.MapDriveButton.TabIndex = 6;
-            this.MapDriveButton.Text = "&Map Drive";
             this.MapDriveButton.UseVisualStyleBackColor = true;
             this.MapDriveButton.Click += new System.EventHandler(this.MapDriveButton_Click);
             // 
             // UnmapDriveButton
             // 
-            this.UnmapDriveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.UnmapDriveButton.Enabled = false;
-            this.UnmapDriveButton.Location = new System.Drawing.Point(102, 124);
+            resources.ApplyResources(this.UnmapDriveButton, "UnmapDriveButton");
             this.UnmapDriveButton.Name = "UnmapDriveButton";
-            this.UnmapDriveButton.Size = new System.Drawing.Size(110, 23);
-            this.UnmapDriveButton.TabIndex = 7;
-            this.UnmapDriveButton.Text = "&Unmap Drive";
             this.UnmapDriveButton.UseVisualStyleBackColor = true;
             this.UnmapDriveButton.Click += new System.EventHandler(this.UnmapDriveButton_Click);
             // 
             // CloseButton
             // 
-            this.CloseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            resources.ApplyResources(this.CloseButton, "CloseButton");
             this.CloseButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.CloseButton.Location = new System.Drawing.Point(257, 124);
             this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(75, 23);
-            this.CloseButton.TabIndex = 8;
-            this.CloseButton.Text = "&Close";
             this.CloseButton.UseVisualStyleBackColor = true;
             // 
             // DataSourceRefresher
@@ -143,29 +108,25 @@
             // 
             // StatusStrip
             // 
+            resources.ApplyResources(this.StatusStrip, "StatusStrip");
+            this.StatusStrip.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.StatusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.RefreshStatusLabel});
-            this.StatusStrip.Location = new System.Drawing.Point(0, 159);
             this.StatusStrip.Name = "StatusStrip";
-            this.StatusStrip.Size = new System.Drawing.Size(344, 22);
             this.StatusStrip.SizingGrip = false;
-            this.StatusStrip.TabIndex = 9;
             // 
             // RefreshStatusLabel
             // 
+            resources.ApplyResources(this.RefreshStatusLabel, "RefreshStatusLabel");
             this.RefreshStatusLabel.Name = "RefreshStatusLabel";
-            this.RefreshStatusLabel.Size = new System.Drawing.Size(329, 17);
             this.RefreshStatusLabel.Spring = true;
-            this.RefreshStatusLabel.Text = "Status";
-            this.RefreshStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MapAsDriveForm
             // 
             this.AcceptButton = this.CloseButton;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.CloseButton;
-            this.ClientSize = new System.Drawing.Size(344, 181);
             this.Controls.Add(this.StatusStrip);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.UnmapDriveButton);
@@ -182,8 +143,6 @@
             this.MinimizeBox = false;
             this.Name = "MapAsDriveForm";
             this.ShowInTaskbar = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Map as a drive";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MapAsDriveForm_FormClosed);
             this.Load += new System.EventHandler(this.MapAsDriveForm_Load);
             this.StatusStrip.ResumeLayout(false);
