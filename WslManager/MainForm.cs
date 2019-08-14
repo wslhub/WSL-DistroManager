@@ -22,12 +22,16 @@ namespace WslManager
         public MainForm()
         {
             InitializeComponent();
+
+            wscriptShellType = Type.GetTypeFromProgID("WScript.Shell");
+            shellObjectFactory = new Lazy<object>(
+                () => Activator.CreateInstance(wscriptShellType),
+                false);
         }
 
-        private static Type wscriptShellType = Type.GetTypeFromProgID("WScript.Shell");
-        private static object shellObject = Activator.CreateInstance(wscriptShellType);
-
         private Label emptyLabel;
+        private Type wscriptShellType;
+        private Lazy<object> shellObjectFactory;
         private ManagementEventWatcher managementEventWatcher;
         private GroupTypes groupType;
         private OrderTypes orderType;
@@ -433,7 +437,7 @@ namespace WslManager
             var shortcut = (IWshShortcut)wscriptShellType.InvokeMember(
                 "CreateShortcut",
                 BindingFlags.InvokeMethod,
-                null, shellObject,
+                null, shellObjectFactory.Value,
                 new object[] { targetFilePath });
 
             shortcut.Description = selectedDistro.DistroName;
