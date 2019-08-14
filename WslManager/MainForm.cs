@@ -27,6 +27,9 @@ namespace WslManager
             shellObjectFactory = new Lazy<object>(
                 () => Activator.CreateInstance(wscriptShellType),
                 false);
+            groupType = GroupTypes.None;
+            orderType = OrderTypes.DistroName;
+            sortOrder = SortOrder.Ascending;
         }
 
         private Label emptyLabel;
@@ -149,32 +152,23 @@ namespace WslManager
             switch (orderType)
             {
                 case OrderTypes.DistroName:
-                    DistroListView.ListViewItemSorter = new AdaptableComparer<ListViewItem>(
-                        (x, y) => string.Compare(
-                            (x.Tag as DistroProperties)?.DistroName,
-                            (y.Tag as DistroProperties)?.DistroName,
-                            false));
+                    DistroListView.ListViewItemSorter = new ListViewItemComparer<DistroProperties>(
+                        (x, y) => string.Compare(x.DistroName, y.DistroName, false), sortOrder);
                     break;
 
                 case OrderTypes.DistroStatus:
-                    DistroListView.ListViewItemSorter = new AdaptableComparer<ListViewItem>(
-                        (x, y) => string.Compare(
-                            (x.Tag as DistroProperties)?.DistroStatus,
-                            (y.Tag as DistroProperties)?.DistroStatus,
-                            false));
+                    DistroListView.ListViewItemSorter = new ListViewItemComparer<DistroProperties>(
+                        (x, y) => string.Compare(x.DistroStatus, y.DistroStatus, false), sortOrder);
                     break;
 
                 case OrderTypes.DistroType:
-                    DistroListView.ListViewItemSorter = new AdaptableComparer<ListViewItem>(
-                        (x, y) => string.Compare(
-                            (x.Tag as DistroProperties)?.ImageKey,
-                            (y.Tag as DistroProperties)?.ImageKey,
-                            false));
+                    DistroListView.ListViewItemSorter = new ListViewItemComparer<DistroProperties>(
+                        (x, y) => string.Compare(x.ImageKey, y.ImageKey, false), sortOrder);
                     break;
 
                 default:
-                    DistroListView.ListViewItemSorter = new AdaptableComparer<ListViewItem>(
-                        (x, y) => ((DistroProperties)x.Tag).Order.CompareTo(((DistroProperties)y.Tag).Order));
+                    DistroListView.ListViewItemSorter = new ListViewItemComparer<DistroProperties>(
+                        (x, y) => x.Order.CompareTo(y.Order), sortOrder);
                     break;
             }
 

@@ -81,7 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\AdaptableComparer.cs" />
+    <Compile Include="Helpers\ListViewItemComparer.cs" />
     <Compile Include="Structures\BackgroundWorkerArgument.cs" />
     <Compile Include="Structures\BackgroundWorkerResult.cs" />
     <Compile Include="Helpers\DictionaryPropertyDescriptor.cs" />
