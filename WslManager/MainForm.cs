@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,7 +9,6 @@ using System.Linq;
 using System.Management;
 using System.Reflection;
 using System.Security.Principal;
-using System.Text;
 using System.Windows.Forms;
 using WslManager.Helpers;
 using WslManager.Interop;
@@ -246,60 +244,6 @@ namespace WslManager
             Process.Start(startInfo);
         }
 
-        private void OpenWslConfig(DistroProperties distro)
-        {
-            var wslConfPath = $@"\\wsl$\{distro.DistroName}\etc\wsl.conf";
-
-            if (!File.Exists(wslConfPath))
-            {
-                try { File.WriteAllText(wslConfPath, "# https://docs.microsoft.com/en-us/windows/wsl/wsl-config#set-wsl-launch-settings\n", Encoding.ASCII); }
-                catch { }
-            }
-
-            if (!File.Exists(wslConfPath))
-                return;
-
-            var startInfo = new ProcessStartInfo(
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Windows), "notepad.exe"),
-                wslConfPath)
-            {
-                UseShellExecute = false,
-            };
-
-            Process.Start(startInfo);
-        }
-
-        private RegistryKey GetDistroRegistryKeyByDistroName(string distroName)
-        {
-            if (string.IsNullOrWhiteSpace(distroName))
-                return null;
-
-            var lxssKey = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Lxss");
-
-            if (lxssKey == null)
-                return null;
-
-            using (lxssKey)
-            {
-                foreach (var eachName in lxssKey.GetSubKeyNames())
-                {
-                    var subKey = lxssKey.OpenSubKey(eachName, true);
-
-                    if (subKey == null)
-                        continue;
-
-                    var foundName = subKey.GetValue("DistributionName", string.Empty, RegistryValueOptions.DoNotExpandEnvironmentNames) as string;
-
-                    if (string.Equals(distroName, foundName, StringComparison.Ordinal))
-                        return subKey;
-
-                    subKey.Dispose();
-                }
-            }
-
-            return null;
-        }
-
         private void LaunchWslDistro(Action<DistroProperties> afterCallback, IEnumerable<ListViewItem> distroItems)
         {
             if (distroItems == null || distroItems.Count() < 1)
@@ -407,61 +351,6 @@ namespace WslManager
 
                 Process.Start(revealStartInfo);
             }
-        }
-
-        private void InstallDistro(string tarGzFilePath, string distroName, string installLocation, string userId, string password)
-        {
-            ProcessStartInfo startInfo;
-
-            startInfo = new ProcessStartInfo(
-                Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
-                $@"--import {distroName} {installLocation} {tarGzFilePath}")
-            {
-                UseShellExecute = false,
-            };
-
-            var proc = Process.Start(startInfo);
-
-            proc.EnableRaisingEvents = true;
-            proc.Exited += (_sender, _e) =>
-            {
-                if (IsDisposed)
-                    return;
-
-                var distroKey = GetDistroRegistryKeyByDistroName(distroName);
-                if (distroKey == null)
-                {
-                    Invoke(new Action(() =>
-                    {
-                        MessageBox.Show(this, "Distro installation seems failed.",
-                            Text, MessageBoxButtons.OK, MessageBoxIcon.Stop, MessageBoxDefaultButton.Button1);
-                    }), null);
-
-                    return;
-                }
-
-                // Add user account and fetch UID
-                startInfo = new ProcessStartInfo(
-                    Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "wsl.exe"),
-                    $@"-d {distroName} -- useradd {userId} -m -p {password} && id -u {userId}")
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true,
-                };
-
-                proc = Process.Start(startInfo);
-                proc.EnableRaisingEvents = true;
-
-                var rawUid = proc.StandardOutput.ReadToEnd();
-                var uidFound = Int32.TryParse(rawUid, out int uid);
-                proc.WaitForExit();
-
-                if (uidFound)
-                    distroKey.SetValue("DefaultUid", uid, RegistryValueKind.DWord);
-
-                distroKey.Dispose();
-            };
         }
 
         private void ImportDistro(string tarGzFilePath, string distroName, string installLocation)
