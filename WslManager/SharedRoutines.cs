@@ -33,16 +33,6 @@ namespace WslManager
             return "linux";
         }
 
-        public static string GetImageKey(WslQueryDistroModel model)
-        {
-            return GetImageKey(model?.DistroName);
-        }
-
-        public static string NormalizePath(string rawPath)
-        {
-            return Regex.Replace(rawPath ?? string.Empty, @"(^\\\\\?\\)", string.Empty, RegexOptions.Compiled);
-        }
-
         public static IEnumerable<DistroProperties> LoadDistroList()
         {
             var content = Extensions.LoadWslDistroInfo(Path.Combine(
@@ -66,61 +56,6 @@ namespace WslManager
             for (int i = 0, cnt = array.Length; i < cnt; i++)
                 list.Add(new DistroProperties(i, array[i]));
             return list;
-        }
-
-        public static Dictionary<string, string> GetDistroProperties(WslQueryDistroModel model)
-        {
-            var properties = new Dictionary<string, string>();
-
-            if (model == null)
-                return properties;
-
-            var distroName = model.DistroName;
-            properties.Add(
-                nameof(DistroProperties.DistroName),
-                distroName);
-
-            properties.Add(
-                nameof(DistroProperties.UniqueId),
-                model.DistroId);
-
-            properties.Add(
-                nameof(DistroProperties.DistroStatus),
-                model.DistroStatus);
-
-            properties.Add(
-                nameof(DistroProperties.BasePath),
-                NormalizePath(model.BasePath));
-
-            properties.Add(
-                nameof(DistroProperties.Version),
-                model.WslVersion.ToString());
-
-            return properties;
-        }
-
-        public static PasswordScore CheckStrength(string password)
-        {
-            int score = 0;
-
-            if (password.Length < 1)
-                return PasswordScore.Blank;
-            if (password.Length < 4)
-                return PasswordScore.VeryWeak;
-
-            if (password.Length >= 8)
-                score++;
-            if (password.Length >= 12)
-                score++;
-            if (Regex.Match(password, @"/\d+/", RegexOptions.ECMAScript).Success)
-                score++;
-            if (Regex.Match(password, @"/[a-z]/", RegexOptions.ECMAScript).Success &&
-              Regex.Match(password, @"/[A-Z]/", RegexOptions.ECMAScript).Success)
-                score++;
-            if (Regex.Match(password, @"/.[!,@,#,$,%,^,&,*,?,_,~,-,£,(,)]/", RegexOptions.ECMAScript).Success)
-                score++;
-
-            return (PasswordScore)score;
         }
 
         public static string GetIconDirectoryPath()

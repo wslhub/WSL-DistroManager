@@ -27,9 +27,21 @@ namespace WslManager
             shellObjectFactory = new Lazy<object>(
                 () => Activator.CreateInstance(wscriptShellType),
                 false);
+
             groupType = GroupTypes.None;
             orderType = OrderTypes.DistroName;
             sortOrder = SortOrder.Ascending;
+
+            emptyLabel = new Label()
+            {
+                Parent = this,
+                Text = "No WSL distro installed.",
+                TextAlign = ContentAlignment.MiddleCenter,
+                Font = new Font(this.Font.FontFamily, 18f, FontStyle.Bold),
+                Dock = DockStyle.Fill,
+                UseMnemonic = false,
+                Visible = false,
+            };
         }
 
         private Label emptyLabel;
@@ -504,17 +516,6 @@ namespace WslManager
                 Close();
                 return;
             }
-
-            this.emptyLabel = new Label()
-            {
-                Parent = this,
-                Text = "No WSL distro installed.",
-                TextAlign = ContentAlignment.MiddleCenter,
-                Font = new Font(this.Font.FontFamily, 18f, FontStyle.Bold),
-                Dock = DockStyle.Fill,
-                UseMnemonic = false,
-                Visible = false,
-            };
 
             refreshToolStripMenuItem.PerformClick();
 
