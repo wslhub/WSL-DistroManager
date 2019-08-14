@@ -139,20 +139,35 @@
     <Compile Include="Structures\WslMappedDriveInfo.cs" />
     <Compile Include="Structures\WslMappedDriveInfoCollection.cs" />
     <Compile Include="Helpers\WslShimGenerator.cs" />
+    <EmbeddedResource Include="DistroGalleryForm.ko-KR.resx">
+      <DependentUpon>DistroGalleryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DistroGalleryForm.resx">
       <DependentUpon>DistroGalleryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DistroNameRequestForm.ko-KR.resx">
+      <DependentUpon>DistroNameRequestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DistroNameRequestForm.resx">
       <DependentUpon>DistroNameRequestForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DistroPropertiesForm.ko-KR.resx">
+      <DependentUpon>DistroPropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DistroPropertiesForm.resx">
       <DependentUpon>DistroPropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DownloadDistroForm.ko-KR.resx">
+      <DependentUpon>DownloadDistroForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadDistroForm.resx">
       <DependentUpon>DownloadDistroForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MapAsDriveForm.ko-KR.resx">
+      <DependentUpon>MapAsDriveForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MapAsDriveForm.resx">
       <DependentUpon>MapAsDriveForm.cs</DependentUpon>
@@ -205,6 +220,9 @@
       <Project>{bd013bc3-3aa3-4874-a209-c181d4fe752f}</Project>
       <Name>WslSetup</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Languages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

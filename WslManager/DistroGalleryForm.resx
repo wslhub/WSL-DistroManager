@@ -117,16 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="DeclineButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>806, 609</value>
-  </data>
   <data name="&gt;&gt;ItemListView.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>936, 662</value>
-  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAUFAAAAEAIADoZwAAFgAAACgAAABQAAAAoAAAAAEAIAAAAAAAAGQAAMMOAADDDgAAAAAAAAAA
@@ -597,15 +591,15 @@
   <data name="&gt;&gt;BrowseMSStoreButton.Name" xml:space="preserve">
     <value>BrowseMSStoreButton</value>
   </data>
-  <data name="&gt;&gt;DetailView.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="BrowseMSStoreButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
+  </data>
+  <data name="AuthorColumn.Text" xml:space="preserve">
+    <value>Author</value>
   </data>
   <data name="&gt;&gt;ContributeButton.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -628,9 +622,6 @@
   <data name="&gt;&gt;DetailView.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="DetailView.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
   <data name="&gt;&gt;DeclineButton.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
@@ -649,8 +640,14 @@
   <data name="DeclineButton.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="DeclineButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;NameColumn.Name" xml:space="preserve">
+    <value>NameColumn</value>
   </data>
   <data name="&gt;&gt;InstallButton.Name" xml:space="preserve">
     <value>InstallButton</value>
@@ -660,6 +657,9 @@
   </data>
   <data name="&gt;&gt;ItemListView.ZOrder" xml:space="preserve">
     <value>5</value>
+  </data>
+  <data name="ContributeButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
   <data name="ItemListView.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 18</value>
@@ -673,6 +673,9 @@
   <data name="InstallButton.Text" xml:space="preserve">
     <value>&amp;Install</value>
   </data>
+  <data name="ItemListView.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;AuthorColumn.Name" xml:space="preserve">
     <value>AuthorColumn</value>
   </data>
@@ -685,8 +688,8 @@
   <data name="&gt;&gt;DefaultImageList.Name" xml:space="preserve">
     <value>DefaultImageList</value>
   </data>
-  <data name="&gt;&gt;DefaultImageList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="DeclineButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>806, 609</value>
   </data>
   <data name="&gt;&gt;ItemListView.Name" xml:space="preserve">
     <value>ItemListView</value>
@@ -694,11 +697,11 @@
   <data name="BrowseMSStoreButton.Text" xml:space="preserve">
     <value>Open Microsoft Store</value>
   </data>
-  <data name="ItemListView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
   <data name="ContributeButton.Text" xml:space="preserve">
     <value>Contribute</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>DistroGalleryForm</value>
   </data>
   <data name="DeclineButton.Text" xml:space="preserve">
     <value>&amp;Cancel</value>
@@ -706,26 +709,23 @@
   <data name="&gt;&gt;InstallButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ItemListView.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
   <data name="ContributeButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
+  </data>
+  <data name="&gt;&gt;InstallButton.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
   <data name="&gt;&gt;FeedLoadWorker.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="AuthorColumn.Text" xml:space="preserve">
-    <value>Author</value>
+  <data name="DetailView.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;BrowseMSStoreButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;FeedLoadWorker.Name" xml:space="preserve">
     <value>FeedLoadWorker</value>
-  </data>
-  <data name="NameColumn.Text" xml:space="preserve">
-    <value>Distro Name</value>
   </data>
   <data name="BrowseMSStoreButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>140, 609</value>
@@ -739,15 +739,66 @@
   <data name="DetailView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Right</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="ItemListView.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="BrowseMSStoreButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>244, 34</value>
+  </data>
+  <data name="&gt;&gt;DefaultImageList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ContributeButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Distro Gallery</value>
+  </data>
+  <data name="ContributeButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 609</value>
+  </data>
+  <data name="DeclineButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 34</value>
+  </data>
+  <data name="&gt;&gt;DetailView.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="InstallButton.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="InstallButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;ItemListView.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;IconLoader.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DeclineButton.Name" xml:space="preserve">
+    <value>DeclineButton</value>
+  </data>
+  <data name="&gt;&gt;BrowseMSStoreButton.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;DeclineButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="BrowseMSStoreButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="NameColumn.Text" xml:space="preserve">
+    <value>Distro Name</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>936, 662</value>
   </data>
   <data name="DefaultImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACo
-        ZAAAAk1TRnQBSQFMAgEBBQEAARgBAAEgAQABMAEAATABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAHA
+        ZAAAAk1TRnQBSQFMAgEBBQEAARgBAAEkAQABMAEAATABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAHA
         AwABYAMAAQEBAAEgBgABIAEB/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8AZQADLwJJAVcBggHNARYBRwHm
         Af8BFgFHAeYB/wEWAUcB5gH/ARYBRwHmAf8BFgFHAeYB/wEWAUcB5gH/ARYBRwHmAf8BFgFHAeYB/wEc
         AUYB3AH9AUkBSgFOAYsDBQEH/wD/AMIAAwQBBQFFAVYBjAHVARYBRwHmAf8BFgFHAeYB/wEWAUcB5gH/
@@ -1179,57 +1230,6 @@
         AQcE/wGAAQABfw//AfwBDwT/AeABAxb/AfgBP4b/FgAL
 </value>
   </data>
-  <data name="BrowseMSStoreButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>244, 34</value>
-  </data>
-  <data name="&gt;&gt;ContributeButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Distro Gallery</value>
-  </data>
-  <data name="ContributeButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 609</value>
-  </data>
-  <data name="DeclineButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 34</value>
-  </data>
-  <data name="ContributeButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Left</value>
-  </data>
-  <data name="InstallButton.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="InstallButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;ItemListView.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;IconLoader.Type" xml:space="preserve">
-    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DeclineButton.Name" xml:space="preserve">
-    <value>DeclineButton</value>
-  </data>
-  <data name="&gt;&gt;BrowseMSStoreButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;DeclineButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="BrowseMSStoreButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="&gt;&gt;NameColumn.Name" xml:space="preserve">
-    <value>NameColumn</value>
-  </data>
-  <data name="&gt;&gt;InstallButton.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>DistroGalleryForm</value>
-  </data>
   <data name="&gt;&gt;NameColumn.Type" xml:space="preserve">
     <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1239,9 +1239,6 @@
   <data name="InstallButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>ko-KR</value>
-  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

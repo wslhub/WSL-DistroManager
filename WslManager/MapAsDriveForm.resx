@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="&gt;&gt;DriveLetterLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Map as a drive</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="TargetDistroLabel.Location" type="System.Drawing.Point, System.Drawing">
@@ -134,11 +134,12 @@
   <data name="&gt;&gt;TargetDistroLabel.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="DriveLetter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
   <data name="CloseButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 34</value>
-  </data>
-  <data name="OptionsLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
   </data>
   <data name="MapDriveButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 186</value>
@@ -146,9 +147,11 @@
   <data name="RefreshStatusLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>493, 25</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+  <data name="&gt;&gt;UnmapDriveButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MapAsDriveForm</value>
   </data>
   <data name="&gt;&gt;OptionsLabel.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -156,8 +159,8 @@
   <data name="&gt;&gt;DriveLetter.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="&gt;&gt;StatusStrip.Name" xml:space="preserve">
-    <value>StatusStrip</value>
+  <data name="&gt;&gt;TargetDistroLabel.Name" xml:space="preserve">
+    <value>TargetDistroLabel</value>
   </data>
   <data name="CloseButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>386, 186</value>
@@ -177,9 +180,6 @@
   <data name="MapDriveButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="CloseButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
   <data name="&gt;&gt;TargetDistro.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
@@ -188,9 +188,6 @@
   </data>
   <data name="TargetDistroLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;TargetDistro.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;StatusStrip.Parent" xml:space="preserve">
     <value>$this</value>
@@ -201,6 +198,9 @@
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
   </data>
+  <data name="DriveLetter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>220, 26</value>
+  </data>
   <data name="&gt;&gt;StatusStrip.Type" xml:space="preserve">
     <value>System.Windows.Forms.StatusStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -209,12 +209,6 @@
   </data>
   <data name="CloseButton.Text" xml:space="preserve">
     <value>&amp;Close</value>
-  </data>
-  <data name="PersistentConnection.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;OptionsLabel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -249,6 +243,9 @@
   <data name="&gt;&gt;StatusStrip.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="&gt;&gt;PersistentConnection.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="&gt;&gt;UnmapDriveButton.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
@@ -273,6 +270,9 @@
   <data name="&gt;&gt;DataSourceRefresher.Type" xml:space="preserve">
     <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;MapDriveButton.Name" xml:space="preserve">
+    <value>MapDriveButton</value>
+  </data>
   <data name="&gt;&gt;DataSourceRefresher.Name" xml:space="preserve">
     <value>DataSourceRefresher</value>
   </data>
@@ -294,6 +294,9 @@
   <data name="DriveLetterLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>111, 18</value>
   </data>
+  <data name="TargetDistro.Size" type="System.Drawing.Size, System.Drawing">
+    <value>330, 26</value>
+  </data>
   <data name="DriveLetterLabel.Text" xml:space="preserve">
     <value>Drive Letter: </value>
   </data>
@@ -303,11 +306,8 @@
   <data name="&gt;&gt;UnmapDriveButton.Name" xml:space="preserve">
     <value>UnmapDriveButton</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>MapAsDriveForm</value>
-  </data>
-  <data name="CloseButton.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+  <data name="MapDriveButton.Text" xml:space="preserve">
+    <value>&amp;Map Drive</value>
   </data>
   <data name="TargetDistro.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -318,14 +318,14 @@
   <data name="DriveLetter.Location" type="System.Drawing.Point, System.Drawing">
     <value>166, 22</value>
   </data>
+  <data name="&gt;&gt;TargetDistroLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
   <data name="UnmapDriveButton.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
   <data name="DriveLetterLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;MapDriveButton.Name" xml:space="preserve">
-    <value>MapDriveButton</value>
   </data>
   <data name="&gt;&gt;TargetDistro.Name" xml:space="preserve">
     <value>TargetDistro</value>
@@ -345,14 +345,14 @@
   <data name="&gt;&gt;PersistentConnection.Name" xml:space="preserve">
     <value>PersistentConnection</value>
   </data>
-  <data name="TargetDistro.Size" type="System.Drawing.Size, System.Drawing">
-    <value>330, 26</value>
+  <data name="PersistentConnection.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="TargetDistro.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="&gt;&gt;TargetDistroLabel.Name" xml:space="preserve">
-    <value>TargetDistroLabel</value>
+  <data name="OptionsLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="UnmapDriveButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
@@ -369,14 +369,11 @@
   <data name="DriveLetter.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="MapDriveButton.Text" xml:space="preserve">
-    <value>&amp;Map Drive</value>
+  <data name="&gt;&gt;DriveLetterLabel.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
-  <data name="UnmapDriveButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>153, 186</value>
-  </data>
-  <data name="&gt;&gt;PersistentConnection.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="&gt;&gt;StatusStrip.Name" xml:space="preserve">
+    <value>StatusStrip</value>
   </data>
   <data name="UnmapDriveButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -399,20 +396,23 @@
   <data name="&gt;&gt;MapDriveButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;DriveLetter.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;CloseButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
   <data name="PersistentConnection.Text" xml:space="preserve">
     <value>Persistent Connection</value>
   </data>
-  <data name="&gt;&gt;TargetDistroLabel.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="CloseButton.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
   </data>
   <data name="&gt;&gt;DriveLetter.Name" xml:space="preserve">
     <value>DriveLetter</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Map as a drive</value>
+  <data name="UnmapDriveButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 186</value>
   </data>
   <data name="DriveLetterLabel.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -429,8 +429,11 @@
   <data name="DriveLetterLabel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;UnmapDriveButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
   </data>
   <data name="&gt;&gt;OptionsLabel.Name" xml:space="preserve">
     <value>OptionsLabel</value>
@@ -438,29 +441,23 @@
   <data name="StatusStrip.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 240</value>
   </data>
-  <data name="DriveLetter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="&gt;&gt;DriveLetter.Type" xml:space="preserve">
+  <data name="&gt;&gt;TargetDistro.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;TargetDistroLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="CloseButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
   </data>
   <data name="StatusStrip.Size" type="System.Drawing.Size, System.Drawing">
     <value>516, 32</value>
   </data>
-  <data name="DriveLetter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>220, 26</value>
+  <data name="&gt;&gt;TargetDistroLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="DataSourceRefresher.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>ko-KR</value>
   </metadata>
   <metadata name="StatusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>185, 17</value>

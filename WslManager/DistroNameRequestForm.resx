@@ -125,20 +125,17 @@
   <data name="DistroName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>New Distro Name</value>
+  </data>
   <data name="&gt;&gt;DistroName.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="&gt;&gt;DeclineButton.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="InstructionLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
   <data name="InstructionLabel.Text" xml:space="preserve">
     <value>Please specify new distro name: </value>
-  </data>
-  <data name="&gt;&gt;InstructionLabel.ZOrder" xml:space="preserve">
-    <value>3</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="InstructionLabel.AutoSize" type="System.Boolean, mscorlib">
@@ -180,8 +177,8 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>516, 166</value>
   </data>
-  <data name="&gt;&gt;ConfirmButton.Name" xml:space="preserve">
-    <value>ConfirmButton</value>
+  <data name="&gt;&gt;DistroName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>
@@ -189,17 +186,17 @@
   <data name="DeclineButton.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 34</value>
   </data>
-  <data name="InstructionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>20, 20</value>
-  </data>
   <data name="DistroName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="&gt;&gt;DistroName.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="DistroName.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
   <data name="DeclineButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;ConfirmButton.Name" xml:space="preserve">
+    <value>ConfirmButton</value>
   </data>
   <data name="ConfirmButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>264, 114</value>
@@ -207,23 +204,23 @@
   <data name="&gt;&gt;DeclineButton.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="DistroName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>22, 56</value>
-  </data>
   <data name="DeclineButton.Text" xml:space="preserve">
     <value>&amp;Cancel</value>
   </data>
   <data name="ConfirmButton.Text" xml:space="preserve">
     <value>&amp;OK</value>
   </data>
+  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
   <data name="DeclineButton.Location" type="System.Drawing.Point, System.Drawing">
     <value>386, 114</value>
   </data>
-  <data name="&gt;&gt;ConfirmButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="DeclineButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
+  </data>
+  <data name="DistroName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>22, 56</value>
   </data>
   <data name="ConfirmButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Right</value>
@@ -231,14 +228,17 @@
   <data name="&gt;&gt;DistroName.Name" xml:space="preserve">
     <value>DistroName</value>
   </data>
-  <data name="$this.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
+  <data name="InstructionLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="ConfirmButton.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="DistroName.Size" type="System.Drawing.Size, System.Drawing">
     <value>474, 28</value>
   </data>
-  <data name="DistroName.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="InstructionLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>20, 20</value>
   </data>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
     <value>144, 144</value>
@@ -246,22 +246,19 @@
   <data name="DeclineButton.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
   </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>New Distro Name</value>
+  <data name="&gt;&gt;ConfirmButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ConfirmButton.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="ConfirmButton.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;InstructionLabel.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;ConfirmButton.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>ko-KR</value>
   </metadata>
 </root>

@@ -131,8 +131,8 @@
   <data name="WSLVersion.Location" type="System.Drawing.Point, System.Drawing">
     <value>147, 316</value>
   </data>
-  <data name="&gt;&gt;DistroPropertyGrid.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PropertyGrid, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;StateLabel.Name" xml:space="preserve">
+    <value>StateLabel</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="DistroSize.TabIndex" type="System.Int32, mscorlib">
@@ -168,12 +168,415 @@
   <data name="DistroPropertyGrid.HelpVisible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="WSLVersionLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DistroLocation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>351, 18</value>
+  </data>
+  <data name="&gt;&gt;WSLVersion.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DistroLocationLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>516, 572</value>
+  </data>
+  <data name="DistroLocationLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="WSLVersionLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="IsDefaultDistro.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="&gt;&gt;DistroPropertyGrid.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PropertyGrid, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;State.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Distro Properties</value>
+  </data>
+  <data name="DistroSize.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 176</value>
+  </data>
+  <data name="ConfirmButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>112, 34</value>
+  </data>
+  <data name="&gt;&gt;StateLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DistroNameText.Size" type="System.Drawing.Size, System.Drawing">
+    <value>346, 28</value>
+  </data>
+  <data name="&gt;&gt;DistroIcon.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;DistroIcon.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="IsDefaultDistroLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 270</value>
+  </data>
+  <data name="StateLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="WSLVersionLabel.Text" xml:space="preserve">
+    <value>WSL Version: </value>
+  </data>
+  <data name="WSLVersion.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>144, 144</value>
+  </data>
+  <data name="DistroSize.Size" type="System.Drawing.Size, System.Drawing">
+    <value>351, 18</value>
+  </data>
+  <data name="DistroPropertyGrid.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="DistroLocationLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 128</value>
+  </data>
+  <data name="&gt;&gt;DistroLocation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="IsDefaultDistro.Size" type="System.Drawing.Size, System.Drawing">
+    <value>351, 18</value>
+  </data>
+  <data name="&gt;&gt;DistroLocationLabel.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="DistroSizeLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="IsDefaultDistroLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="&gt;&gt;ImageList.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="StateLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 224</value>
+  </data>
+  <data name="&gt;&gt;DistroSizeLabel.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="DistroIcon.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="IsDefaultDistro.Text" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="&gt;&gt;DistroIcon.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DistroLocationLabel.Name" xml:space="preserve">
+    <value>DistroLocationLabel</value>
+  </data>
+  <data name="StateLabel.Text" xml:space="preserve">
+    <value>State: </value>
+  </data>
+  <data name="&gt;&gt;DistroPropertyGrid.Name" xml:space="preserve">
+    <value>DistroPropertyGrid</value>
+  </data>
+  <data name="StateLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="&gt;&gt;IsDefaultDistro.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;IsDefaultDistro.Name" xml:space="preserve">
+    <value>IsDefaultDistro</value>
+  </data>
+  <data name="DistroNameText.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;DistroSizeLabel.Name" xml:space="preserve">
+    <value>DistroSizeLabel</value>
+  </data>
+  <data name="&gt;&gt;DistroLocation.Name" xml:space="preserve">
+    <value>DistroLocation</value>
+  </data>
+  <data name="DistroLocationLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 18</value>
+  </data>
+  <data name="&gt;&gt;WSLVersion.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>DistroPropertiesForm</value>
+  </data>
+  <data name="IsDefaultDistro.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="WSLVersion.Size" type="System.Drawing.Size, System.Drawing">
+    <value>351, 18</value>
+  </data>
+  <data name="StateLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 18</value>
+  </data>
+  <data name="WSLVersionLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>122, 18</value>
+  </data>
+  <data name="&gt;&gt;DistroSize.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="State.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="DistroPropertyGrid.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 362</value>
+  </data>
+  <data name="DistroPropertyGrid.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="&gt;&gt;DistroLocationLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="DistroSizeLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;DistroLocation.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="DistroPropertyGrid.Size" type="System.Drawing.Size, System.Drawing">
+    <value>480, 148</value>
+  </data>
+  <data name="DistroNameText.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 4, 4, 4</value>
+  </data>
+  <data name="ConfirmButton.TabIndex" type="System.Int32, mscorlib">
+    <value>10</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="State.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;WSLVersionLabel.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="IsDefaultDistro.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="WSLVersion.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;IsDefaultDistro.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="DistroSize.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="DistroLocation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="DistroPropertyGrid.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="DistroIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+</value>
+  </data>
+  <data name="DistroSizeLabel.Text" xml:space="preserve">
+    <value>Size: </value>
+  </data>
+  <data name="DistroIcon.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 72</value>
+  </data>
+  <data name="&gt;&gt;DistroNameText.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="WSLVersionLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="IsDefaultDistro.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 270</value>
+  </data>
+  <data name="&gt;&gt;State.Name" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="&gt;&gt;ImageList.Name" xml:space="preserve">
+    <value>ImageList</value>
+  </data>
+  <data name="ConfirmButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;ConfirmButton.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DistroSize.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;DistroSize.Name" xml:space="preserve">
+    <value>DistroSize</value>
+  </data>
+  <data name="&gt;&gt;IsDefaultDistroLabel.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="DistroLocation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>147, 128</value>
+  </data>
+  <data name="DistroIcon.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="IsDefaultDistroLabel.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="ConfirmButton.Location" type="System.Drawing.Point, System.Drawing">
+    <value>386, 519</value>
+  </data>
+  <data name="IsDefaultDistroLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="State.Size" type="System.Drawing.Size, System.Drawing">
+    <value>351, 18</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DistroSizeCalculator.Type" xml:space="preserve">
+    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;WSLVersionLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;IsDefaultDistroLabel.Name" xml:space="preserve">
+    <value>IsDefaultDistroLabel</value>
+  </data>
+  <data name="ConfirmButton.Text" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="&gt;&gt;ConfirmButton.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="WSLVersionLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 316</value>
+  </data>
+  <data name="WSLVersion.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 0, 4, 0</value>
+  </data>
+  <data name="&gt;&gt;DistroSizeLabel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="State.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="DistroNameText.Location" type="System.Drawing.Point, System.Drawing">
+    <value>150, 58</value>
+  </data>
+  <data name="&gt;&gt;DistroIcon.Name" xml:space="preserve">
+    <value>DistroIcon</value>
+  </data>
+  <data name="&gt;&gt;IsDefaultDistro.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;DistroNameText.Name" xml:space="preserve">
+    <value>DistroNameText</value>
+  </data>
+  <data name="&gt;&gt;ConfirmButton.Name" xml:space="preserve">
+    <value>ConfirmButton</value>
+  </data>
+  <data name="&gt;&gt;WSLVersionLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="State.Text" xml:space="preserve">
+    <value>0x00000000</value>
+  </data>
+  <data name="DistroIcon.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 18</value>
+  </data>
+  <data name="&gt;&gt;DistroLocationLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="DistroSizeLabel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 176</value>
+  </data>
+  <data name="&gt;&gt;DistroSizeLabel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;State.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;DistroLocation.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="DistroLocationLabel.Text" xml:space="preserve">
+    <value>Location: </value>
+  </data>
+  <data name="DistroLocationLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="DistroLocation.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;StateLabel.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="WSLVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="IsDefaultDistroLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 18</value>
+  </data>
   <data name="ImageList.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAAAQ
-        dwEAAk1TRnQBSQFMAgEBBQEAAYgBAAGQAQABYAEAAWABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAGA
+        dwEAAk1TRnQBSQFMAgEBBQEAAYgBAAGUAQABYAEAAWABAAT/ASEBEAj/AUIBTQE2BwABNgMAASgDAAGA
         AQECAAHAAwABAQEAASAGAAGAAQT/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A
         /wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A
         /wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A/wD/AP8A
@@ -1776,420 +2179,17 @@
         AeACAAEHLP8B/gIAAX///4X/FgAL
 </value>
   </data>
-  <data name="DistroLocation.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 18</value>
-  </data>
-  <data name="&gt;&gt;WSLVersion.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="WSLVersionLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="DistroLocationLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>516, 572</value>
-  </data>
-  <data name="DistroLocationLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="WSLVersionLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="IsDefaultDistro.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;State.ZOrder" xml:space="preserve">
-    <value>4</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Distro Properties</value>
-  </data>
-  <data name="DistroSize.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 176</value>
-  </data>
-  <data name="ConfirmButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>112, 34</value>
-  </data>
-  <data name="&gt;&gt;StateLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DistroNameText.Size" type="System.Drawing.Size, System.Drawing">
-    <value>346, 28</value>
-  </data>
-  <data name="&gt;&gt;DistroIcon.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;DistroIcon.ZOrder" xml:space="preserve">
-    <value>13</value>
-  </data>
-  <data name="IsDefaultDistroLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 270</value>
-  </data>
-  <data name="StateLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
-  </data>
-  <data name="WSLVersionLabel.Text" xml:space="preserve">
-    <value>WSL Version: </value>
-  </data>
-  <data name="WSLVersion.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>144, 144</value>
-  </data>
-  <data name="DistroSize.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 18</value>
-  </data>
-  <data name="DistroPropertyGrid.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
-  </data>
-  <data name="DistroLocationLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 128</value>
-  </data>
-  <data name="&gt;&gt;DistroLocation.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="IsDefaultDistro.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 18</value>
-  </data>
-  <data name="&gt;&gt;DistroLocationLabel.ZOrder" xml:space="preserve">
-    <value>11</value>
-  </data>
-  <data name="DistroSizeLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="IsDefaultDistroLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;DistroSizeCalculator.Name" xml:space="preserve">
-    <value>DistroSizeCalculator</value>
-  </data>
-  <data name="StateLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 224</value>
-  </data>
-  <data name="&gt;&gt;DistroSizeLabel.ZOrder" xml:space="preserve">
-    <value>10</value>
-  </data>
-  <data name="&gt;&gt;ImageList.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DistroIcon.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="IsDefaultDistro.Text" xml:space="preserve">
-    <value>...</value>
-  </data>
-  <data name="&gt;&gt;DistroIcon.Type" xml:space="preserve">
-    <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DistroLocationLabel.Name" xml:space="preserve">
-    <value>DistroLocationLabel</value>
-  </data>
-  <data name="StateLabel.Text" xml:space="preserve">
-    <value>State: </value>
-  </data>
-  <data name="&gt;&gt;DistroPropertyGrid.Name" xml:space="preserve">
-    <value>DistroPropertyGrid</value>
-  </data>
-  <data name="StateLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;IsDefaultDistro.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;IsDefaultDistro.Name" xml:space="preserve">
-    <value>IsDefaultDistro</value>
-  </data>
-  <data name="DistroNameText.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
-  </data>
-  <data name="&gt;&gt;DistroSizeLabel.Name" xml:space="preserve">
-    <value>DistroSizeLabel</value>
-  </data>
-  <data name="&gt;&gt;DistroLocation.Name" xml:space="preserve">
-    <value>DistroLocation</value>
-  </data>
-  <data name="DistroLocationLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 18</value>
-  </data>
-  <data name="&gt;&gt;WSLVersion.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>DistroPropertiesForm</value>
-  </data>
-  <data name="IsDefaultDistro.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="WSLVersion.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 18</value>
-  </data>
-  <data name="StateLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>61, 18</value>
-  </data>
-  <data name="WSLVersionLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>122, 18</value>
-  </data>
-  <data name="&gt;&gt;DistroSize.ZOrder" xml:space="preserve">
-    <value>3</value>
-  </data>
-  <data name="WSLVersion.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="DistroPropertyGrid.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 362</value>
-  </data>
-  <data name="DistroPropertyGrid.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="DistroIcon.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 4, 4, 4</value>
-  </data>
-  <data name="&gt;&gt;DistroLocationLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="DistroSizeLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="&gt;&gt;DistroLocation.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="DistroPropertyGrid.Size" type="System.Drawing.Size, System.Drawing">
-    <value>480, 148</value>
-  </data>
-  <data name="DistroNameText.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="ConfirmButton.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
-    <value>CenterParent</value>
-  </data>
-  <data name="State.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;WSLVersionLabel.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="IsDefaultDistro.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
-  </data>
-  <data name="&gt;&gt;IsDefaultDistro.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="DistroSize.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="DistroLocation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="DistroPropertyGrid.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Bottom, Left, Right</value>
-  </data>
-  <data name="DistroIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        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
-</value>
-  </data>
-  <data name="DistroSizeLabel.Text" xml:space="preserve">
-    <value>Size: </value>
-  </data>
-  <data name="&gt;&gt;StateLabel.Name" xml:space="preserve">
-    <value>StateLabel</value>
-  </data>
-  <data name="DistroIcon.Size" type="System.Drawing.Size, System.Drawing">
-    <value>72, 72</value>
-  </data>
-  <data name="&gt;&gt;DistroNameText.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="ConfirmButton.Text" xml:space="preserve">
-    <value>&amp;Close</value>
-  </data>
-  <data name="WSLVersionLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="IsDefaultDistro.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 270</value>
-  </data>
-  <data name="&gt;&gt;State.Name" xml:space="preserve">
-    <value>State</value>
   </data>
   <data name="DistroSizeLabel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 0, 4, 0</value>
   </data>
-  <data name="ConfirmButton.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Bottom, Right</value>
-  </data>
-  <data name="&gt;&gt;ConfirmButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DistroSize.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;IsDefaultDistroLabel.ZOrder" xml:space="preserve">
-    <value>8</value>
-  </data>
-  <data name="DistroLocation.Location" type="System.Drawing.Point, System.Drawing">
-    <value>147, 128</value>
-  </data>
-  <data name="DistroIcon.SizeMode" type="System.Windows.Forms.PictureBoxSizeMode, System.Windows.Forms">
-    <value>Zoom</value>
-  </data>
-  <data name="IsDefaultDistroLabel.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="ConfirmButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>386, 519</value>
-  </data>
-  <data name="IsDefaultDistroLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="State.Size" type="System.Drawing.Size, System.Drawing">
-    <value>351, 18</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DistroSizeCalculator.Type" xml:space="preserve">
-    <value>System.ComponentModel.BackgroundWorker, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;WSLVersionLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;IsDefaultDistroLabel.Name" xml:space="preserve">
-    <value>IsDefaultDistroLabel</value>
+  <data name="&gt;&gt;DistroPropertyGrid.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="DistroSize.Text" xml:space="preserve">
     <value>0 byte</value>
-  </data>
-  <data name="&gt;&gt;ConfirmButton.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <data name="WSLVersionLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 316</value>
-  </data>
-  <data name="WSLVersion.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;DistroSizeLabel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="State.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="DistroNameText.Location" type="System.Drawing.Point, System.Drawing">
-    <value>150, 58</value>
-  </data>
-  <data name="&gt;&gt;DistroIcon.Name" xml:space="preserve">
-    <value>DistroIcon</value>
-  </data>
-  <data name="&gt;&gt;IsDefaultDistro.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;DistroNameText.Name" xml:space="preserve">
-    <value>DistroNameText</value>
-  </data>
-  <data name="&gt;&gt;ConfirmButton.Name" xml:space="preserve">
-    <value>ConfirmButton</value>
-  </data>
-  <data name="StateLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="&gt;&gt;WSLVersionLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="State.Text" xml:space="preserve">
-    <value>0x00000000</value>
-  </data>
-  <data name="&gt;&gt;DistroLocationLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="DistroSizeLabel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 176</value>
-  </data>
-  <data name="&gt;&gt;DistroSizeLabel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;State.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="State.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 0, 4, 0</value>
-  </data>
-  <data name="&gt;&gt;DistroLocation.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="DistroLocationLabel.Text" xml:space="preserve">
-    <value>Location: </value>
-  </data>
-  <data name="DistroLocationLabel.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="DistroLocation.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
-  </data>
-  <data name="&gt;&gt;StateLabel.ZOrder" xml:space="preserve">
-    <value>9</value>
-  </data>
-  <data name="WSLVersion.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Left, Right</value>
-  </data>
-  <data name="&gt;&gt;ImageList.Name" xml:space="preserve">
-    <value>ImageList</value>
-  </data>
-  <data name="IsDefaultDistroLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 18</value>
-  </data>
-  <data name="DistroIcon.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 4, 4, 4</value>
-  </data>
-  <data name="&gt;&gt;DistroPropertyGrid.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="&gt;&gt;DistroPropertyGrid.Parent" xml:space="preserve">
     <value>$this</value>
@@ -2206,11 +2206,11 @@
   <data name="&gt;&gt;DistroSize.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="DistroIcon.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 18</value>
+  <data name="&gt;&gt;DistroSizeCalculator.Name" xml:space="preserve">
+    <value>DistroSizeCalculator</value>
   </data>
-  <data name="&gt;&gt;DistroSize.Name" xml:space="preserve">
-    <value>DistroSize</value>
+  <data name="StateLabel.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="&gt;&gt;WSLVersion.Name" xml:space="preserve">
     <value>WSLVersion</value>
@@ -2226,9 +2226,6 @@
   </metadata>
   <metadata name="ImageList.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>122, 17</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>ko-KR</value>
   </metadata>
   <metadata name="DistroSizeCalculator.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
