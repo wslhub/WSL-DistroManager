@@ -160,6 +160,9 @@
     <EmbeddedResource Include="DownloadDistroForm.ko-KR.resx">
       <DependentUpon>DownloadDistroForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.ko-KR.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
