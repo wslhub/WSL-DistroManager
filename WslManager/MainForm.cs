@@ -602,7 +602,7 @@ namespace WslManager
                 return;
 
             var response = MessageBox.Show(this,
-                "To prevent unintentional data loss, the program must shut down its distro instance before exporting. Would you like to continue?",
+                "To prevent unintentional data loss, save your all current data in its distro instance before exporting. Would you like to continue?",
                 Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 
             if (response != DialogResult.Yes)
@@ -627,7 +627,7 @@ namespace WslManager
                 return;
 
             var response = MessageBox.Show(this,
-                "To prevent unintentional data loss, the program must shut down its distro instance before exporting. Would you like to continue?",
+                "To prevent unintentional data loss, save your all current data in its distro instance before exporting. Would you like to continue?",
                 Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 
             if (response != DialogResult.Yes)
@@ -645,7 +645,7 @@ namespace WslManager
                 return;
 
             var response = MessageBox.Show(this,
-                "To prevent unintentional data loss, the program must shut down its distro instance before exporting. Would you like to continue?",
+                "To prevent unintentional data loss, save your all current data in its distro instance before exporting. Would you like to continue?",
                 Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
 
             if (response != DialogResult.Yes)
