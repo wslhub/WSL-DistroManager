@@ -396,7 +396,7 @@ namespace WslManager
             proc.WaitForExit();
         }
 
-        private void ShutdownDistro()
+        private void ShutdownAllDistro()
         {
             if (!SharedRoutines.IsWsl2SupportedOS())
                 return;
@@ -1151,7 +1151,14 @@ Icons: https://www.icons8.com",
 
         private void ShutdownAllDistrosToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShutdownDistro();
+            var response = MessageBox.Show(this,
+                "To prevent unintentional data loss, save your all current data in its distro instance before exporting. Would you like to continue?",
+                Text, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2);
+
+            if (response != DialogResult.Yes)
+                return;
+
+            ShutdownAllDistro();
         }
 
         private void WSLManagerOfficialWebSiteToolStripMenuItem_Click(object sender, EventArgs e)
