@@ -192,30 +192,40 @@ namespace WslManager
         {
             DistroListView.Items.Clear();
 
-            var items = SharedRoutines.LoadDistroList().ToArray();
-
-            foreach (var eachItem in items)
+            DistroProperties[] items;
+            try
             {
-                var lvItem = new ListViewItem()
-                {
-                    ImageKey = eachItem.ImageKey,
-                    Tag = eachItem,
-                    Text = eachItem.DistroName,
-                };
-                foreach (ColumnHeader eachColumn in DistroListView.Columns.Cast<ColumnHeader>().Skip(1))
-                {
-                    var propName = eachColumn.Tag as string;
-                    var subItem = new ListViewItem.ListViewSubItem(lvItem, string.Empty);
+                items = SharedRoutines.LoadDistroList().ToArray();
 
-                    if (propName != null && eachItem.Properties.ContainsKey(propName))
-                        subItem.Text = eachItem.Properties[propName] as string;
-                    else
-                        subItem.Text = string.Empty;
+                foreach (var eachItem in items)
+                {
+                    var lvItem = new ListViewItem()
+                    {
+                        ImageKey = eachItem.ImageKey,
+                        Tag = eachItem,
+                        Text = eachItem.DistroName,
+                    };
+                    foreach (ColumnHeader eachColumn in DistroListView.Columns.Cast<ColumnHeader>().Skip(1))
+                    {
+                        var propName = eachColumn.Tag as string;
+                        var subItem = new ListViewItem.ListViewSubItem(lvItem, string.Empty);
 
-                    lvItem.SubItems.Add(subItem);
+                        if (propName != null && eachItem.Properties.ContainsKey(propName))
+                            subItem.Text = eachItem.Properties[propName] as string;
+                        else
+                            subItem.Text = string.Empty;
+
+                        lvItem.SubItems.Add(subItem);
+                    }
+
+                    DistroListView.Items.Add(lvItem);
                 }
-
-                DistroListView.Items.Add(lvItem);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, "Unexpected error occurred due to error. " + ex.Message,
+                    Text, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                return;
             }
 
             PerformGrouppingDistroList();
