@@ -1,3 +1,5 @@
+# Important Notice: This project does not maintained. New project is in progress. Please refer the [WslManager](https://github.com/wslhub/WslManager) repository. Thank you!
+
 # WSL Manager
 
 You can download and use WSL Manager by selecting one of the links below.
